@@ -1,4 +1,4 @@
-<nav id="sidebar" class="sidebar">
+<nav id="sidebar" class="sidebar" style="display: none;">
 	<div class="sidebar-content js-simplebar">
 		<a class="sidebar-brand" href="index.html">
 			<span class="align-middle">AdminKit</span>

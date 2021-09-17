@@ -14,38 +14,35 @@
     <title>Sign In |AdminKit Laravel</title>
 
     <link href="{{asset('css/master.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
 </head>
 
-<body>
-    <main class="d-flex w-100">
-        <div class="container d-flex flex-column">
-            <div class="row vh-100">
-                <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
-                    <div class="d-table-cell align-middle">
+<body class="loginpage">
+    <main class="main-login">
+        <div class="container-fluid p-0">
+            <div class="row gx-0">
+                <div class="col-sm-8 col-xs-12">
+                    <div class="secretarybanner">
+                        <img src="{{asset('img/login-bg.jpg')}}" alt="Login Banner" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-12">
+                    <div class="login-section">
 
-                        <div class="text-center mt-4">
-                            <h1 class="h2">Welcome back</h1>
+                        <div class="mt-4">
+                            <h1>Secretary</h1>
                             <p class="lead">
-                                Sign in to your account to continue
+                                Please Enter Your Login Details.
                             </p>
                         </div>
 
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="m-sm-4">
-                                    <div class="text-center">
-                                        <img src="{{asset('img/icons/login.png')}}" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
-                                    </div>
-                                    <form method="POST" action="{{ route('login') }}">
+                         <form method="POST" action="{{ route('login') }}">
                                         {{ csrf_field() }}
                                         <div class="mb-3">
 
-                                            <label class="form-label">Email</label>
+                                            <!-- <label class="form-label">Email</label> -->
                                             <div class="input-group mb-2 mr-sm-2">
-                                                <div class="input-group-text">
-                                                    <i class="align-middle mr-2" data-feather="mail"></i>
-                                                </div>
-                                                <input class="form-control form-control-lg" type="email" name="email" placeholder="Email" value="{{ old('email', null) }}" autofocus/>
+                                                <input class="form-control form-control-lg inputstyle" type="email" name="email" placeholder="User name" value="{{ old('email', null) }}" autofocus/>
                                                 @if($errors->has('email'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('email') }}
@@ -55,12 +52,9 @@
                                             
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Password</label>
+                                            <!-- <label class="form-label">Password</label> -->
                                             <div class="input-group mb-2 mr-sm-2">
-                                                <div class="input-group-text">
-                                                    <i class="align-middle mr-2" data-feather="lock"></i>
-                                                </div>
-                                                <input class="form-control form-control-lg" type="password" name="password" placeholder="Password" />
+                                                <input class="form-control form-control-lg inputstyle" type="password" name="password" placeholder="Password" />
                                                 @if($errors->has('password'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('password') }}
@@ -71,21 +65,18 @@
                                                 <a href="{{ route('password.request') }}">Forgot password?</a>
                                             </small>
                                         </div>
-                                        <div>
+                                        <!-- <div>
                                             <label class="form-check">
                                                 <input class="form-check-input" type="checkbox" value="remember" name="remember" checked>
                                                 <span class="form-check-label">
                                                   Remember me
                                               </span>
                                           </label>
-                                      </div>
-                                      <div class="text-center mt-3">
-                                        <button type="submit" class="btn btn-lg btn-primary">Sign in</button>
+                                      </div> -->
+                                      <div class="loginbtn mt-3">
+                                        <button type="submit" class="btn btn-lg btn-primary">Login</button>
                                     </div>
                                 </form>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
             </div>

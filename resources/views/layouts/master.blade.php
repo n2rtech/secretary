@@ -13,6 +13,7 @@
 	<title>@yield('title')</title>
 
 	<link href="{{asset('css/master.css')}}" rel="stylesheet">
+	<link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
 </head>
 
 <body>
