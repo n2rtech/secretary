@@ -23,7 +23,7 @@
                         <div class="col-auto d-none d-sm-block">
                             <form class="row row-cols-md-auto align-items-center">
                                 <div class="col-12">
-                                    <label class="sr-only" for="inlineFormInputGroupUsername2">User</label>
+                                    <label class="sr-only" for="inlineFormInputGroupUsername2">User List</label>
                                     <div class="input-group mb-2 mr-sm-2">
                                         <div class="input-group-text">
                                             <i class="align-middle mr-2" data-feather="user"></i>
