@@ -226,6 +226,9 @@ table.dataTable thead .sorting_desc {
 .content {
     padding: 0;
 }
+.border-right{
+    border-right: 1px solid #dee2e6 !important;
+}
 .dashboard-left h2 {
     font-family: 'Acumin Pro Regular';
     font-size: 22px;
@@ -233,5 +236,261 @@ table.dataTable thead .sorting_desc {
     letter-spacing: .5px;
     color: #0C2556;
     padding-top: 15px;
+}
+.dashboard-right .nav-tabs {
+    background: #fff;
+    padding: 12px;
+}
+.dashboard-right .nav-tabs li a.active {
+    border-bottom: 2px solid #0C2556;
+    padding-bottom: 7px;
+}
+.dashboard-right .nav-tabs li.active {
+    border-bottom: 2px solid #0C2556;
+}
+.dashboard-right .nav-tabs li {
+    padding: 0 25px;
+}
+.dashboard-right .nav-tabs li a {
+    font-family: 'Acumin Pro Regular';
+    color: #0C2556;
+    text-decoration: none;
+}
+.messagebtn .btn-primary {
+    font-size: 13px;
+    font-weight: 300;
+    padding: 6px 32px;
+}
+.searchmember {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#searchinput .input-group-btn {
+    position: absolute;
+    right: 12px;
+    left: auto;
+    top: 5px;
+    cursor: pointer;
+    z-index: 9999;
+}
+#searchinput .input-group-btn .fa-search {
+    -webkit-text-stroke: 1px #ffffff;
+    color: #000;
+}
+.searchkeyword ul li {
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 8px;
+}
+.searchkeyword label {
+    margin-bottom: 15px;
+    margin-top: 10px;
+    position: relative;
+}
+.searchkeyword .custom-radio label > input {
+    visibility: hidden;
+    position: absolute;
+}
+.searchkeyword label > input + .forcustom {
+    cursor: pointer;
+    box-shadow: 0px 3px 6px #00000029;
+    background-color: #fff;
+    border-radius: 3px;
+    border-color: #fff;
+    font-size: 13px;
+    padding: 8px 25px;
+}
+.searchkeyword label > input:checked + .forcustom {
+    border: none;
+    color: #fff;
+    background: #0C2556;
+}
+.searchkeyword label > .counter {
+    position: absolute;
+    right: -6px;
+    background: #0c2556;
+    z-index: 999999;
+    color: #fff;
+    font-size: 11px;
+    width: 18px;
+    text-align: center;
+    padding: 1px;
+    border-radius: 50px;
+    height: 18px;
+    bottom: 20px;
+}
+.searchkeyword {
+    width: 100%;
+    display: inline-block;
+}
+.panel-default .panel-heading {
+    background: #0c2556;
+    color: #fff;
+    padding: 8px 12px;
+    font-size: 13px;
+}
+.paddingleft{
+    padding-left: 0px;
+}
+.paddingright{
+    padding-right: 0px;
+}
+.messagebox .table tr td {
+    padding: 7px;
+}
+.messagebox .table tr td.title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #000;
+}
+.messagebox .table tr td.comment {
+    font-size: 10px;
+}
+.messagebox .table tr td.time {
+    font-size: 9px;
+}
+.messagebox .panel-default .panel-body .table {
+    margin-bottom: 0px;
+}
+.messagebox .panel-default .panel-body {
+    height: 230px;
+    overflow-y: scroll;
+}
+.messagebox .panel-default .panel-body::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+.messagebox .panel-default .panel-body::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+.messagebox .panel-default .panel-body::-webkit-scrollbar-thumb
+{
+    background-color: #0c2556;
+}
+#myTab {
+    border-bottom: none;
+    padding: 15px;
+}
+#myTabContent {
+    padding-top: 5px !important;
+    padding: 15px;
+}
+#myTab .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    background: #0c2556 !important;
+    color: #fff;
+    border-radius: 3px;
+}
+#myTab .nav-link {
+    background: #828ea7;
+    color: #f1f1f1;
+    border-radius: 3px;
+    border: none;
+    min-width: 100px;
+    text-align: center;
+    margin-right: 15px;
+    font-size: 13px;
+}
+.create .form-group {
+    margin-bottom: 15px;
+}
+.create input {
+    font-size: 13px;
+}
+.create textarea {
+    padding: .35rem 1rem;
+    font-size: 13px;
+}
+.create select {
+    padding: .35rem 1rem;
+    height: 35px;
+    font-size: 13px;
+}
+.savebtn .btn-primary {
+    padding: 6px 32px;
+    font-size: 13px;
+}
+.profile-grid {
+    box-shadow: 0px 3px 6px #00000029;
+    background-color: #fff;
+    border-radius: 3px;
+    border-color: #fff;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+.profileimg {
+    position: relative;
+}
+.profileimg .fa-check {
+    position: absolute;
+    background: #43c303;
+    color: #fff;
+    font-size: 10px;
+    width: 15px;
+    height: 15px;
+    padding: 2px;
+    border-radius: 50px;
+    top: 28px;
+    right: -2px;
+    left: auto;
+}
+.profileimg .fa-times {
+    position: absolute;
+    background: #ff3636;
+    color: #fff;
+    font-size: 10px;
+    width: 15px;
+    height: 15px;
+    padding: 2.3px 4px;
+    border-radius: 50px;
+    top: 28px;
+    right: -2px;
+    left: auto;
+}
+.protitle a {
+    font-size: 14px;
+    color: #000;
+    font-weight: 600;
+    text-decoration: none;
+}
+.propost {
+    font-size: 12px;
+    color: rgba(138,138,138,1);
+    margin-top: 7px;
+}
+.posttag {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    color: rgba(216,137,0,1);
+}
+.contactno span {
+    background: #43c303;
+    color: #fff;
+    font-size: 12px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    margin-top: 10px;
+    display: inline-block;
+}
+.calendarinfo {
+    font-size: 10px;
+    border: 2px solid #cbcbcb;
+    border-radius: 4px;
+    padding: 6px 8px;
+    margin-top: 10px;
+}
+.contactno span.busy {
+    background: #fe5151;
+    text-align: center;
+    padding: 6px 30px;
+}
+.calendarpadding{
+    padding-left: 5px;
 }
 /***********End*****************/
