@@ -331,6 +331,7 @@
 
             </div>
         </div>
+        
         <div class="col-sm-6">
             <div class="dashboard-right"> 
 				<ul class="nav nav-tabs">
