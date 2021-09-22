@@ -29,5 +29,6 @@
 			</main>
 		</div>
 		@include('partials.script')
+		@yield('scripts')
 	</div>
 </body>

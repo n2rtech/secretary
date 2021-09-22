@@ -1560,14 +1560,15 @@
 </div>
 @endsection
 @section('scripts')
+@parent
 <script>
 $(document).ready(function(){
+	alert('ddd');
   $("#profiletoggle").click(function(){
     $(".editprofile").toggle();
   });
   
 });
 </script>
-@parent
 
 @endsection
