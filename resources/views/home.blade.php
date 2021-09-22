@@ -858,6 +858,99 @@
 									</div>
 								</div>
 							</div>
+							<div class="profilemessage">
+								<div class="row">
+									<div class="col-sm-7 paddingright border-right">
+										<div class="messagetab">
+											<ul class="nav nav-tabs" id="messagetab1" role="tablist">
+											<li class="nav-item"> <a class="nav-link active" id="home-tab" data-toggle="tab" href="#homesend" role="tab" aria-controls="home" aria-selected="true">Send a Message</a>
+											</li>
+											<li class="nav-item"> <a class="nav-link" id="profile-tab1" data-toggle="tab" href="#employee" role="tab" aria-controls="profile" aria-selected="false">Employee Draft</a>
+											</li>
+										</ul>
+										<div class="tab-content" id="myTabContent2">
+											<div class="tab-pane fade show active" id="homesend" role="tabpanel" aria-labelledby="home-tab">
+												<form class="create">
+													<div class="form-group">
+														<input class="form-control form-control-lg inputstyle" type="name" name="name" placeholder="Name" />
+													</div>
+													<div class="form-group">
+														<input class="form-control form-control-lg inputstyle" type="number" name="mobilenumber" placeholder="Mobile Number" />
+													</div>
+													<div class="form-group">
+														<input class="form-control form-control-lg inputstyle" type="email" name="email" placeholder="Email Address" />
+													</div>
+													<div class="form-group">
+														<input class="form-control form-control-lg inputstyle" type="message-subject" name="message-subject" placeholder="Message Subject" />
+													</div>
+													<div class="form-group">
+														<textarea class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
+													</div>
+													<div class="form-group">
+														<select class="form-control form-select">
+														  <option selected>Assign To Employee</option>
+														  <option value="1">One</option>
+														  <option value="2">Two</option>
+														  <option value="3">Three</option>
+														</select>
+													</div>
+
+													<div class="savebtn">
+														<button type="button" class="btn btn-primary">Save</button>
+													</div>
+
+												</form>
+											</div>
+											<div class="tab-pane fade" id="employee" role="tabpanel" aria-labelledby="profile-tab">
+												<form class="create filter">
+													<div class="form-group">
+														<input class="form-control form-control-lg inputstyle" type="name" name="name" placeholder="Name" />
+													</div>
+													<div class="form-group">
+														<input class="form-control form-control-lg inputstyle" type="number" name="mobilenumber" placeholder="Mobile Number" />
+													</div>
+													<div class="form-group">
+														<input class="form-control form-control-lg inputstyle" type="email" name="email" placeholder="Email Address" />
+													</div>
+													<div class="form-group">
+														<input class="form-control form-control-lg inputstyle" type="message-subject" name="message-subject" placeholder="Message Subject" />
+													</div>
+													<div class="form-group">
+														<select class="form-control form-select">
+														  <option selected>Assign To Employee</option>
+														  <option value="1">One</option>
+														  <option value="2">Two</option>
+														  <option value="3">Three</option>
+														</select>
+													</div>
+
+													<div class="savebtn">
+														<button type="button" class="btn btn-primary">Filter</button>
+													</div>
+
+												</form>
+											</div>
+
+										</div>
+										</div>
+									</div>
+									<div class="col-sm-5 paddingleft">
+										<div class="calendarpanel">
+											<div class="panel panel-default">
+												<div class="panel-heading">Calendar Information</div>
+												<div class="panel-body">
+													<div class="calendarform">
+														<form>
+															calendar
+														</form>
+													</div>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-4">
@@ -1563,7 +1656,6 @@
 @parent
 <script>
 $(document).ready(function(){
-	alert('ddd');
   $("#profiletoggle").click(function(){
     $(".editprofile").toggle();
   });
