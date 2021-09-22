@@ -242,6 +242,10 @@
 												</tr>
 											</tbody>
 										</table>
+										
+									</div>
+									<div class="showmorebtn text-center">
+										<button type="button" class="btn btn-light"> Show More</button>
 									</div>
 								</div>
 							</div>
@@ -273,10 +277,10 @@
 														<input class="form-control form-control-lg inputstyle" type="message-subject" name="message-subject" placeholder="Message Subject" />
 													</div>
 													<div class="form-group">
-														<textarea class="form-control inputstyle" placeholder="Message" cols="3" rows="3"></textarea>
+														<textarea class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
 													</div>
 													<div class="form-group">
-														<select class="inputstyle form-control form-select">
+														<select class="form-control form-select">
 														  <option selected>Assign To Employee</option>
 														  <option value="1">One</option>
 														  <option value="2">Two</option>
@@ -305,7 +309,7 @@
 														<input class="form-control form-control-lg inputstyle" type="message-subject" name="message-subject" placeholder="Message Subject" />
 													</div>
 													<div class="form-group">
-														<select class="inputstyle form-control form-select">
+														<select class="form-control form-select">
 														  <option selected>Assign To Employee</option>
 														  <option value="1">One</option>
 														  <option value="2">Two</option>
@@ -331,7 +335,7 @@
 
             </div>
         </div>
-        
+
         <div class="col-sm-6">
             <div class="dashboard-right"> 
 				<ul class="nav nav-tabs">
@@ -343,24 +347,24 @@
 					<li><a data-toggle="tab" href="#menu5">Notes</a></li>
 				</ul>
 				<div class="tab-content">
-					<div class="searchmember">
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="messagebtn">
-									<button type="button" class="btn btn-primary">Send Message To All</button>
+					<div id="menu6" class="tab-pane fade">
+						<div class="searchmember">
+							<div class="row">
+								<div class="col-sm-4">
+									<div class="messagebtn">
+										<button type="button" class="btn btn-primary">Send Message To All</button>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-8">
-								<div id="searchinput" class="input-group">
-									<input type="text" name="search" placeholder="Search Members" class="form-control inputstyle">
-									<span class="input-group-btn">
-									<i class="fa fa-search"></i>
-									</span>
+								<div class="col-sm-8">
+									<div id="searchinput" class="input-group">
+										<input type="text" name="search" placeholder="Search Members" class="form-control inputstyle">
+										<span class="input-group-btn">
+										<i class="fa fa-search"></i>
+										</span>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div id="menu6" class="tab-pane fade">
 						<div class="row">
 							<div class="col-sm-4">
 								<div class="profile-grid">
@@ -720,6 +724,23 @@
 						</div>
 					</div>
 					<div id="menu1" class="tab-pane active">
+						<div class="searchmember">
+							<div class="row">
+								<div class="col-sm-5">
+									<div class="messagebtn">
+										<button type="button" class="btn btn-primary">Send Message To Sales</button>
+									</div>
+								</div>
+								<div class="col-sm-7">
+									<div id="searchinput" class="input-group">
+										<input type="text" name="search" placeholder="Search Members" class="form-control inputstyle">
+										<span class="input-group-btn">
+										<i class="fa fa-search"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-sm-4">
 								<div class="profile-grid">
@@ -732,7 +753,410 @@
 										</div>
 										<div class="col-sm-8">
 											<div class="profiledisc">
-												<div class="protitle"><a href="#">Daniel Ollson</a></div>
+												<div class="protitle"><a href="#" onclick="yourFunction()">Daniel Ollson</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span>9998887776</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-times"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#">Paige Turner</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span class="busy">Busy</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-check"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#">Rhoda Report</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span>9998887776</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="editprofile" style="display: none;">
+							<h2>Coming Soon</h2>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-times"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#">Rhoda Report</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span class="busy">Busy</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-check"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#">Rhoda Report</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span>9998887776</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-check"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#">Paige Turner</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span>9998887776</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<div id="menu2" class="tab-pane fade">
+						<div class="searchmember">
+							<div class="row">
+								<div class="col-sm-5">
+									<div class="messagebtn">
+										<button type="button" class="btn btn-primary">Send Message To HR</button>
+									</div>
+								</div>
+								<div class="col-sm-7">
+									<div id="searchinput" class="input-group">
+										<input type="text" name="search" placeholder="Search Members" class="form-control inputstyle">
+										<span class="input-group-btn">
+										<i class="fa fa-search"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-check"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#" onclick="yourFunction()">Daniel Ollson</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span>9998887776</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-times"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#">Paige Turner</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span class="busy">Busy</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-check"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#">Rhoda Report</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span>9998887776</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-times"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#">Rhoda Report</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span class="busy">Busy</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-check"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#">Rhoda Report</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span>9998887776</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-check"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#">Paige Turner</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span>9998887776</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+						
+					</div>
+					<div id="menu3" class="tab-pane fade">
+						
+						<div class="searchmember">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="messagebtn">
+										<button type="button" class="btn btn-primary">Send Message To Management</button>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div id="searchinput" class="input-group">
+										<input type="text" name="search" placeholder="Search Members" class="form-control inputstyle">
+										<span class="input-group-btn">
+										<i class="fa fa-search"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-check"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#" onclick="yourFunction()">Daniel Ollson</a></div>
 												<div class="propost">Senior Manager</div>
 												<div class="posttag">Sales, Management</div>
 											</div>
@@ -900,17 +1324,204 @@
 							
 						</div>
 					</div>
-					<div id="menu2" class="tab-pane fade">
-						<h3>HR</h3>
-						<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-					</div>
-					<div id="menu3" class="tab-pane fade">
-						<h3>Management</h3>
-						<p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-					</div>
 					<div id="menu4" class="tab-pane fade">
-						<h3>TL</h3>
-						<p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+						<div class="searchmember">
+							<div class="row">
+								<div class="col-sm-5">
+									<div class="messagebtn">
+										<button type="button" class="btn btn-primary">Send Message To TL</button>
+									</div>
+								</div>
+								<div class="col-sm-7">
+									<div id="searchinput" class="input-group">
+										<input type="text" name="search" placeholder="Search Members" class="form-control inputstyle">
+										<span class="input-group-btn">
+										<i class="fa fa-search"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-check"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#" onclick="yourFunction()">Daniel Ollson</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span>9998887776</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-times"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#">Paige Turner</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span class="busy">Busy</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-check"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#">Rhoda Report</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span>9998887776</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-times"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#">Rhoda Report</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span class="busy">Busy</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-check"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#">Rhoda Report</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span>9998887776</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="profile-grid">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="profileimg">
+												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
+												<i class="fa fa-check"></i>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="profiledisc">
+												<div class="protitle"><a href="#">Paige Turner</a></div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="contactno">
+												<span>9998887776</span>
+											</div>
+										</div>
+										<div class="col-sm-6 calendarpadding">
+											<div class="calendarinfo">
+												Calendar Info
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
 					</div>
 					<div id="menu5" class="tab-pane fade">
 						<h3>Notes</h3>
@@ -923,6 +1534,16 @@
 </div>
 @endsection
 @section('scripts')
+<script>
+function yourFunction() {
+  var x = document.getElementByClassName("editprofile");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
 @parent
 
 @endsection
