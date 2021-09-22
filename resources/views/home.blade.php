@@ -454,6 +454,7 @@
 								</div>
 							</div>
 						</div>
+
 						<div class="row">
 							<div class="col-sm-4">
 								<div class="profile-grid">
@@ -753,7 +754,7 @@
 										</div>
 										<div class="col-sm-8">
 											<div class="profiledisc">
-												<div class="protitle"><a href="#" onclick="yourFunction()">Daniel Ollson</a></div>
+												<div class="protitle"><a href="javascript:void(0)" id="profiletoggle">Daniel Ollson</a></div>
 												<div class="propost">Senior Manager</div>
 												<div class="posttag">Sales, Management</div>
 											</div>
@@ -831,7 +832,32 @@
 							</div>
 						</div>
 						<div class="editprofile" style="display: none;">
-							<h2>Coming Soon</h2>
+						<div class="row">
+								<div class="col-sm-4">
+									<div class="profileinfo">
+										<div class="proimg"> 
+											<i class="fa fa-users"></i>
+											<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
+											<i class="fa fa-check"></i> 
+											</div>
+							                <div class="text-center"> 
+								               <div class="profiledisc">
+												<div class="protitle">Daniel Ollson</div>
+												<div class="propost">Senior Manager</div>
+												<div class="posttag">Sales, Management</div>
+											</div>
+											<div class="editbtn">
+												<a href="#" class="btn btn-primary">Edit Details</a>
+											</div>
+							            </div>
+									</div>
+								</div>
+								<div class="col-sm-8">
+									<div id="myChart">
+										<img src="{{asset('img/graph.png')}}" alt="Graph" class="img-fluid">
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-4">
@@ -1535,14 +1561,12 @@
 @endsection
 @section('scripts')
 <script>
-function yourFunction() {
-  var x = document.getElementByClassName("editprofile");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
+$(document).ready(function(){
+  $("#profiletoggle").click(function(){
+    $(".editprofile").toggle();
+  });
+  
+});
 </script>
 @parent
 

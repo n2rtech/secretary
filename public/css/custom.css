@@ -531,7 +531,7 @@ table.dataTable thead .sorting_desc {
     padding: 6px 30px;
 }
 .calendarpadding{
-    padding-left: 5px;
+    padding-left: 0px;
 }
 .showmorebtn {
     margin-top: 15px;
@@ -551,5 +551,77 @@ table.dataTable thead .sorting_desc {
     border: 2px solid #0c2556;
     background-color: #0c2556;
     color: #fff !important;
+}
+.editprofile {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    padding-bottom: 25px;
+}
+.profileinfo {
+    position: relative;
+    text-align: center;
+    top: 30px;
+}
+.proimg img {
+    max-width: 65%;
+}
+.proimg .fa-check {
+    position: absolute;
+    background: #43c303;
+    color: #fff;
+    font-size: 18px;
+    width: 32px;
+    height: 32px;
+    padding: 7px;
+    border-radius: 50px;
+    top: 80px;
+    left: auto;
+    right: 22px;
+    -webkit-text-stroke: 2px #43c303;
+}
+.proimg .fa-users {
+    position: absolute;
+    background: #018AC7;
+    color: #fff;
+    font-size: 15px;
+    width: 32px;
+    height: 32px;
+    padding: 8px 7px;
+    border-radius: 50px;
+    top: 80px;
+    left: 22px;
+    right: auto;
+}
+.profileinfo .protitle {
+    font-size: 16px;
+    color: #000;
+    font-weight: 600;
+    text-decoration: none;
+    line-height: 22px;
+    margin-top: 15px;
+}
+.profileinfo .propost {
+    font-size: 14px;
+    color: #8a8a8a;
+    margin-top: 7px;
+    line-height: 20px;
+}
+.profileinfo .posttag {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    color: #D88900;
+    margin-top: 7px;
+    line-height: 19px;
+}
+.editbtn .btn-primary {
+    height: 35px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 20px;
+    width: 116px;
+    color: #f1f1f1;
+    margin-top: 20px;
 }
 /***********End*****************/
