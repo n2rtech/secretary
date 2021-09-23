@@ -556,6 +556,7 @@ table.dataTable thead .sorting_desc {
     background: #fff;
     border: 1px solid #dee2e6;
     padding-bottom: 25px;
+    margin-bottom: 15px;
 }
 .profileinfo {
     position: relative;
@@ -630,22 +631,113 @@ table.dataTable thead .sorting_desc {
     border-radius: 3px;
 }
 #messagetab1 .nav-link {
-    background: #828ea7;
+    background: #0c2556;
     color: #f1f1f1;
     border-radius: 0;
     border: none;
-    min-width: 188px;
-    text-align: center;
+    border-bottom: none;
+    text-align: left;
     margin-right: 0;
     font-size: 15px;
+    height: 50px;
+    line-height: 32px;
+}
+#messagetab1 .nav-item.show .nav-link, .nav-tabs .nav-link.active span {
+    border-bottom: 2px solid #f1f1f1;
 }
 #messagetab1 li.nav-item {
     padding: 0;
 }
 #messagetab1 {
     padding: 0;
+    background: #0c2556;
+    border-bottom: 1px solid #0c2556;
+}
+#myTabContent2 .create {
+    padding: 15px;
 }
 .paddingleft{
     padding-left: 0px;
+}
+.calendarpanel .panel-default .panel-heading {
+    height: 50px;
+    line-height: 30px;
+}
+.profilemessage {
+    padding-top: 15px;
+}
+.form-check-input:checked {
+    background-color: #0c2556;
+    border-color: #0c2556;
+}
+.calendarform .create {
+    padding: 15px;
+}
+#myTabdraft {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+#myTabdraft li.nav-item {
+    padding: 0 0px !important;
+    text-align: center;
+    display: block;
+}
+#myTabdraft .nav-link {
+    background: #828ea7;
+    color: #f1f1f1;
+    border-radius: 3px;
+    border: none;
+    min-width: 100px;
+    text-align: center;
+    margin-right: 15px;
+    font-size: 15px;
+}
+#myTabdraft .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    background: #0c2556 !important;
+    color: #fff;
+    border-radius: 3px;
+}
+.getdraft {
+    height: 350px;
+    overflow-y: scroll;
+    margin-top: 15px;
+}
+.getdraft::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+.getdraft::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+.getdraft::-webkit-scrollbar-thumb
+{
+    background-color: #0c2556;
+}
+.getdraft .table tr td.title {
+    font-size: 13px;
+    font-weight: 500;
+    color: #111;
+}
+.getdraft .table tr td.comment {
+    font-size: 12px;
+    color: #444;
+    font-weight: 400;
+}
+.getdraft .table tr td.time {
+    font-size: 10px;
+    color: #9E9E9E;
+}
+.sendmessage .panel{
+    margin-bottom: 15px;
+}
+.sendmessage .panel .panel-body {
+    background-color: #fff;
+    padding: 15px;
+    box-shadow: 0px 3px 9px #00000029;
 }
 /***********End*****************/
