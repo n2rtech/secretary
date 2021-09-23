@@ -165,10 +165,12 @@ table.dataTable thead .sorting_desc {
     border-color: #fff;
     box-shadow: 0px 3px 6px #00000029;
 }
+
 .btn-primary {
     background-color: #0C2556;
     border-color: #0C2556;
     border-radius: 3px;
+    height: 40px;
 }
 .btn-primary:hover{
     background-color: #113477;
@@ -183,6 +185,30 @@ table.dataTable thead .sorting_desc {
     background-color: #0C2556;
     border-color: #0C2556;
     color: #fff;
+    outline: none;
+    box-shadow: none;
+}
+
+.btn-secondary {
+    color: #f1f1f1;
+    background: #828ea7;
+    border-color: #828ea7;
+    border-radius: 3px;
+    height: 40px;
+}
+.btn-secondary:hover{
+    background: #828ea7;
+    border-color: #828ea7;
+}
+.btn-secondary:active{
+    color: #f1f1f1;
+    background: #828ea7;
+    border-color: #828ea7;
+}
+.btn-secondary:focus{
+    color: #f1f1f1;
+    background: #828ea7;
+    border-color: #828ea7;
     outline: none;
     box-shadow: none;
 }
@@ -324,7 +350,7 @@ table.dataTable thead .sorting_desc {
     position: absolute;
     right: -6px;
     background: #0c2556;
-    z-index: 999999;
+    z-index: 999;
     color: #fff;
     font-size: 11px;
     width: 18px;
@@ -360,6 +386,12 @@ table.dataTable thead .sorting_desc {
     font-weight: 500;
     color: #111;
 }
+.messagebox .table tr td.title a{
+    font-size: 13px;
+    font-weight: 500;
+    color: #111;
+    text-decoration: none;
+}
 .messagebox .table tr td.comment {
     font-size: 12px;
     color: #444;
@@ -375,23 +407,26 @@ table.dataTable thead .sorting_desc {
 .messagebox .panel-default .panel-body .table {
     margin-bottom: 0px;
 }
-.messagebox .panel-default .panel-body {
+.messagebox .table tr.editshowhide {
+    cursor: pointer;
+}
+.messagetable {
     height: 230px;
     overflow-y: scroll;
 }
-.messagebox .panel-default .panel-body::-webkit-scrollbar-track
+.messagetable::-webkit-scrollbar-track
 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     background-color: #F5F5F5;
 }
 
-.messagebox .panel-default .panel-body::-webkit-scrollbar
+.messagetable::-webkit-scrollbar
 {
     width: 6px;
     background-color: #F5F5F5;
 }
 
-.messagebox .panel-default .panel-body::-webkit-scrollbar-thumb
+.messagetable::-webkit-scrollbar-thumb
 {
     background-color: #0c2556;
 }
@@ -442,8 +477,8 @@ table.dataTable thead .sorting_desc {
     padding: 8px 20px;
 }
 .savebtn .btn-primary {
-    padding: 6px 32px;
-    font-size: 13px;
+    padding: 9px 32px;
+    font-size: 13px
 }
 .profile-grid {
     box-shadow: 0px 3px 9px #00000029;
@@ -739,5 +774,119 @@ table.dataTable thead .sorting_desc {
     background-color: #fff;
     padding: 15px;
     box-shadow: 0px 3px 9px #00000029;
+}
+#myModal .modal-dialog .modal-content {
+    background-color: #f1f1f1;
+}
+#myModal .modal-dialog .modal-content .modal-header {
+    justify-content: right;
+}
+#myModal .modal-dialog .modal-content .modal-header button.close {
+    border: none;
+    font-size: 30px;
+    padding: 0;
+    line-height: 20px;
+    color: #ababab;
+    outline: none;
+    -webkit-text-stroke: .5px #f1f1f1;
+}
+#myModal .modal-dialog .modal-content .modal-body {
+    padding: 0;
+}
+#myModal .modal-dialog .modal-content .modal-body .create {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 100px;
+}
+.changeprofile {
+    text-align: center;
+    padding-top: 45px;
+}
+.changeprofile .proimg img {
+    max-width: 20%;
+    display: block;
+    margin: 0 auto;
+    margin-top: 7px;
+}
+.changeprofile .proimg a span.change {
+    color: #222;
+    text-decoration: none;
+}
+.changeprofile .proimg a span.remove {
+    background-color: red;
+    color: #fff;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    line-height: 19px;
+    border-radius: 50px;
+    font-size: 12px;
+    position: relative;
+    bottom: 2px;
+}
+.changeprofile .proimg a {
+    color: red;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: 'Acumin Pro Regular';
+    letter-spacing: .5px;
+    text-decoration: none;
+}
+.editmessage {
+    background: #fff;
+    padding-top: 15px;
+}
+.editmessage .panel-default .panel-heading {
+    font-size: 13px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.editmessage .panel-default .panel-heading span {
+    font-size: 10px;
+    position: relative;
+    bottom: 5px;
+}
+.editmessage .panel-default .panel-heading a.close-div {
+    float: right;
+    line-height: 0;
+    font-size: 25px;
+    color: #f1f1f1;
+    position: relative;
+    bottom: 7px;
+    -webkit-text-stroke: .5px #0c2556;
+}
+.editmessage .panel-default .panel-body {
+    padding: 15px;
+}
+.form-control:disabled, .form-control[readonly] {
+    background-color: #fff;
+    opacity: 1;
+}
+.form-select:disabled {
+    color: #6c757d;
+    background-color: #fff;
+}
+.editmessbtn .btn-primary {
+    width: 100%;
+    margin-bottom: 10px;
+}
+#myModal2 .modal-dialog .modal-content {
+    background-color: #f1f1f1;
+}
+#myModal2 .modal-dialog .modal-content .modal-header {
+    justify-content: right;
+}
+#myModal2 .modal-dialog .modal-content .modal-header button.close {
+    border: none;
+    font-size: 30px;
+    padding: 0;
+    line-height: 20px;
+    color: #ababab;
+    outline: none;
+    -webkit-text-stroke: .5px #f1f1f1;
+}
+#myModal2 .modal-dialog .modal-content .modal-body .create {
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 /***********End*****************/

@@ -182,66 +182,111 @@
 							<div class="messagebox">
 								<div class="panel panel-default">
 									<div class="panel-heading">Messages in Draft</div>
+									
 									<div class="panel-body">
-										<table class="table table-striped">
-											<tbody>
-												<tr>
-													<td class="title">Paige Turner</td>
-													<td class="comment">Lorem Ipsum is simply dumm…</td>
-													<td class="time">11:45 AM</td>
-												</tr>
-												<tr>
-													<td class="title">Harriet Upp</td>
-													<td class="comment">Lorem Ipsum is simply dumm…</td>
-													<td class="time">11:45 AM</td>
-												</tr>
-												<tr>
-													<td class="title">Rhoda Report</td>
-													<td class="comment">Lorem Ipsum is simply dumm…</td>
-													<td class="time">11:45 AM</td>
-												</tr>
-												<tr>
-													<td class="title">Anne Teak</td>
-													<td class="comment">Lorem Ipsum is simply dumm…</td>
-													<td class="time">11:45 AM</td>
-												</tr>
-												<tr>
-													<td class="title">Colin Sik</td>
-													<td class="comment">Lorem Ipsum is simply dumm…</td>
-													<td class="time">11:45 AM</td>
-												</tr>
-												<tr>
-													<td class="title">Paige Turner</td>
-													<td class="comment">Lorem Ipsum is simply dumm…</td>
-													<td class="time">11:45 AM</td>
-												</tr>
-												<tr>
-													<td class="title">Harriet Upp</td>
-													<td class="comment">Lorem Ipsum is simply dumm…</td>
-													<td class="time">11:45 AM</td>
-												</tr>
-												<tr>
-													<td class="title">Anne Teak</td>
-													<td class="comment">Lorem Ipsum is simply dumm…</td>
-													<td class="time">11:45 AM</td>
-												</tr>
-												<tr>
-													<td class="title">Colin Sik</td>
-													<td class="comment">Lorem Ipsum is simply dumm…</td>
-													<td class="time">11:45 AM</td>
-												</tr>
-												<tr>
-													<td class="title">Paige Turner</td>
-													<td class="comment">Lorem Ipsum is simply dumm…</td>
-													<td class="time">11:45 AM</td>
-												</tr>
-												<tr>
-													<td class="title">Harriet Upp</td>
-													<td class="comment">Lorem Ipsum is simply dumm…</td>
-													<td class="time">11:45 AM</td>
-												</tr>
-											</tbody>
-										</table>
+										<div class="editmessage" style="display: none;">
+											<div class="row">
+												<div class="col-sm-12">
+													<div class="panel panel-default">
+														<div class="panel-heading">Paige Turner<br><span>11:45 AM</span> <a href="javascript:void(0)" class="close-div">&times;</a></div>
+														<div class="panel-body">
+															<form class="create">
+													<div class="form-group">
+														<input class="form-control form-control-lg inputstyle" type="name" name="name" placeholder="Paige Turner" disabled>
+													</div>
+													<div class="form-group">
+														<input class="form-control form-control-lg inputstyle" type="email" name="email" placeholder="paigeturner@gmail.com" disabled>
+													</div>
+													<div class="form-group">
+														<input class="form-control form-control-lg inputstyle" type="number" name="mobilenumber" placeholder="9999998888" disabled>
+													</div>
+													
+													<div class="form-group">
+														<textarea class="form-control" placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been" cols="3" rows="3" disabled></textarea>
+													</div>
+													<div class="form-group">
+														<select class="form-control form-select" disabled>
+															<option selected="">Assign To Employee</option>
+															<option value="1">One</option>
+															<option value="2">Two</option>
+															<option value="3">Three</option>
+														</select>
+													</div>
+
+													<div class="savebtn editmessbtn">
+														<a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">Send Message With Corrections</a>
+													</div>
+													<div class="savebtn editmessbtn">
+														<button type="button" class="btn btn-primary">Send Message Without Corrections</button>
+													</div>
+
+												</form>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="messagetable">
+											<table class="table table-striped">
+												<tbody>
+													<tr class="editshowhide">
+														<td class="title">Paige Turner</td>
+														<td class="comment">Lorem Ipsum is simply dumm…</td>
+														<td class="time">11:45 AM</td>
+													</tr>
+													<tr>
+														<td class="title">Harriet Upp</td>
+														<td class="comment">Lorem Ipsum is simply dumm…</td>
+														<td class="time">11:45 AM</td>
+													</tr>
+													<tr>
+														<td class="title">Rhoda Report</td>
+														<td class="comment">Lorem Ipsum is simply dumm…</td>
+														<td class="time">11:45 AM</td>
+													</tr>
+													<tr>
+														<td class="title">Anne Teak</td>
+														<td class="comment">Lorem Ipsum is simply dumm…</td>
+														<td class="time">11:45 AM</td>
+													</tr>
+													<tr>
+														<td class="title">Colin Sik</td>
+														<td class="comment">Lorem Ipsum is simply dumm…</td>
+														<td class="time">11:45 AM</td>
+													</tr>
+													<tr>
+														<td class="title">Paige Turner</td>
+														<td class="comment">Lorem Ipsum is simply dumm…</td>
+														<td class="time">11:45 AM</td>
+													</tr>
+													<tr>
+														<td class="title">Harriet Upp</td>
+														<td class="comment">Lorem Ipsum is simply dumm…</td>
+														<td class="time">11:45 AM</td>
+													</tr>
+													<tr>
+														<td class="title">Anne Teak</td>
+														<td class="comment">Lorem Ipsum is simply dumm…</td>
+														<td class="time">11:45 AM</td>
+													</tr>
+													<tr>
+														<td class="title">Colin Sik</td>
+														<td class="comment">Lorem Ipsum is simply dumm…</td>
+														<td class="time">11:45 AM</td>
+													</tr>
+													<tr>
+														<td class="title">Paige Turner</td>
+														<td class="comment">Lorem Ipsum is simply dumm…</td>
+														<td class="time">11:45 AM</td>
+													</tr>
+													<tr>
+														<td class="title">Harriet Upp</td>
+														<td class="comment">Lorem Ipsum is simply dumm…</td>
+														<td class="time">11:45 AM</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
 										
 									</div>
 									<div class="showmorebtn text-center">
@@ -319,6 +364,7 @@
 
 													<div class="savebtn">
 														<button type="button" class="btn btn-primary">Filter</button>
+														<button type="button" class="btn btn-secondary">Reset Filter</button>
 													</div>
 
 												</form>
@@ -746,54 +792,54 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="panel panel-default">
-									<div class="panel-heading">Send a Message</div>
-									<div class="panel-body">
-										<form class="create">
-											<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="message-subject" name="message-subject" placeholder="Message Subject">
+										<div class="panel-heading">Send a Message</div>
+										<div class="panel-body">
+											<form class="create">
+												<div class="form-group">
+													<input class="form-control form-control-lg inputstyle" type="message-subject" name="message-subject" placeholder="Message Subject">
+												</div>
+
+												<div class="form-group">
+													<textarea class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
+												</div>
+
+												<div class="form-group">
+													<div class="form-check">
+														<input class="form-check-input" type="checkbox" checked="">
+														<label class="form-check-label" for="checkbox">
+															URGENT
+														</label>
+													</div>
+													<div class="form-check">
+														<input class="form-check-input" type="checkbox">
+														<label class="form-check-label" for="Checkbox">
+															Please get back to the customer
+														</label>
+													</div>
+													<div class="form-check">
+														<input class="form-check-input" type="checkbox">
+														<label class="form-check-label" for="Checkbox">
+															The customer gets back to you
+														</label>
+													</div>
+													<div class="form-check">
+														<input class="form-check-input" type="checkbox">
+														<label class="form-check-label" for="Checkbox">
+															Extremely urgent
+														</label>
 													</div>
 
-														<div class="form-group">
-															<textarea class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
-														</div>
+												</div>
 
-														<div class="form-group">
-															<div class="form-check">
-																<input class="form-check-input" type="checkbox" checked="">
-																<label class="form-check-label" for="checkbox">
-																	URGENT
-																</label>
-															</div>
-															<div class="form-check">
-																<input class="form-check-input" type="checkbox">
-																<label class="form-check-label" for="Checkbox">
-																	Please get back to the customer
-																</label>
-															</div>
-															<div class="form-check">
-																<input class="form-check-input" type="checkbox">
-																<label class="form-check-label" for="Checkbox">
-																	The customer gets back to you
-																</label>
-															</div>
-															<div class="form-check">
-																<input class="form-check-input" type="checkbox">
-																<label class="form-check-label" for="Checkbox">
-																	Extremely urgent
-																</label>
-															</div>
+												<div class="savebtn">
+													<button type="button" class="btn btn-primary">Send</button>
+												</div>
 
-														</div>
-
-														<div class="savebtn">
-															<button type="button" class="btn btn-primary">Send</button>
-														</div>
-
-													</form>
-								</div>
+											</form>
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-4">
@@ -900,7 +946,7 @@
 												<div class="posttag">Sales, Management</div>
 											</div>
 											<div class="editbtn">
-												<a href="#" class="btn btn-primary">Edit Details</a>
+												<a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Edit Details</a>
 											</div>
 										</div>
 									</div>
@@ -1051,70 +1097,70 @@
 														</div>
 														<div class="tab-pane fade" id="profiledraft" role="tabpanel" aria-labelledby="profile-tabdraft">
 															<div class="getdraft">
-															<table class="table table-striped">
-																<tbody>
-																	<tr>
-																		<td class="title">Paige Turner</td>
-																		<td class="comment">Lorem Ipsum is simply dumm…</td>
-																		<td class="time">11:45 AM</td>
-																	</tr>
-																	<tr>
-																		<td class="title">Harriet Upp</td>
-																		<td class="comment">Lorem Ipsum is simply dumm…</td>
-																		<td class="time">11:45 AM</td>
-																	</tr>
-																	<tr>
-																		<td class="title">Rhoda Report</td>
-																		<td class="comment">Lorem Ipsum is simply dumm…</td>
-																		<td class="time">11:45 AM</td>
-																	</tr>
-																	<tr>
-																		<td class="title">Anne Teak</td>
-																		<td class="comment">Lorem Ipsum is simply dumm…</td>
-																		<td class="time">11:45 AM</td>
-																	</tr>
-																	<tr>
-																		<td class="title">Colin Sik</td>
-																		<td class="comment">Lorem Ipsum is simply dumm…</td>
-																		<td class="time">11:45 AM</td>
-																	</tr>
-																	<tr>
-																		<td class="title">Paige Turner</td>
-																		<td class="comment">Lorem Ipsum is simply dumm…</td>
-																		<td class="time">11:45 AM</td>
-																	</tr>
-																	<tr>
-																		<td class="title">Harriet Upp</td>
-																		<td class="comment">Lorem Ipsum is simply dumm…</td>
-																		<td class="time">11:45 AM</td>
-																	</tr>
-																	<tr>
-																		<td class="title">Anne Teak</td>
-																		<td class="comment">Lorem Ipsum is simply dumm…</td>
-																		<td class="time">11:45 AM</td>
-																	</tr>
-																	<tr>
-																		<td class="title">Colin Sik</td>
-																		<td class="comment">Lorem Ipsum is simply dumm…</td>
-																		<td class="time">11:45 AM</td>
-																	</tr>
-																	<tr>
-																		<td class="title">Paige Turner</td>
-																		<td class="comment">Lorem Ipsum is simply dumm…</td>
-																		<td class="time">11:45 AM</td>
-																	</tr>
-																	<tr>
-																		<td class="title">Harriet Upp</td>
-																		<td class="comment">Lorem Ipsum is simply dumm…</td>
-																		<td class="time">11:45 AM</td>
-																	</tr>
-																</tbody>
-															</table>
+																<table class="table table-striped">
+																	<tbody>
+																		<tr>
+																			<td class="title">Paige Turner</td>
+																			<td class="comment">Lorem Ipsum is simply dumm…</td>
+																			<td class="time">11:45 AM</td>
+																		</tr>
+																		<tr>
+																			<td class="title">Harriet Upp</td>
+																			<td class="comment">Lorem Ipsum is simply dumm…</td>
+																			<td class="time">11:45 AM</td>
+																		</tr>
+																		<tr>
+																			<td class="title">Rhoda Report</td>
+																			<td class="comment">Lorem Ipsum is simply dumm…</td>
+																			<td class="time">11:45 AM</td>
+																		</tr>
+																		<tr>
+																			<td class="title">Anne Teak</td>
+																			<td class="comment">Lorem Ipsum is simply dumm…</td>
+																			<td class="time">11:45 AM</td>
+																		</tr>
+																		<tr>
+																			<td class="title">Colin Sik</td>
+																			<td class="comment">Lorem Ipsum is simply dumm…</td>
+																			<td class="time">11:45 AM</td>
+																		</tr>
+																		<tr>
+																			<td class="title">Paige Turner</td>
+																			<td class="comment">Lorem Ipsum is simply dumm…</td>
+																			<td class="time">11:45 AM</td>
+																		</tr>
+																		<tr>
+																			<td class="title">Harriet Upp</td>
+																			<td class="comment">Lorem Ipsum is simply dumm…</td>
+																			<td class="time">11:45 AM</td>
+																		</tr>
+																		<tr>
+																			<td class="title">Anne Teak</td>
+																			<td class="comment">Lorem Ipsum is simply dumm…</td>
+																			<td class="time">11:45 AM</td>
+																		</tr>
+																		<tr>
+																			<td class="title">Colin Sik</td>
+																			<td class="comment">Lorem Ipsum is simply dumm…</td>
+																			<td class="time">11:45 AM</td>
+																		</tr>
+																		<tr>
+																			<td class="title">Paige Turner</td>
+																			<td class="comment">Lorem Ipsum is simply dumm…</td>
+																			<td class="time">11:45 AM</td>
+																		</tr>
+																		<tr>
+																			<td class="title">Harriet Upp</td>
+																			<td class="comment">Lorem Ipsum is simply dumm…</td>
+																			<td class="time">11:45 AM</td>
+																		</tr>
+																	</tbody>
+																</table>
 															</div>
 
 															<div class="showmorebtn text-center">
-															<button type="button" class="btn btn-light"> Show More</button>
-														</div>
+																<button type="button" class="btn btn-light"> Show More</button>
+															</div>
 														</div>
 														
 
@@ -1882,6 +1928,111 @@
 		</div>
 	</div>
 </div>
+
+<!-- Modal-1 -->
+<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-6 col-xs-6 border-right">
+						<div class="changeprofile">
+							<div class="proimg"> 
+								<a href="#"><span class="remove">&times;</span> Remove</a>
+								<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
+								<a href="#"><span class="change">Change Picture</span></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-xs-6">
+						<form class="create">
+							<div class="form-group">
+								<input class="form-control form-control-lg inputstyle" type="name" name="name" placeholder="Name">
+							</div>
+							<div class="form-group">
+								<input class="form-control form-control-lg inputstyle" type="number" name="mobilenumber" placeholder="Mobile Number">
+							</div>
+							<div class="form-group">
+								<input class="form-control form-control-lg inputstyle" type="email" name="email" placeholder="Email Address">
+							</div>
+							<div class="form-group">
+								<input class="form-control form-control-lg inputstyle" type="message-subject" name="message-subject" placeholder="Profile">
+							</div>
+							<div class="form-group">
+								<select class="form-control form-select">
+									<option selected="">Group</option>
+									<option value="1">One</option>
+									<option value="2">Two</option>
+									<option value="3">Three</option>
+								</select>
+							</div>
+
+							<div class="savebtn">
+								<button type="button" class="btn btn-primary">Save</button>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<!-- Modal-2 -->
+<div class="modal fade" id="myModal2" role="dialog">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-6 col-xs-12 m-auto">
+						<form class="create">
+							<div class="form-group">
+								<input class="form-control form-control-lg inputstyle" type="name" name="name" placeholder="Name">
+							</div>
+							<div class="form-group">
+								<input class="form-control form-control-lg inputstyle" type="number" name="mobilenumber" placeholder="Mobile Number">
+							</div>
+							<div class="form-group">
+								<input class="form-control form-control-lg inputstyle" type="email" name="email" placeholder="Email Address">
+							</div>
+							<div class="form-group">
+								<textarea class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
+							</div>
+							<div class="form-group">
+								<select class="form-control form-select">
+									<option selected="">Assign To Employee</option>
+									<option value="1">One</option>
+									<option value="2">Two</option>
+									<option value="3">Three</option>
+								</select>
+							</div>
+
+							<div class="savebtn">
+								<button type="button" class="btn btn-primary">Send</button>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
 @endsection
 @section('scripts')
 @parent
@@ -1893,8 +2044,15 @@
 		$(".messbtn").click(function(){
 			$(".sendmessage").toggle();
 		});
+
+		$(".editshowhide").click(function(){
+			$(".editmessage").css("display","block");
+		});
+		$(".close-div").click(function(){
+			$(".editmessage").css("display","none");
+		});
 	});
+
 </script>
- 
 
 @endsection
