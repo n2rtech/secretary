@@ -5,6 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
+use DB;
+use App\Models\Employee;
+use App\Models\Message;
+use App\Models\Group;
+use App\Models\EmployeeGroup;
+
+use App\Models\MostSearchedKeyword;
+
 class HomeController extends Controller
 {
     /**
@@ -22,8 +30,319 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+
+        
+
+        $posts = Employee::get()->groupBy(function($item) {
+           return $item->Department;
+       });
+                 // echo "<pre>";print_r($posts->toArray());"</pre>";exit;
+
+        /*$user = Employee::find(3);
+        $user->groups()->attach(21);
+
+        $user = Employee::find(3);
+        $user->groups()->sync(array(13, 22, 3));
+
+        $user = Group::find(2);
+        $user->employees()->attach(25);
+
+        $user = Group::find(3);
+        $user->employees()->sync(array(21, 24, 34));*/
+
+        /*$grous = Group::with('employees')->get();
+
+        $group_id = $request->input('group_id');     
+        $s = $request->input('keyword');    
+        $keyword = $request->input('keyword');    
+
+        $posts = Group::with('employees')->whereHas('employees', function($q) use ($s,$group_id)
+        {
+            $q->where('NameFirst', 'like', '%'.$s.'%')
+                    ->orwhere('NamesMiddle', 'like', '%'.$s.'%')
+                    ->orwhere('NameLast', 'like', '%'.$s.'%')
+                    ->orwhere('Searchword', 'like', '%'.$s.'%')
+                    ->orwhere('Phonenumber', 'like', '%'.$s.'%')
+                    ->orwhere('Mobilephone', 'like', '%'.$s.'%')
+                    ->orwhere('PersonalEmail', 'like', '%'.$s.'%')
+                    ->orWhere(DB::raw("CONCAT('NameFirst', ' ', 'NamesMiddle', ' ', 'NameLast')"), 'like', '%'.$s.'%');
+
+        })->get();
+
+        $employees = Employee::with('groups')->get();*/
+
+        $group_employees = Group::distinct()->get(['groups.id','groups.name']);
+        $group_id = $request->input('group-id');
+        $emp_id = $request->input('emp-id');
+
+        $group = $request->input('group');     
+        $s = $request->input('keyword');    
+        $keyword = $request->input('keyword');    
+
+        foreach ($group_employees as $key => $group) {
+
+            if ((isset($group_id) && isset($keyword)) && $group_id == $group->id) {
+                $employees = EmployeeGroup::join('employees','employee_groups.employee_id','employees.ID')->where('employee_groups.group_id',$group->id)->Where(function($query) use ($s,$group_id)
+                {
+                    $query->where('NameFirst', 'like', '%'.$s.'%')
+                    ->orwhere('NamesMiddle', 'like', '%'.$s.'%')
+                    ->orwhere('NameLast', 'like', '%'.$s.'%')
+                    ->orwhere('Searchword', 'like', '%'.$s.'%')
+                    ->orwhere('Phonenumber', 'like', '%'.$s.'%')
+                    ->orwhere('Mobilephone', 'like', '%'.$s.'%')
+                    ->orwhere('PersonalEmail', 'like', '%'.$s.'%')
+                    ->orWhere(DB::raw("CONCAT('NameFirst', ' ', 'NamesMiddle', ' ', 'NameLast')"), 'like', '%'.$s.'%');
+                })->get();
+
+                if (count($employees) > 0) {
+                    MostSearchedKeyword::insert(['keyword' => $keyword]);
+                }
+
+                $group_employees[$key]->employees = $employees;
+
+            }else if (isset($keyword) && !empty($keyword)) {
+                $employees = EmployeeGroup::join('employees','employee_groups.employee_id','employees.ID')->where('employee_groups.group_id',$group->id)->Where(function($query) use ($s)
+                {
+                    $query->where('NameFirst', 'like', '%'.$s.'%')
+                    ->orwhere('NamesMiddle', 'like', '%'.$s.'%')
+                    ->orwhere('NameLast', 'like', '%'.$s.'%')
+                    ->orwhere('Searchword', 'like', '%'.$s.'%')
+                    ->orwhere('Phonenumber', 'like', '%'.$s.'%')
+                    ->orwhere('Mobilephone', 'like', '%'.$s.'%')
+                    ->orwhere('PersonalEmail', 'like', '%'.$s.'%')
+                    ->orWhere(DB::raw("CONCAT('NameFirst', ' ', 'NamesMiddle', ' ', 'NameLast')"), 'like', '%'.$s.'%');
+                })->get();
+
+                $group_employees[$key]->employees = $employees;
+
+            }else{
+                $group_employees[$key]->employees = EmployeeGroup::join('employees','employee_groups.employee_id','employees.ID')->where('employee_groups.group_id',$group->id)->get();
+            }
+        }
+
+        if ((isset($keyword) && !empty($keyword)) && $group_id == 0) {
+
+             $all_employees = Employee::Where(function($query) use ($s)
+                {
+                    $query->where('NameFirst', 'like', '%'.$s.'%')
+                    ->orwhere('NamesMiddle', 'like', '%'.$s.'%')
+                    ->orwhere('NameLast', 'like', '%'.$s.'%')
+                    ->orwhere('Searchword', 'like', '%'.$s.'%')
+                    ->orwhere('Phonenumber', 'like', '%'.$s.'%')
+                    ->orwhere('Mobilephone', 'like', '%'.$s.'%')
+                    ->orwhere('PersonalEmail', 'like', '%'.$s.'%')
+                    ->orWhere(DB::raw("CONCAT('NameFirst', ' ', 'NamesMiddle', ' ', 'NameLast')"), 'like', '%'.$s.'%');
+                })->get();
+
+            if (count($all_employees) > 0) {
+                MostSearchedKeyword::insert(['keyword' => $keyword]);
+            }
+
+        }else{
+            $all_employees = Employee::get()->take('10');
+        }        
+        
+        $searched_data =  MostSearchedKeyword::select('id',DB::raw('count(keyword) as keyword_count'), 'keyword')->groupBy('keyword')
+        ->having(DB::raw('count(keyword)'), '>', 0)
+        ->orderBy(DB::raw('count(keyword)'), 'desc')
+        ->get()->take('10'); 
+
+        $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
+
+        $employees2 = Employee::latest('MetaTimeCreated');
+
+        $filter_name = $request->input('filter_name');
+        $filter_email = $request->input('filter_email');
+        $filter_mobile = $request->input('filter_mobile');     
+        $filter_group = $request->input('filter_group');     
+        $filter_id = $request->input('filter_id');     
+        $empl_id = $request->input('empl_id');  
+
+        $employee_data = array();
+
+        if (isset($empl_id) && !empty($empl_id)) {
+            $employee_data = Employee::select('employees.*',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->where('ID',$empl_id)->first();
+
+            $employee_data->groups = DB::table('employee_groups')->join('groups','employee_groups.group_id','groups.id')->where('employee_groups.employee_id',$empl_id)->pluck('name');
+
+
+            $employee_data->drafts = Message::select('messages.*', DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->join('employees','employees.ID','messages.reciver_id')->where('employees.ID',$empl_id)->latest('messages.created_at')->get()->take('10');
+        }   
+
+        if ($request->has('filter_name')) {
+            $employees2->where('employees.name','LIKE', '%'.$request->input('filter_name').'%');
+        }
+
+        if($request->has('filter_email')) {  
+            $employees2->where('employees.email','LIKE', '%'.$request->input('filter_email').'%');
+        }
+
+        if($request->has('filter_mobile')) {
+            $employees2->where('employees.mobile', $request->input('filter_mobile'));
+        }
+
+        $employees = $employees2->get()->take(10);
+
+        foreach ($employees as $key => $value) {
+            $employees[$key]->groups = DB::table('employee_groups')->join('groups','employee_groups.group_id','groups.id')->where('employee_groups.employee_id',$value->ID)->pluck('name');
+        }
+
+
+        if($request->has('filter_group')) {
+            if($request->has('filter_group') != 'all') {
+                foreach ($employees as $key => $value) {
+                    if (!in_array($request->input('filter_group'), $value['groups']->toArray())) {
+                        unset($employees[$key]);
+                        continue;
+                    }
+                }
+            }
+        }
+
+        $messages2 = Message::select('messages.*', DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->join('employees','employees.ID','messages.reciver_id')->latest('messages.created_at');
+
+        $draft_name = $request->input('draft-name');
+        $draft_email = $request->input('draft-email');
+        $draft_mobile = $request->input('draft-mobile');     
+        $draft_subject = $request->input('draft-subject');     
+        $draft_employee_id = $request->input('draft-employee-id');     
+
+        if ($request->has('draft-name')) {
+            $messages2->where('messages.name','LIKE', '%'.$request->input('draft-name').'%');
+        }
+
+        if ($request->has('draft-subject')) {
+            $messages2->where('messages.subject','LIKE', '%'.$request->input('draft-subject').'%');
+        }
+
+        if ($request->has('draft-employee-id')) {
+            $messages2->where('messages.reciver_id',$request->input('draft-employee-id'));
+        }
+
+        if($request->has('draft-email')) {  
+            $messages2->where('messages.email','LIKE', '%'.$request->input('draft-email').'%');
+        }
+
+        if($request->has('draft-mobile')) {
+            $messages2->where('messages.mobile','LIKE', '%'.$request->input('draft-mobile').'%');
+        }
+        $messages = $messages2->get()->take(7);
+
+        // echo "<pre>";print_r($messages);"</pre>";exit;
+
+        // echo "<pre>";print_r(compact('searched_data','employees','messages','employee_list','employee_data','filter_name','filter_mobile','filter_email','filter_group','draft_name','draft_mobile','draft_email','draft_subject','draft_employee_id','emp_id'));"</pre>";exit;
+
+
+        if (isset($emp_id) && !empty($emp_id)) {
+            $employee_data = Employee::select('employees.*',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->where('ID',$emp_id)->first();
+
+            $employee_data->groups = DB::table('employee_groups')->join('groups','employee_groups.group_id','groups.id')->where('employee_groups.employee_id',$emp_id)->pluck('name');
+
+            $employee_data->drafts = Message::select('messages.*', DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->join('employees','employees.ID','messages.reciver_id')->where('employees.ID',$emp_id)->latest('messages.created_at')->get()->take('10');
+        }   
+    
+        $group_employees = Employee::distinct('Department')->oldest('Department')->get(['Department']);
+
+        foreach ($group_employees as $key => $department) {
+            $group_employees[$key]->employees = Employee::where('Department',$department->Department)->get()->take(12);
+        }
+
+        $all_employees = Employee::paginate(12);
+         $data = '';
+        if ($request->ajax()) {
+            if (isset($request->department) && ($request->department != 'All') && (!isset($request->keyword))) {
+                $all_employees = Employee::where('Department',$request->department)->paginate(12);
+            }
+
+            if (isset($request->keyword)) {
+                if ($request->department == 'All') {
+                    $all_employees = Employee::Where(function($query) use ($s)
+                    {
+                        $query->where('NameFirst', 'like', '%'.$s.'%')
+                        ->orwhere('NamesMiddle', 'like', '%'.$s.'%')
+                        ->orwhere('NameLast', 'like', '%'.$s.'%')
+                        ->orwhere('Searchword', 'like', '%'.$s.'%')
+                        ->orwhere('Phonenumber', 'like', '%'.$s.'%')
+                        ->orwhere('Mobilephone', 'like', '%'.$s.'%')
+                        ->orwhere('PersonalEmail', 'like', '%'.$s.'%')
+                        ->orWhere(DB::raw("CONCAT('NameFirst', ' ', 'NamesMiddle', ' ', 'NameLast')"), 'like', '%'.$s.'%');
+                    })->paginate(12);
+                }else{
+                    $all_employees = Employee::where('Department',$request->department)->Where(function($query) use ($s)
+                    {
+                        $query->where('NameFirst', 'like', '%'.$s.'%')
+                        ->orwhere('NamesMiddle', 'like', '%'.$s.'%')
+                        ->orwhere('NameLast', 'like', '%'.$s.'%')
+                        ->orwhere('Searchword', 'like', '%'.$s.'%')
+                        ->orwhere('Phonenumber', 'like', '%'.$s.'%')
+                        ->orwhere('Mobilephone', 'like', '%'.$s.'%')
+                        ->orwhere('PersonalEmail', 'like', '%'.$s.'%')
+                        ->orWhere(DB::raw("CONCAT('NameFirst', ' ', 'NamesMiddle', ' ', 'NameLast')"), 'like', '%'.$s.'%');
+                    })->paginate(12);
+                }
+
+                if (count($all_employees) > 0) {
+                    MostSearchedKeyword::insert(['keyword' => $keyword]);
+                }
+            }
+
+            foreach ($all_employees as $key => $all_employee) {
+
+                $data.='<div class="col-sm-4">
+                                <div class="profile-grid">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="profileimg">
+                                                <img src="'.asset('img/proimage.png').'" alt="Profile" class="img-fluid">
+                                                <i class="fa fa-check"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="profiledisc">
+                                                <div class="protitle"><a class="click-profile" data-id="'.$all_employee->ID.'">'.$all_employee->NameFirst.' '.$all_employee->NamesMiddle.' '.$all_employee->NameLast.'</a></div>
+                                                <div class="propost">'.$all_employee->Department.'</div>
+                                                <div class="posttag">Sales, Management</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="contactno">
+                                                <span>'.$all_employee->Mobilephone.'</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 calendarpadding">
+                                            <div class="calendarinfo">
+                                                Calendar Info
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>';
+                            if($key % 3 == 0) {
+                            $data.='<div class="profile-info" style="display:none;">My Profile</div>';
+                            }
+            }
+            return $data;
+        }
+
+        // echo "<pre>";print_r($group_employees->toArray());"</pre>";exit;
+        
+        return view('home', compact('searched_data','employees','messages','employee_list','employee_data','filter_name','filter_mobile','filter_email','filter_group','draft_name','draft_mobile','draft_email','draft_subject','draft_employee_id','emp_id','group_employees','all_employees','keyword','group_id','group_id','emp_id'));
+    }
+
+    public function saveDraft(Request $request)
+    {
+        Message::create($request->all());
+        return redirect()->back()->with("message", "Draft saved successfully!");
+    }
+
+    public function empInfo(Request $request)
+    {
+        $id = $request->id;
+
+        $employee = Employee::where('ID',$id)->first();
+
+        return view('emp_profile', compact('id','employee'));
     }
 }

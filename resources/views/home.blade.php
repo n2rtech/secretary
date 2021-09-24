@@ -1,6 +1,11 @@
 @extends('layouts.master')
 @section('title','Dashboard')
 @section('content')
+<style>
+   .ajax-loading{
+     text-align: center;
+   }
+</style>
 <div class="container-fluid p-3">
 	<div class="row">
 		<div class="col-sm-6 border-right">
@@ -9,170 +14,18 @@
 				<h2>Most Searched Keyword</h2>
 				<div class="searchkeyword">
 					<ul class="list-inline">
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">Daniel Ollson</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">Paddy O'Furniture.</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">olive@gmail.com</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">hugo@gmail.com</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">999888666</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">frank@gmail.com</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">cherry@gmail.com</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">John Quil</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">Aida Bugg</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">Daniel Ollson</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">Paddy O'Furniture.</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">olive@gmail.com</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">hugo@gmail.com</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">999888666</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">frank@gmail.com</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">cherry@gmail.com</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">John Quil</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="radio">
-								<label>
-									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-									<span class="forcustom">Aida Bugg</span>
-									<span class="counter">5</span>
-								</label>
-							</div>
-						</li>
-
-					</ul>
+            			@foreach($searched_data as $most_searched)
+            			<li>
+            			<div class="radio">
+		                    <label>
+		                        <input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
+		                        <span class="forcustom">{{ $most_searched->keyword }}</span>
+		                        <span class="counter">{{ $most_searched->keyword_count }}</span>
+		                    </label>
+		                </div>
+		                </li>
+		                @endforeach
+            		</ul>
 				</div>
 				<!--End-->
 				<!--Message-->
@@ -234,56 +87,13 @@
 														<td class="comment">Lorem Ipsum is simply dumm…</td>
 														<td class="time">11:45 AM</td>
 													</tr>
+													@foreach($messages as $message)
 													<tr>
-														<td class="title">Harriet Upp</td>
-														<td class="comment">Lorem Ipsum is simply dumm…</td>
-														<td class="time">11:45 AM</td>
+														<td class="title">{{ $message->subject }}</td>
+														<td class="comment">{{ $message->body }}</td>
+														<td class="time">{{ $message->created_at }}</td>
 													</tr>
-													<tr>
-														<td class="title">Rhoda Report</td>
-														<td class="comment">Lorem Ipsum is simply dumm…</td>
-														<td class="time">11:45 AM</td>
-													</tr>
-													<tr>
-														<td class="title">Anne Teak</td>
-														<td class="comment">Lorem Ipsum is simply dumm…</td>
-														<td class="time">11:45 AM</td>
-													</tr>
-													<tr>
-														<td class="title">Colin Sik</td>
-														<td class="comment">Lorem Ipsum is simply dumm…</td>
-														<td class="time">11:45 AM</td>
-													</tr>
-													<tr>
-														<td class="title">Paige Turner</td>
-														<td class="comment">Lorem Ipsum is simply dumm…</td>
-														<td class="time">11:45 AM</td>
-													</tr>
-													<tr>
-														<td class="title">Harriet Upp</td>
-														<td class="comment">Lorem Ipsum is simply dumm…</td>
-														<td class="time">11:45 AM</td>
-													</tr>
-													<tr>
-														<td class="title">Anne Teak</td>
-														<td class="comment">Lorem Ipsum is simply dumm…</td>
-														<td class="time">11:45 AM</td>
-													</tr>
-													<tr>
-														<td class="title">Colin Sik</td>
-														<td class="comment">Lorem Ipsum is simply dumm…</td>
-														<td class="time">11:45 AM</td>
-													</tr>
-													<tr>
-														<td class="title">Paige Turner</td>
-														<td class="comment">Lorem Ipsum is simply dumm…</td>
-														<td class="time">11:45 AM</td>
-													</tr>
-													<tr>
-														<td class="title">Harriet Upp</td>
-														<td class="comment">Lorem Ipsum is simply dumm…</td>
-														<td class="time">11:45 AM</td>
-													</tr>
+													@endforeach
 												</tbody>
 											</table>
 										</div>
@@ -385,15 +195,14 @@
 		<div class="col-sm-6">
 			<div class="dashboard-right"> 
 				<ul class="nav nav-tabs">
-					<li><a data-toggle="tab" href="#menu6">All</a></li>
-					<li><a class="active" data-toggle="tab" href="#menu1">Sales</a></li>
-					<li><a data-toggle="tab" href="#menu2">HR</a></li>
-					<li><a data-toggle="tab" href="#menu3">Management</a></li>
-					<li><a data-toggle="tab" href="#menu4">TL</a></li>
-					<li><a data-toggle="tab" href="#menu5">Notes</a></li>
+					<li><a data-toggle="tab" data-paginate="2" href="#menua6">All</a></li>
+					@foreach($group_employees as $key => $group_employee)
+					<li><a data-toggle="tab"  data-paginate="2"  class="@if($key == 0) active @endif" href="#menu{{ $key }}">{{ $group_employee->Department }}</a></li>
+					@endforeach
+					<li><a data-toggle="tab" href="#menua5">Notes</a></li>
 				</ul>
 				<div class="tab-content">
-					<div id="menu6" class="tab-pane fade">
+					<div id="menua6" class="tab-pane fade">
 						<div class="searchmember">
 							<div class="row">
 								<div class="col-sm-4">
@@ -403,15 +212,16 @@
 								</div>
 								<div class="col-sm-8">
 									<div id="searchinput" class="input-group">
-										<input type="text" name="search" placeholder="Search Members" class="form-control inputstyle">
+										<input type="text" name="keyword" id="keyword" placeholder="Search Members" class="form-control inputstyle">
 										<span class="input-group-btn">
-											<i class="fa fa-search"></i>
+											<i class="button-filter fa fa-search"></i>
 										</span>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row" id="results-All">
+							@foreach($all_employees as $all_employee)
 							<div class="col-sm-4">
 								<div class="profile-grid">
 									<div class="row">
@@ -423,14 +233,14 @@
 										</div>
 										<div class="col-sm-8">
 											<div class="profiledisc">
-												<div class="protitle"><a href="#">Daniel Ollson</a></div>
-												<div class="propost">Senior Manager</div>
+												<div class="protitle"><a class="click-profile" data-id="{{ $all_employee->ID }}" >{{ $all_employee->NameFirst.' '.$all_employee->NamesMiddle.' '.$all_employee->NameLast }}</a></div>
+												<div class="propost">{{ $all_employee->Department }}</div>
 												<div class="posttag">Sales, Management</div>
 											</div>
 										</div>
 										<div class="col-sm-6">
 											<div class="contactno">
-												<span>9998887776</span>
+												<span>{{ $all_employee->Mobilephone }}</span>
 											</div>
 										</div>
 										<div class="col-sm-6 calendarpadding">
@@ -441,336 +251,26 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-times"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Paige Turner</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span class="busy">Busy</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Rhoda Report</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+							@if($loop->iteration % 3 == 0) 
+							<div class="profile-info" style="display:none;">My Profile</div>
+							@endif
+							@endforeach
 						</div>
-
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-times"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Rhoda Report</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span class="busy">Busy</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Rhoda Report</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Paige Turner</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-						</div>
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Daniel Ollson</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-times"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Paige Turner</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span class="busy">Busy</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Rhoda Report</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Daniel Ollson</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-times"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Paige Turner</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span class="busy">Busy</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Rhoda Report</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						<!-- Data Loader -->
+						<div class="ajax-loading-All text-center">
+							<svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+							x="0px" y="0px" height="60" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+							<path fill="#000"
+							d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+							<animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s"
+							from="0 50 50" to="360 50 50" repeatCount="indefinite" />
+						</path>
+					</svg>
+				</div>
+						{{-- <div class="ajax-loading-All"><img src="{{ asset('img/icons/loading.gif') }}" /></div> --}}
 					</div>
-					<div id="menu1" class="tab-pane active">
+					@foreach($group_employees as $key => $group_employee)
+					<div id="menu{{ $key }}" class="tab-pane @if($key == 0) active @endif">
 						<div class="searchmember">
 							<div class="row">
 								<div class="col-sm-5">
@@ -780,9 +280,9 @@
 								</div>
 								<div class="col-sm-7">
 									<div id="searchinput" class="input-group">
-										<input type="text" name="search" placeholder="Search Members" class="form-control inputstyle">
+										<input type="text" name="keyword" id="keyword" placeholder="Search Members" class="form-control inputstyle">
 										<span class="input-group-btn">
-											<i class="fa fa-search"></i>
+											<i class="button-filter fa fa-search"></i>
 										</span>
 									</div>
 								</div>
@@ -841,7 +341,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row" id="results-{{ str_replace(' ', '-', $group_employee->Department) }}">
+							@foreach($group_employee->employees as $employee)
 							<div class="col-sm-4">
 								<div class="profile-grid">
 									<div class="row">
@@ -853,14 +354,14 @@
 										</div>
 										<div class="col-sm-8">
 											<div class="profiledisc">
-												<div class="protitle"><a href="javascript:void(0)" id="profiletoggle">Daniel Ollson</a></div>
-												<div class="propost">Senior Manager</div>
+												<div class="protitle"><a class="click-profile" data-id="{{ $employee->ID }}">{{ $employee->NameFirst.' '.$employee->NamesMiddle.' '.$employee->NameLast }}</a></div>
+												<div class="propost">{{ $employee->Department }}</div>
 												<div class="posttag">Sales, Management</div>
 											</div>
 										</div>
 										<div class="col-sm-6">
 											<div class="contactno">
-												<span>9998887776</span>
+												<span>{{ $employee->Mobilephone }}</span>
 											</div>
 										</div>
 										<div class="col-sm-6 calendarpadding">
@@ -871,65 +372,22 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-times"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Paige Turner</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span class="busy">Busy</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Rhoda Report</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+							@if($loop->iteration % 3 == 0) 
+							<div class="profile-info" style="display:none;">My Profile</div>
+							@endif
+							@endforeach
 						</div>
+						<div class="ajax-loading-{{ str_replace(' ', '-', $group_employee->Department) }} text-center">
+							<svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+							x="0px" y="0px" height="60" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+							<path fill="#000"
+							d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+							<animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s"
+							from="0 50 50" to="360 50 50" repeatCount="indefinite" />
+						</path>
+					</svg>
+				</div>
+						{{-- <div class="ajax-loading-{{ str_replace(' ', '-', $group_employee->Department) }}"><img src="{{ asset('img/icons/loading.gif') }}" /></div> --}}
 						<div class="editprofile" style="display: none;">
 							<div class="row">
 								<div class="col-sm-4">
@@ -1229,697 +687,9 @@
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-times"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Rhoda Report</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span class="busy">Busy</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Rhoda Report</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Paige Turner</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-						</div>
 					</div>
-					<div id="menu2" class="tab-pane fade">
-						<div class="searchmember">
-							<div class="row">
-								<div class="col-sm-5">
-									<div class="messagebtn">
-										<button type="button" class="btn btn-primary">Send Message To HR</button>
-									</div>
-								</div>
-								<div class="col-sm-7">
-									<div id="searchinput" class="input-group">
-										<input type="text" name="search" placeholder="Search Members" class="form-control inputstyle">
-										<span class="input-group-btn">
-											<i class="fa fa-search"></i>
-										</span>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#" onclick="yourFunction()">Daniel Ollson</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-times"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Paige Turner</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span class="busy">Busy</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Rhoda Report</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-times"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Rhoda Report</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span class="busy">Busy</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Rhoda Report</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Paige Turner</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-						</div>
-						
-					</div>
-					<div id="menu3" class="tab-pane fade">
-						
-						<div class="searchmember">
-							<div class="row">
-								<div class="col-sm-6">
-									<div class="messagebtn">
-										<button type="button" class="btn btn-primary">Send Message To Management</button>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div id="searchinput" class="input-group">
-										<input type="text" name="search" placeholder="Search Members" class="form-control inputstyle">
-										<span class="input-group-btn">
-											<i class="fa fa-search"></i>
-										</span>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#" onclick="yourFunction()">Daniel Ollson</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-times"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Paige Turner</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span class="busy">Busy</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Rhoda Report</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-times"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Rhoda Report</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span class="busy">Busy</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Rhoda Report</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Paige Turner</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					<div id="menu4" class="tab-pane fade">
-						<div class="searchmember">
-							<div class="row">
-								<div class="col-sm-5">
-									<div class="messagebtn">
-										<button type="button" class="btn btn-primary">Send Message To TL</button>
-									</div>
-								</div>
-								<div class="col-sm-7">
-									<div id="searchinput" class="input-group">
-										<input type="text" name="search" placeholder="Search Members" class="form-control inputstyle">
-										<span class="input-group-btn">
-											<i class="fa fa-search"></i>
-										</span>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#" onclick="yourFunction()">Daniel Ollson</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-times"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Paige Turner</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span class="busy">Busy</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Rhoda Report</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage3.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-times"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Rhoda Report</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span class="busy">Busy</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Rhoda Report</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="profile-grid">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="profileimg">
-												<img src="{{asset('img/proimage2.png')}}" alt="Profile" class="img-fluid">
-												<i class="fa fa-check"></i>
-											</div>
-										</div>
-										<div class="col-sm-8">
-											<div class="profiledisc">
-												<div class="protitle"><a href="#">Paige Turner</a></div>
-												<div class="propost">Senior Manager</div>
-												<div class="posttag">Sales, Management</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="contactno">
-												<span>9998887776</span>
-											</div>
-										</div>
-										<div class="col-sm-6 calendarpadding">
-											<div class="calendarinfo">
-												Calendar Info
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					<div id="menu5" class="tab-pane fade">
+					@endforeach
+					<div id="menua5" class="tab-pane fade">
 						<h3>Notes</h3>
 						<p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
 					</div>
@@ -2055,4 +825,101 @@
 
 </script>
 
+
+
+<script>
+	localStorage.setItem('activeTab', 'Freelancer');
+
+	var activeTab = localStorage.getItem('activeTab');
+
+	page = $('.dashboard-right .nav-tabs li a.active').attr('data-paginate');
+   var SITEURL = "{{ route('admin.home') }}";
+   load_more(page); //initial content load
+    $('.dashboard-right .nav-tabs li a.active').attr('data-paginate',page);
+   $(window).scroll(function() { //detect page scroll
+      if($(window).scrollTop() + $(window).height() >= $(document).height()) {  
+      	page = $('.dashboard-right .nav-tabs li a.active').attr('data-paginate');
+      load_more(page); 
+       page++;
+       $('.dashboard-right .nav-tabs li a.active').attr('data-paginate',page);
+      }
+    });     
+    function load_more(page){
+
+    	var keyword = $('.dashboard-right .nav-tabs li a.active').attr('href');
+    	var keyword_val = $(keyword).find('input').val();
+
+    	var activeTab = localStorage.getItem('activeTab');
+     if ((activeTab != "All") || (activeTab != 'Notes') || activeTab != "data.length") {
+     	var url = SITEURL  + "?page=" + page + "&department=" + activeTab;
+     }else{
+     	var url = SITEURL + "?page=" + page;
+     }
+
+     if (keyword_val != '') {
+     	url = url + "&keyword=" + keyword_val;
+     }
+
+     activeTab = activeTab.replace(/ /g, "-");
+
+        $.ajax({
+           url: url,
+           type: "get",
+           datatype: "html",
+           beforeSend: function()
+           {
+              $('.ajax-loading-'+activeTab).show();
+            }
+        })
+        .done(function(data)
+        {
+            if(data.length == 0){
+            //notify user if nothing to load
+            $('.ajax-loading-'+activeTab).html("No more records!");
+            return;
+          }
+          $('.ajax-loading-'+activeTab).hide();
+          $("#results-"+activeTab).append(data);         
+       })
+       .fail(function(jqXHR, ajaxOptions, thrownError)
+       {
+          alert('No response from server');
+       });
+    }
+
+    $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+    	localStorage.setItem('activeTab', $(e.target).html());
+    	page = $(e.target).attr('data-paginate');
+    	load_more(page);
+    	page++;
+    	$(e.target).attr('data-paginate',page);
+    });
+
+</script>
+<script type="text/javascript">
+	$("document").on('click', '.click-profile' , function() {
+		$('.profile-info').hide();
+		var obj = $(this).parents('.profile-grid').parent().nextAll('#profile-info').first();
+
+		var ajaxurl = '{{route('admin.emp-info')}}';
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': "{{ csrf_token() }}",
+          }
+      });
+        $.ajax({
+            url: ajaxurl,
+            data : {id:$(this).data('id')},
+            type: "post",
+            success: function(data){
+                $data = $(data); 
+                obj.show().html($data).fadeIn();
+            }
+        });
+
+	});
+</script>
+<script type="text/javascript">
+	$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+</script>
 @endsection

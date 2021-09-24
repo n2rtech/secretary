@@ -10,11 +10,15 @@ Route::patch('change_password', 'Auth\ChangePasswordController@changePassword')-
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
 	//Home Route
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::post('/save-draft', 'HomeController@saveDraft')->name('save-draft');
+    Route::post('/emp-info', 'HomeController@empInfo')->name('emp-info');
 
     //Home Route
     Route::get('/blank', function(){
         return view('admin.blank');
     });
+
+    Route::get('/fullcalendar','FullCalendarController@index')->name('fullcalendar-index');
 
     //Permission Route
     Route::resource('permissions', 'Admin\PermissionsController');
