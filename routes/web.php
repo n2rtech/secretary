@@ -1,4 +1,18 @@
 <?php
+
+Route::get(
+    'cache-clear',
+    function () {
+        \Artisan::call('cache:clear');
+    \Artisan::call('view:clear');
+    \Artisan::call('route:clear');
+    \Artisan::call('clear-compiled');
+    \Artisan::call('config:cache');
+
+        return 'cleared';
+    }
+);
+
 Route::redirect('/', 'admin/home');
 
 Auth::routes(['register' => false]);
