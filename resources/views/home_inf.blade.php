@@ -5,8 +5,6 @@
    .ajax-loading{
      text-align: center;
    }
-
-   .error{ color:red; } 
 </style>
 <div class="container-fluid p-3">
 	<div class="row">
@@ -45,19 +43,19 @@
 													<div class="panel panel-default">
 														<div class="panel-heading">Paige Turner<br><span>11:45 AM</span> <a href="javascript:void(0)" class="close-div">&times;</a></div>
 														<div class="panel-body">
-															<form class="create" id="contactForm">
+															<form class="create">
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="name" name="name" id="name" placeholder="Paige Turner" disabled>
+														<input class="form-control form-control-lg inputstyle" type="name" name="name" placeholder="Paige Turner" disabled>
 													</div>
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="email" name="email" id="email" placeholder="paigeturner@gmail.com" disabled>
+														<input class="form-control form-control-lg inputstyle" type="email" name="email" placeholder="paigeturner@gmail.com" disabled>
 													</div>
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="number" name="mobile" id="mobile" placeholder="9999998888" disabled>
+														<input class="form-control form-control-lg inputstyle" type="number" name="mobilenumber" placeholder="9999998888" disabled>
 													</div>
 													
 													<div class="form-group">
-														<textarea name="body" id="body" class="form-control" placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been" cols="3" rows="3" disabled></textarea>
+														<textarea class="form-control" placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been" cols="3" rows="3" disabled></textarea>
 													</div>
 													<div class="form-group">
 														<select class="form-control form-select" disabled>
@@ -81,14 +79,19 @@
 												</div>
 											</div>
 										</div>
-										<div class="messagetable" id="scrollcl">
+										<div class="messagetable">
 											<table class="table table-striped">
-												<tbody id="post">
+												<tbody>
+													<tr class="editshowhide">
+														<td class="title">Paige Turner</td>
+														<td class="comment">Lorem Ipsum is simply dumm…</td>
+														<td class="time">11:45 AM</td>
+													</tr>
 													@foreach($messages as $message)
-													<tr class="editshowhide" data-id="{{ $message->id }}">
+													<tr>
 														<td class="title">{{ $message->subject }}</td>
 														<td class="comment">{{ $message->body }}</td>
-														<td class="time">{{ date('h:i A',strtotime($message->created_at)) }}</td>
+														<td class="time">{{ $message->created_at }}</td>
 													</tr>
 													@endforeach
 												</tbody>
@@ -97,8 +100,7 @@
 										
 									</div>
 									<div class="showmorebtn text-center">
-										 <p class="invisible">No more posts...</p>
-										<button type="button" class="btn btn-light set-filter-data" id="load-more" data-paginate="2" data-draft-name="" data-draft-mobile="" data-draft-email="" data-draft-subject="" data-draft-reciver_id="">Show More</button>
+										<button type="button" class="btn btn-light"> Show More</button>
 									</div>
 								</div>
 							</div>
@@ -116,69 +118,63 @@
 										</ul>
 										<div class="tab-content" id="myTabContent">
 											<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-												<div id="success-msg" style="display:none;" class="alert alert-success"></div>
-												<form class="create" id="draft-form">
+												<form class="create">
 													<div class="form-group">
-														<input required class="form-control form-control-lg inputstyle" type="name" name="name" id="name"  placeholder="Name" />
-														 <span class="text-danger error-name"></span>
+														<input class="form-control form-control-lg inputstyle" type="name" name="name" placeholder="Name" />
 													</div>
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="number" name="mobile" id="mobile"required  placeholder="Mobile Number" />
-														<span class="text-danger error-mobile"></span>
+														<input class="form-control form-control-lg inputstyle" type="number" name="mobilenumber" placeholder="Mobile Number" />
 													</div>
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="email" name="email" id="email" required placeholder="Email Address" />
-														<span class="text-danger error-email"></span>
+														<input class="form-control form-control-lg inputstyle" type="email" name="email" placeholder="Email Address" />
 													</div>
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="message-subject" id="subject" required name="subject" placeholder="Message Subject" />
-														<span class="text-danger error-subject"></span>
+														<input class="form-control form-control-lg inputstyle" type="message-subject" name="message-subject" placeholder="Message Subject" />
 													</div>
 													<div class="form-group">
-														<textarea class="form-control" required name="body" id="body" placeholder="Message" cols="3" rows="3"></textarea>
-														<span class="text-danger error-body"></span>
+														<textarea class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
 													</div>
 													<div class="form-group">
-														<select name="reciver_id" id="reciver_id" class="form-control form-select">
-															<option selected value="">Assign To Employee</option>
-															@foreach($employee_list as $key => $employee)
-														  <option value="{{ $key}}">{{ $employee}}</option>
-														  @endforeach
+														<select class="form-control form-select">
+															<option selected>Assign To Employee</option>
+															<option value="1">One</option>
+															<option value="2">Two</option>
+															<option value="3">Three</option>
 														</select>
 													</div>
 
 													<div class="savebtn">
-														<button type="submit" id="submit-btn" class="btn btn-primary">Save</button>
+														<button type="button" class="btn btn-primary">Save</button>
 													</div>
 
 												</form>
 											</div>
 											<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-												<form class="create filter" id="draft-search">
+												<form class="create filter">
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="name" name="draft-name" id="draft-name" placeholder="Name" />
+														<input class="form-control form-control-lg inputstyle" type="name" name="name" placeholder="Name" />
 													</div>
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="number" name="draft-mobile" id="draft-mobile" placeholder="Mobile Number" />
+														<input class="form-control form-control-lg inputstyle" type="number" name="mobilenumber" placeholder="Mobile Number" />
 													</div>
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="email" name="draft-email" id="draft-email" placeholder="Email Address" />
+														<input class="form-control form-control-lg inputstyle" type="email" name="email" placeholder="Email Address" />
 													</div>
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="message-subject" name="draft-subject" id="draft-subject" placeholder="Message Subject" />
+														<input class="form-control form-control-lg inputstyle" type="message-subject" name="message-subject" placeholder="Message Subject" />
 													</div>
 													<div class="form-group">
-														<select name="draft-reciver_id" id="draft-reciver_id" class="form-control form-select">
-															<option value="" selected>Assign To Employee</option>
-															@foreach($employee_list as $key => $employee)
-														  <option value="{{ $key}}">{{ $employee}}</option>
-														  @endforeach
+														<select class="form-control form-select">
+															<option selected>Assign To Employee</option>
+															<option value="1">One</option>
+															<option value="2">Two</option>
+															<option value="3">Three</option>
 														</select>
 													</div>
 
 													<div class="savebtn">
-														<button type="submit" class="btn btn-primary">Filter</button>
-														<button type="button" class="reset-filter btn btn-secondary">Reset Filter</button>
+														<button type="button" class="btn btn-primary">Filter</button>
+														<button type="button" class="btn btn-secondary">Reset Filter</button>
 													</div>
 
 												</form>
@@ -199,9 +195,9 @@
 		<div class="col-sm-6">
 			<div class="dashboard-right"> 
 				<ul class="nav nav-tabs">
-					<li><a data-toggle="tab" data-paginate="2" href="#menua6">All</a></li>
+					<li><a data-toggle="tab" href="#menua6">All</a></li>
 					@foreach($group_employees as $key => $group_employee)
-					<li><a data-toggle="tab"  data-paginate="2"  class="@if($key == 0) active @endif" href="#menu{{ $key }}">{{ $group_employee->Department }}</a></li>
+					<li><a data-toggle="tab" class="@if($key == 0) active @endif" href="#menu{{ $key }}">{{ $group_employee->Department }}</a></li>
 					@endforeach
 					<li><a data-toggle="tab" href="#menua5">Notes</a></li>
 				</ul>
@@ -216,9 +212,9 @@
 								</div>
 								<div class="col-sm-8">
 									<div id="searchinput" class="input-group">
-										<input type="text" name="keyword" id="keyword" placeholder="Search Members" class="form-control inputstyle">
+										<input type="text" name="search" placeholder="Search Members" class="form-control inputstyle">
 										<span class="input-group-btn">
-											<i class="button-filter fa fa-search"></i>
+											<i class="fa fa-search"></i>
 										</span>
 									</div>
 								</div>
@@ -237,14 +233,14 @@
 										</div>
 										<div class="col-sm-8">
 											<div class="profiledisc">
-												<div class="protitle"><a class="click-profile" data-id="{{ $all_employee->ID }}" >{{ $all_employee->NameFirst.' '.$all_employee->NamesMiddle.' '.$all_employee->NameLast }}</a></div>
-												<div class="propost">{{ $all_employee->Department }}</div>
+												<div class="protitle"><a href="#">{{ $all_employee->NameFirst.' '.$all_employee->NamesMiddle.' '.$all_employee->NameLast }}</a></div>
+												<div class="propost">Senior Manager</div>
 												<div class="posttag">Sales, Management</div>
 											</div>
 										</div>
 										<div class="col-sm-6">
 											<div class="contactno">
-												<span>{{ $all_employee->Mobilephone }}</span>
+												<span>9998887776</span>
 											</div>
 										</div>
 										<div class="col-sm-6 calendarpadding">
@@ -255,10 +251,8 @@
 									</div>
 								</div>
 							</div>
-							@if($loop->iteration % 3 == 0) 
-							<div class="profile-info" style="display:none;">My Profile</div>
-							@endif
 							@endforeach
+							{{ $all_employees->links() }}
 						</div>
 						<!-- Data Loader -->
 						<div class="ajax-loading-All text-center">
@@ -284,9 +278,9 @@
 								</div>
 								<div class="col-sm-7">
 									<div id="searchinput" class="input-group">
-										<input type="text" name="keyword" id="keyword" placeholder="Search Members" class="form-control inputstyle">
+										<input type="text" name="search" placeholder="Search Members" class="form-control inputstyle">
 										<span class="input-group-btn">
-											<i class="button-filter fa fa-search"></i>
+											<i class="fa fa-search"></i>
 										</span>
 									</div>
 								</div>
@@ -358,14 +352,14 @@
 										</div>
 										<div class="col-sm-8">
 											<div class="profiledisc">
-												<div class="protitle"><a class="click-profile" data-id="{{ $employee->ID }}">{{ $employee->NameFirst.' '.$employee->NamesMiddle.' '.$employee->NameLast }}</a></div>
-												<div class="propost">{{ $employee->Department }}</div>
+												<div class="protitle"><a href="javascript:void(0)" id="profiletoggle">{{ $employee->NameFirst.' '.$employee->NamesMiddle.' '.$employee->NameLast }}</a></div>
+												<div class="propost">Senior Manager</div>
 												<div class="posttag">Sales, Management</div>
 											</div>
 										</div>
 										<div class="col-sm-6">
 											<div class="contactno">
-												<span>{{ $employee->Mobilephone }}</span>
+												<span>9998887776</span>
 											</div>
 										</div>
 										<div class="col-sm-6 calendarpadding">
@@ -376,9 +370,6 @@
 									</div>
 								</div>
 							</div>
-							@if($loop->iteration % 3 == 0) 
-							<div class="profile-info" style="display:none;">My Profile</div>
-							@endif
 							@endforeach
 						</div>
 						<div class="ajax-loading-{{ str_replace(' ', '-', $group_employee->Department) }} text-center">
@@ -810,10 +801,7 @@
 @endsection
 @section('scripts')
 @parent
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
 <script>
 	$(document).ready(function(){
 		$("#profiletoggle").click(function(){
@@ -823,36 +811,9 @@
 			$(".sendmessage").toggle();
 		});
 
-		$(document).on('click', '.editshowhide', function(event) {
-			event.preventDefault();
-
-			var id = $(this).attr('data-id');
-
-		var ajaxurl = '{{route('admin.edit-draft')}}';
-        $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': "{{ csrf_token() }}",
-          }
-      });
-        $.ajax({
-            url: ajaxurl,
-            data : {id:$(this).attr('data-id')},
-            type: "post",
-            success: function(data){
-                $data = $(data); 
-                $(".editmessage").show().html($data);
-            }
-        });
-
-
+		$(".editshowhide").click(function(){
 			$(".editmessage").css("display","block");
 		});
-
-		$(document).on('click', '.close-div', function(event) {
-			event.preventDefault();
-			$(".editmessage").css("display","none");
-		});
-
 		$(".close-div").click(function(){
 			$(".editmessage").css("display","none");
 		});
@@ -860,39 +821,24 @@
 
 </script>
 
-
-
 <script>
 	localStorage.setItem('activeTab', 'Freelancer');
-
-	var activeTab = localStorage.getItem('activeTab');
-
-	page = $('.dashboard-right .nav-tabs li a.active').attr('data-paginate');
    var SITEURL = "{{ route('admin.home') }}";
+   page = 2; //track user scroll as page number, right now page number is 1
    load_more(page); //initial content load
-    $('.dashboard-right .nav-tabs li a.active').attr('data-paginate',page);
    $(window).scroll(function() { //detect page scroll
-      if($(window).scrollTop() + $(window).height() >= $(document).height()) {  
-      	page = $('.dashboard-right .nav-tabs li a.active').attr('data-paginate');
-      load_more(page); 
-       page++;
-       $('.dashboard-right .nav-tabs li a.active').attr('data-paginate',page);
+      if($(window).scrollTop() + $(window).height() >= $(document).height()) { //if user scrolled from top to bottom of the page
+      page++; //page number increment
+      // alert(localStorage.getItem('activeTab'));
+      load_more(page); //load content   
       }
     });     
     function load_more(page){
-
-    	var keyword = $('.dashboard-right .nav-tabs li a.active').attr('href');
-    	var keyword_val = $(keyword).find('input').val();
-
     	var activeTab = localStorage.getItem('activeTab');
      if ((activeTab != "All") || (activeTab != 'Notes') || activeTab != "data.length") {
      	var url = SITEURL  + "?page=" + page + "&department=" + activeTab;
      }else{
      	var url = SITEURL + "?page=" + page;
-     }
-
-     if (keyword_val != '') {
-     	url = url + "&keyword=" + keyword_val;
      }
 
      activeTab = activeTab.replace(/ /g, "-");
@@ -910,12 +856,13 @@
         {
             if(data.length == 0){
             //notify user if nothing to load
-            $('.ajax-loading-'+activeTab).html("");
-            // $('.ajax-loading-'+activeTab).html("No more records!");
+            $('.ajax-loading-'+activeTab).html("No more records!");
             return;
           }
-          $('.ajax-loading-'+activeTab).hide();
-          $("#results-"+activeTab).append(data);         
+          $('.ajax-loading-'+activeTab).hide(); //hide loading animation once data is received
+          // $("#results").append(data); //append data into #results element          
+          $("#results-"+activeTab).append(data); //append data into #results element          
+           console.log('data.length');
        })
        .fail(function(jqXHR, ajaxOptions, thrownError)
        {
@@ -924,216 +871,23 @@
     }
 
     $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
-    	localStorage.setItem('activeTab', $(e.target).html());
-    	page = $(e.target).attr('data-paginate');
+        localStorage.setItem('activeTab', $(e.target).html());
+    	page =2;
     	load_more(page);
-    	page++;
-    	$(e.target).attr('data-paginate',page);
     });
-	$('.button-filter').on('click', function() {
-		var activeTab = localStorage.getItem('activeTab');
-		$value=$(this).parent().parent().find('input[name=\'keyword\']').val();
-		$.ajax({
-			type : 'get',
-			url : '{{ route('admin.home') }}',
-			data:{'keyword':$value,'department':activeTab},
-			success:function(data){
-				var active_tab = activeTab.replace(/ /g, "-");
-				$("#results-"+active_tab).empty();
-				$("#results-"+active_tab).append(data);
-				 $('.dashboard-right .nav-tabs li a.active').attr('data-paginate',2);
-			}
-		});
-	})
+    /*var activeTab = localStorage.getItem('activeTab');
+    if(activeTab){
+        $('#myTab a[href="' + activeTab + '"]').tab('show');
+    }
+
+     $('.nav-tabs a').on('shown.bs.tab', function (e) {
+        alert('Hello from the other siiiiiide!');
+        var current_tab = e.target;
+        alert(current_tab);
+        var previous_tab = e.relatedTarget;
+        alert(previous_tab);
+    });*/
+
 </script>
-<script type="text/javascript">
-	$(document).on('click', '.click-profile' , function() {
-		$('.profile-info').hide();
-		var obj = $(this).parents('.profile-grid').parent().nextAll('.profile-info').first();
-
-		var ajaxurl = '{{route('admin.emp-info')}}';
-        $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': "{{ csrf_token() }}",
-          }
-      });
-        $.ajax({
-            url: ajaxurl,
-            data : {id:$(this).data('id')},
-            type: "post",
-            success: function(data){
-                $data = $(data); 
-                obj.show().html($data).fadeIn();
-            }
-        });
-
-	});
-</script>
-
-
-<script type="text/javascript">
-
-
-	$("#draft-search").submit(function(event) {
-
-		event.preventDefault();
-
-		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
-
-		var $form = $(this),
-		url = $form.attr('action');
-
-		$.each($form.serialize().split('&'), function (index, elem) {
-			var vals = elem.split('=');
-			$(".set-filter-data").attr('data-'+vals[0],decodeURIComponent((vals[1]+'').replace(/\+/g, '%20')))
-		});
-
-		var posting = $.post("{{ route('admin.filter.draft')}}", $form.serialize() + "&_token={{ csrf_token() }}");
-
-		posting.done(function(data) {
-                if(data.length == 0) {
-                   $('#post').empty();
-                   $('#post').append('<tr>No data...</tr>');
-                    return;
-                  } else {
-                  	$('#post').empty();
-                    $('#post').append(data);
-                    $('#load-more').show();
-                  }
-            })
-               .fail(function(jqXHR, ajaxOptions, thrownError) {
-                  alert('Something went wrong.');
-               });
-	});
-  </script>
-
-
-<script type="text/javascript">
-
-
-	$("#draft-form").submit(function(event) {
-
-		event.preventDefault();
-
-		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
-
-		var $form = $(this),
-		url = $form.attr('action');
-
-		// var posting = $.post("{{ route('admin.save-draft')}}", $form.serialize() + "&_token={{ csrf_token() }}");
-
-		$.ajax({
-			url: '{{ route('admin.save-draft') }}',
-			type: 'POST',
-			data: $form.serialize() + "&_token={{ csrf_token() }}",
-			beforeSend: function() {
-				$('#submit-btn').text('Loading...');
-			}
-		}).done(function(data) {
-			$("#draft-form")[0].reset();
-			$('#submit-btn').text('Save');
-			$('#success-msg').show().html(data.message);
-			setTimeout(function() {
-				$('#success-msg').show().fadeOut('fast');
-			}, 5000);
-		}).fail(function() {
-			$('#success-msg').text('failed');
-		});
-
-	});
-  </script>
-
-   <script type="text/javascript">
-       
-        // run function when user click load more button
-        function loadMoreData(paginate,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id) {
-
-        	var url = '{{ route('admin.get-draft') }}?page=' + paginate;
-
-        	if (draft_name) {
-        		url += '&draft-name='+ draft_name;
-        	}
-
-        	if (draft_email) {
-        		url += '&draft-email='+ draft_email;
-        	}
-
-        	if (draft_mobile) {
-        		url += '&draft-mobile='+ draft_mobile;
-        	}
-
-        	if (draft_subject) {
-        		url += '&draft-subject='+ draft_subject;
-        	}
-
-        	if (draft_reciver_id) {
-        		url += '&draft-reciver_id='+ draft_reciver_id;
-        	}
-
-            $.ajax({
-                url: url,
-                type: 'get',
-                datatype: 'html',
-                beforeSend: function() {
-                    $('#load-more').text('Loading...');
-                }
-            })
-            .done(function(data) {
-                if(data.length == 0) {
-                    $('.invisible').removeClass('invisible');
-                    $('#load-more').text('Show More');
-                    // $('#load-more').hide();
-                    return;
-                  } else {
-                    $('#load-more').text('Load more...');
-                    $('#post').append(data);
-                    $("#div1").animate({ scrollTop: $('#scrollcl').prop("scrollHeight")}, 1000);
-                  }
-            })
-               .fail(function(jqXHR, ajaxOptions, thrownError) {
-                  alert('Something went wrong.');
-               });
-        }
-    </script>
-    <script type="text/javascript">
-    	$(document).on('click', '.reset-filter', function(event) {
-    		event.preventDefault(); 		
-    		
-    		$(".set-filter-data").attr({
-    			'data-draft-name': '',
-    			'data-draft-mobile': '',
-    			'data-draft-email': '',
-    			'data-draft-subject': '',
-    			'data-draft-reciver_id': '',
-    		});
-
-    		var url = '{{ route('admin.get-draft') }}?page=1';
-
-            $.ajax({
-                url: url,
-                type: 'get',
-                datatype: 'html',
-                beforeSend: function() {
-                    $('#load-more').text('Loading...');
-                }
-            })
-            .done(function(data) {
-                if(data.length == 0) {
-                    $('.invisible').removeClass('invisible');
-                    $('#load-more').text('Show More');
-                    // $('#load-more').hide();
-                    return;
-                  } else {
-                    $('#load-more').text('Show More');
-                    $('#post').empty();
-                    $('#post').append(data);
-                    $("#div1").animate({ scrollTop: $('#scrollcl').prop("scrollHeight")}, 1000);
-                  }
-            })
-               .fail(function(jqXHR, ajaxOptions, thrownError) {
-                  alert('Something went wrong.');
-               });
-    	});
-    </script>
 
 @endsection
