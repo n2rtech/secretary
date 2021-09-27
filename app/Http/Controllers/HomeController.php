@@ -353,9 +353,9 @@ class HomeController extends Controller
             $employee = Employee::select('PersonalEmail','NameFirst','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->reciver_id)->first();
 
             $email = $employee->PersonalEmail;
-            $email = 'er.krishna.mishra@gmail.com';
+            // $email = 'er.krishna.mishra@gmail.com';
             $mob_num = $employee->Mobilephone;
-            $mob_num = '9026574061';
+            // $mob_num = '9026574061';
             $c = '2244';
             $name = $employee->name;
             $name_emp = $employee->NameFirst;
