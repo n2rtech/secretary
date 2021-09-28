@@ -1208,7 +1208,7 @@ $(document).on('submit', "#edit-draft-form", function(event) {
   </script>
 
    <script type="text/javascript">
-        $('#load-more').click(function() {
+        $('#load-moree').click(function() {
             var page = $(this).data('paginate');
             var draft_name = $(this).attr('data-draft-name');
             var draft_mobile = $(this).attr('data-draft-mobile');
