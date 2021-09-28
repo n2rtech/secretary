@@ -25,9 +25,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 	//Home Route
     Route::get('/home', 'HomeController@index')->name('home');
     Route::post('/save-draft', 'HomeController@saveDraft')->name('save-draft');
+    Route::post('/send-message', 'HomeController@sendMessage')->name('send-message');
     Route::get('/get-draft', 'HomeController@getDraft')->name('get-draft');
     Route::post('/emp-info', 'HomeController@empInfo')->name('emp-info');
     Route::post('/edit-draft', 'HomeController@editDraft')->name('edit-draft');
+    Route::post('/update-draft', 'HomeController@updateDraft')->name('update-draft');
+    Route::post('/update-draft-form', 'HomeController@updateDraftForm')->name('update-draft-form');
     Route::post('/draft-filter', 'HomeController@draftFilter')->name('filter.draft');
 
     //Home Route

@@ -15,7 +15,7 @@
 				<!--Search Keyword-->
 				<h2>Most Searched Keyword</h2>
 				<div class="searchkeyword">
-					<ul class="list-inline">
+					<ul class="list-inline" id="search-keywords">
             			@foreach($searched_data as $most_searched)
             			<li>
             			<div class="radio">
@@ -69,7 +69,7 @@
 													</div>
 
 													<div class="savebtn editmessbtn">
-														<a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">Send Message With Corrections</a>
+														<a href="javascript:void(0)" class="btn btn-primary" id="edit-modal">Send Message With Corrections</a>
 													</div>
 													<div class="savebtn editmessbtn">
 														<button type="button" class="btn btn-primary">Send Message Without Corrections</button>
@@ -131,7 +131,7 @@
 														<span class="text-danger error-email"></span>
 													</div>
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="message-subject" id="subject" required name="subject" placeholder="Message Subject" />
+														<input class="form-control form-control-lg inputstyle" type="text" id="subject" required name="subject" placeholder="Message Subject" />
 														<span class="text-danger error-subject"></span>
 													</div>
 													<div class="form-group">
@@ -165,7 +165,7 @@
 														<input class="form-control form-control-lg inputstyle" type="email" name="draft-email" id="draft-email" placeholder="Email Address" />
 													</div>
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="message-subject" name="draft-subject" id="draft-subject" placeholder="Message Subject" />
+														<input class="form-control form-control-lg inputstyle" type="text" name="draft-subject" id="draft-subject" placeholder="Message Subject" />
 													</div>
 													<div class="form-group">
 														<select name="draft-reciver_id" id="draft-reciver_id" class="form-control form-select">
@@ -211,7 +211,7 @@
 							<div class="row">
 								<div class="col-sm-4">
 									<div class="messagebtn">
-										<button type="button" class="btn btn-primary">Send Message To All</button>
+										<button type="button" class="btn btn-primary messbtn">Send Message To All</button>
 									</div>
 								</div>
 								<div class="col-sm-8">
@@ -220,6 +220,61 @@
 										<span class="input-group-btn">
 											<i class="button-filter fa fa-search"></i>
 										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="sendmessage" style="display: none;">
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="panel panel-default">
+										<div class="panel-heading">Send a Message</div>
+										<div class="panel-body">
+											<div id="success-msg-send-allall" style="display:none;" class="alert alert-success"></div>
+											<form class="create" method="POST" id="send-msg-to-all-all">
+												<div class="form-group">
+													<input type="hidden" name="department" value="all">
+													<input class="form-control form-control-lg inputstyle" type="text" required name="subject" placeholder="Message Subject">
+												</div>
+
+												<div class="form-group">
+													<textarea class="form-control" required name="message" placeholder="Message" cols="3" rows="3"></textarea>
+												</div>
+
+												<div class="form-group">
+													<div class="form-check">
+														<input class="form-check-input" value="URGENT" name="message_type[]" type="checkbox" checked="">
+														<label class="form-check-label" for="checkbox">
+															URGENT
+														</label>
+													</div>
+													<div class="form-check">
+														<input class="form-check-input" value="Please get back to the customer" name="message_type[]" type="checkbox">
+														<label class="form-check-label" for="Checkbox">
+															Please get back to the customer
+														</label>
+													</div>
+													<div class="form-check">
+														<input class="form-check-input" value="The customer gets back to you" name="message_type[]" type="checkbox">
+														<label class="form-check-label" for="Checkbox">
+															The customer gets back to you
+														</label>
+													</div>
+													<div class="form-check">
+														<input class="form-check-input" value="Extremely urgent" name="message_type[]" type="checkbox">
+														<label class="form-check-label" for="Checkbox">
+															Extremely urgent
+														</label>
+													</div>
+
+												</div>
+
+												<div class="savebtn">
+													<button type="submit" id="send-msg-all-all" class="btn btn-primary">Send</button>
+												</div>
+
+											</form>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -255,7 +310,9 @@
 									</div>
 								</div>
 							</div>
-							@if($loop->iteration % 3 == 0) 
+							@if(($loop->iteration) >2 && ($loop->iteration % 3 == 0)) 
+							<div class="profile-info" style="display:none;">My Profile</div>
+							@else
 							<div class="profile-info" style="display:none;">My Profile</div>
 							@endif
 							@endforeach
@@ -279,7 +336,7 @@
 							<div class="row">
 								<div class="col-sm-5">
 									<div class="messagebtn">
-										<button type="button" class="btn btn-primary messbtn">Send Message To Sales</button>
+										<button type="button" class="btn btn-primary messbtn">Send Message To {{ $group_employee->Department }}</button>
 									</div>
 								</div>
 								<div class="col-sm-7">
@@ -298,36 +355,38 @@
 									<div class="panel panel-default">
 										<div class="panel-heading">Send a Message</div>
 										<div class="panel-body">
-											<form class="create">
+											<div id="success-msg-send-all{{ $key }}" style="display:none;" class="alert alert-success"></div>
+											<form class="create" method="POST" id="send-msg-to-all-{{ $key }}">
 												<div class="form-group">
-													<input class="form-control form-control-lg inputstyle" type="message-subject" name="message-subject" placeholder="Message Subject">
+													<input type="hidden" name="department" value="{{ $group_employee->Department }}">
+													<input class="form-control form-control-lg inputstyle" type="text" required name="subject" placeholder="Message Subject">
 												</div>
 
 												<div class="form-group">
-													<textarea class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
+													<textarea class="form-control" required name="message" placeholder="Message" cols="3" rows="3"></textarea>
 												</div>
 
 												<div class="form-group">
 													<div class="form-check">
-														<input class="form-check-input" type="checkbox" checked="">
+														<input class="form-check-input" value="URGENT" name="message_type[]" type="checkbox" checked="">
 														<label class="form-check-label" for="checkbox">
 															URGENT
 														</label>
 													</div>
 													<div class="form-check">
-														<input class="form-check-input" type="checkbox">
+														<input class="form-check-input" value="Please get back to the customer" name="message_type[]" type="checkbox">
 														<label class="form-check-label" for="Checkbox">
 															Please get back to the customer
 														</label>
 													</div>
 													<div class="form-check">
-														<input class="form-check-input" type="checkbox">
+														<input class="form-check-input" value="The customer gets back to you" name="message_type[]" type="checkbox">
 														<label class="form-check-label" for="Checkbox">
 															The customer gets back to you
 														</label>
 													</div>
 													<div class="form-check">
-														<input class="form-check-input" type="checkbox">
+														<input class="form-check-input" value="Extremely urgent" name="message_type[]" type="checkbox">
 														<label class="form-check-label" for="Checkbox">
 															Extremely urgent
 														</label>
@@ -336,7 +395,7 @@
 												</div>
 
 												<div class="savebtn">
-													<button type="button" class="btn btn-primary">Send</button>
+													<button type="submit" id="send-msg-all-{{ $key }}" class="btn btn-primary">Send</button>
 												</div>
 
 											</form>
@@ -770,35 +829,41 @@
 			</div>
 			<div class="modal-body">
 				<div class="row">
-					<div class="col-sm-6 col-xs-12 m-auto">
-						<form class="create">
-							<div class="form-group">
-								<input class="form-control form-control-lg inputstyle" type="name" name="name" placeholder="Name">
-							</div>
-							<div class="form-group">
-								<input class="form-control form-control-lg inputstyle" type="number" name="mobilenumber" placeholder="Mobile Number">
-							</div>
-							<div class="form-group">
-								<input class="form-control form-control-lg inputstyle" type="email" name="email" placeholder="Email Address">
-							</div>
-							<div class="form-group">
-								<textarea class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
-							</div>
-							<div class="form-group">
-								<select class="form-control form-select">
-									<option selected="">Assign To Employee</option>
-									<option value="1">One</option>
-									<option value="2">Two</option>
-									<option value="3">Three</option>
-								</select>
-							</div>
+						<div id="success-msg-update" style="display:none;" class="alert alert-success"></div>
+						<div class="col-sm-6 col-xs-12 m-auto" id="update-draft-html">
 
-							<div class="savebtn">
-								<button type="button" class="btn btn-primary">Send</button>
-							</div>
+							<form class="create" id="contactForm">
+								<div class="form-group">
+									<input class="form-control form-control-lg inputstyle" type="name" name="name" id="name" placeholder="{{ $message->name }}">
+								</div>
+								<div class="form-group">
+									<input class="form-control form-control-lg inputstyle" type="email" name="email" id="email" placeholder="{{ $message->email }}">
+								</div>
+								<div class="form-group">
+									<input class="form-control form-control-lg inputstyle" type="number" name="mobile" id="mobile" placeholder="{{ $message->mobile }}">
+								</div>
 
-						</form>
-					</div>
+								<div class="form-group">
+									<input class="form-control form-control-lg inputstyle" type="number" name="subject" id="subject" placeholder="{{ $message->subject }}">
+								</div>
+
+								<div class="form-group">
+									<textarea name="body" id="body" class="form-control" placeholder="{{ $message->body }}" cols="3" rows="3"></textarea>
+								</div>
+								<div class="form-group">
+									<select class="form-control form-select">
+										{{-- <option selected="">Assign To Employee</option> --}}
+										<option selected value="{{ $message->reciver_id }}">{{ $message->reciver_name }}</option>
+										<option value="2">Two</option>
+										<option value="3">Three</option>
+									</select>
+								</div>
+								<div class="savebtn">
+									<button type="button" class="btn btn-primary">Send</button>
+								</div>
+
+							</form>
+						</div>
 				</div>
 			</div>
 		</div>
@@ -810,9 +875,6 @@
 @endsection
 @section('scripts')
 @parent
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
 
 <script>
 	$(document).ready(function(){
@@ -919,7 +981,7 @@
        })
        .fail(function(jqXHR, ajaxOptions, thrownError)
        {
-          alert('No response from server');
+          // alert('No response from server');
        });
     }
 
@@ -948,6 +1010,14 @@
 </script>
 <script type="text/javascript">
 	$(document).on('click', '.click-profile' , function() {
+		if ($(this).attr('is_close') == 'no') {
+			$(this).parents('.profile-grid').parent().nextAll('.profile-info').first().hide();
+			$(this).attr('is_close','yes');
+			return;
+		}else{
+			$(this).attr('is_close','no');
+		}
+
 		$('.profile-info').hide();
 		var obj = $(this).parents('.profile-grid').parent().nextAll('.profile-info').first();
 
@@ -1010,6 +1080,69 @@
 
 <script type="text/javascript">
 
+	$("#send-msg-to-all-all").submit(function(event) {
+		event.preventDefault();
+		return false;
+
+		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+
+		var $form = $(this),
+		url = $form.attr('action');
+
+		$.ajax({
+			url: '{{ route('admin.send-message') }}',
+			type: 'POST',
+			data: $form.serialize() + "&_token={{ csrf_token() }}",
+			beforeSend: function() {
+				$("#send-msg-all-all").text('Loading...');
+			}
+		}).done(function(data) {
+			$("#send-msg-to-all-all")[0].reset();
+			$("#send-msg-all-all").text('Save');
+			$("#success-msg-send-allall").show().html(data.message);
+			setTimeout(function() {
+				$("#success-msg-send-allall").show().fadeOut('fast');
+			}, 5000);
+		}).fail(function() {
+			$("#success-msg-send-allall").text('failed');
+		});
+
+	});
+
+
+@foreach($group_employees as $key => $group_employee)
+
+$("#send-msg-to-all-{{ $key }}").submit(function(event) {
+		event.preventDefault();
+		return false;
+
+		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+
+		var $form = $(this),
+		url = $form.attr('action');
+
+		$.ajax({
+			url: '{{ route('admin.send-message') }}',
+			type: 'POST',
+			data: $form.serialize() + "&_token={{ csrf_token() }}",
+			beforeSend: function() {
+				$("#send-msg-all-{{ $key }}").text('Loading...');
+			}
+		}).done(function(data) {
+			$("#send-msg-to-all-{{ $key }}")[0].reset();
+			$("#send-msg-all-{{ $key }}").text('Save');
+			$("#success-msg-send-all{{ $key }}").show().html(data.message);
+			setTimeout(function() {
+				$("#success-msg-send-all{{ $key }}").show().fadeOut('fast');
+			}, 5000);
+		}).fail(function() {
+			$("#success-msg-send-all{{ $key }}").text('failed');
+		});
+
+	});
+
+@endforeach
+
 
 	$("#draft-form").submit(function(event) {
 
@@ -1027,7 +1160,7 @@
 			type: 'POST',
 			data: $form.serialize() + "&_token={{ csrf_token() }}",
 			beforeSend: function() {
-				$('#submit-btn').text('Loading...');
+				$('#submit-btn-edit').text('Loading...');
 			}
 		}).done(function(data) {
 			$("#draft-form")[0].reset();
@@ -1041,10 +1174,51 @@
 		});
 
 	});
+
+$(document).on('submit', "#edit-draft-form", function(event) {
+		event.preventDefault();
+
+		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+
+		var $form = $(this);
+
+		// var posting = $.post("{{ route('admin.update-draft-form')}}", $form.serialize() + "&_token={{ csrf_token() }}");
+
+		$.ajax({
+			url: '{{ route('admin.update-draft-form') }}',
+			type: 'POST',
+			data: $form.serialize() + "&_token={{ csrf_token() }}",
+			beforeSend: function() {
+				$('#submit-btn-edit').text('Loading...');
+			}
+		}).done(function(data) {
+			$("#draft-form")[0].reset();
+			$('#submit-btn').text('Save');
+			$('#success-msg-update').show().html(data.message);
+			setTimeout(function() {
+				$('#success-msg-update').show().fadeOut('fast');
+				$('.close').trigger('click');
+				 location.reload();
+			}, 3000);
+		}).fail(function() {
+			$('#success-msg-update').text('failed');
+		});
+
+	});
   </script>
 
    <script type="text/javascript">
-       
+        $('#load-more').click(function() {
+            var page = $(this).data('paginate');
+            var draft_name = $(this).attr('data-draft-name');
+            var draft_mobile = $(this).attr('data-draft-mobile');
+            var draft_email = $(this).attr('data-draft-email');
+            var draft_subject = $(this).attr('data-draft-subject');
+            var draft_reciver_id = $(this).attr('data-draft-reciver_id');
+
+            loadMoreData(page,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id);
+            $(this).data('paginate', page+1);
+        });
         // run function when user click load more button
         function loadMoreData(paginate,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id) {
 
@@ -1134,6 +1308,45 @@
                   alert('Something went wrong.');
                });
     	});
+    </script>
+
+    <script type="text/javascript">
+    	
+
+  $(document).on('click', "#edit-item", function() {
+     var id = $(this).attr('data-id');
+
+    var options = {
+      'backdrop': 'static'
+    };
+    $('#edit-modal').modal(options);
+
+    var ajaxurl = '{{route('admin.update-draft')}}';
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': "{{ csrf_token() }}",
+          }
+      });
+        $.ajax({
+            url: ajaxurl,
+            data : {id:id},
+            type: "post",
+            success: function(data){
+                $data = $(data); 
+                $("#update-draft-html").show().html($data);
+            }
+        });
+
+
+  });
+
+  $(document).on('click', '.forcustom',function(){
+  	var activeTab = $('.dashboard-right .nav-tabs li a.active').attr('href');
+  	$(activeTab).find("input[name='keyword']").val($(this).html());
+  	$(activeTab).find(".button-filter").trigger('click');
+
+  });
+  
     </script>
 
 @endsection

@@ -168,7 +168,7 @@
 										<table class="table table-striped">
 											<tbody>
 												@foreach($employee->drafts as $draft)
-													<tr>
+													<tr class="editshowhide">
 														<td class="title">{{ $draft->subject }}</td>
 														<td class="comment">{{ $draft->body }}</td>
 														<td class="time">{{ $draft->created_at }}</td>

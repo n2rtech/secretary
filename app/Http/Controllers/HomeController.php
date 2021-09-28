@@ -12,6 +12,7 @@ use App\User;
 use App\Models\Group;
 use App\Models\EmployeeGroup;
 use App\Notifications\Draft;
+use App\Notifications\SendMessage;
 
 use App\Models\MostSearchedKeyword;
 
@@ -33,119 +34,14 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-
-        
-
-        $posts = Employee::get()->groupBy(function($item) {
-           return $item->Department;
-       });
-                 // echo "<pre>";print_r($posts->toArray());"</pre>";exit;
-
-        /*$user = Employee::find(3);
-        $user->groups()->attach(21);
-
-        $user = Employee::find(3);
-        $user->groups()->sync(array(13, 22, 3));
-
-        $user = Group::find(2);
-        $user->employees()->attach(25);
-
-        $user = Group::find(3);
-        $user->employees()->sync(array(21, 24, 34));*/
-
-        /*$grous = Group::with('employees')->get();
-
-        $group_id = $request->input('group_id');     
-        $s = $request->input('keyword');    
-        $keyword = $request->input('keyword');    
-
-        $posts = Group::with('employees')->whereHas('employees', function($q) use ($s,$group_id)
-        {
-            $q->where('NameFirst', 'like', '%'.$s.'%')
-                    ->orwhere('NamesMiddle', 'like', '%'.$s.'%')
-                    ->orwhere('NameLast', 'like', '%'.$s.'%')
-                    ->orwhere('Searchword', 'like', '%'.$s.'%')
-                    ->orwhere('Phonenumber', 'like', '%'.$s.'%')
-                    ->orwhere('Mobilephone', 'like', '%'.$s.'%')
-                    ->orwhere('PersonalEmail', 'like', '%'.$s.'%')
-                    ->orWhere(DB::raw("CONCAT('NameFirst', ' ', 'NamesMiddle', ' ', 'NameLast')"), 'like', '%'.$s.'%');
-
-        })->get();
-
-        $employees = Employee::with('groups')->get();*/
-
-        $group_employees = Group::distinct()->get(['groups.id','groups.name']);
+    {        
         $group_id = $request->input('group-id');
         $emp_id = $request->input('emp-id');
 
         $group = $request->input('group');     
         $s = $request->input('keyword');    
         $keyword = $request->input('keyword');    
-
-        foreach ($group_employees as $key => $group) {
-
-            if ((isset($group_id) && isset($keyword)) && $group_id == $group->id) {
-                $employees = EmployeeGroup::join('employees','employee_groups.employee_id','employees.ID')->where('employee_groups.group_id',$group->id)->Where(function($query) use ($s,$group_id)
-                {
-                    $query->where('NameFirst', 'like', '%'.$s.'%')
-                    ->orwhere('NamesMiddle', 'like', '%'.$s.'%')
-                    ->orwhere('NameLast', 'like', '%'.$s.'%')
-                    ->orwhere('Searchword', 'like', '%'.$s.'%')
-                    ->orwhere('Phonenumber', 'like', '%'.$s.'%')
-                    ->orwhere('Mobilephone', 'like', '%'.$s.'%')
-                    ->orwhere('PersonalEmail', 'like', '%'.$s.'%')
-                    ->orWhere(DB::raw("CONCAT('NameFirst', ' ', 'NamesMiddle', ' ', 'NameLast')"), 'like', '%'.$s.'%');
-                })->get();
-
-                if (count($employees) > 0) {
-                    MostSearchedKeyword::insert(['keyword' => $keyword]);
-                }
-
-                $group_employees[$key]->employees = $employees;
-
-            }else if (isset($keyword) && !empty($keyword)) {
-                $employees = EmployeeGroup::join('employees','employee_groups.employee_id','employees.ID')->where('employee_groups.group_id',$group->id)->Where(function($query) use ($s)
-                {
-                    $query->where('NameFirst', 'like', '%'.$s.'%')
-                    ->orwhere('NamesMiddle', 'like', '%'.$s.'%')
-                    ->orwhere('NameLast', 'like', '%'.$s.'%')
-                    ->orwhere('Searchword', 'like', '%'.$s.'%')
-                    ->orwhere('Phonenumber', 'like', '%'.$s.'%')
-                    ->orwhere('Mobilephone', 'like', '%'.$s.'%')
-                    ->orwhere('PersonalEmail', 'like', '%'.$s.'%')
-                    ->orWhere(DB::raw("CONCAT('NameFirst', ' ', 'NamesMiddle', ' ', 'NameLast')"), 'like', '%'.$s.'%');
-                })->get();
-
-                $group_employees[$key]->employees = $employees;
-
-            }else{
-                $group_employees[$key]->employees = EmployeeGroup::join('employees','employee_groups.employee_id','employees.ID')->where('employee_groups.group_id',$group->id)->get();
-            }
-        }
-
-        if ((isset($keyword) && !empty($keyword)) && $group_id == 0) {
-
-             $all_employees = Employee::Where(function($query) use ($s)
-                {
-                    $query->where('NameFirst', 'like', '%'.$s.'%')
-                    ->orwhere('NamesMiddle', 'like', '%'.$s.'%')
-                    ->orwhere('NameLast', 'like', '%'.$s.'%')
-                    ->orwhere('Searchword', 'like', '%'.$s.'%')
-                    ->orwhere('Phonenumber', 'like', '%'.$s.'%')
-                    ->orwhere('Mobilephone', 'like', '%'.$s.'%')
-                    ->orwhere('PersonalEmail', 'like', '%'.$s.'%')
-                    ->orWhere(DB::raw("CONCAT('NameFirst', ' ', 'NamesMiddle', ' ', 'NameLast')"), 'like', '%'.$s.'%');
-                })->get();
-
-            if (count($all_employees) > 0) {
-                MostSearchedKeyword::insert(['keyword' => $keyword]);
-            }
-
-        }else{
-            $all_employees = Employee::get()->take('10');
-        }        
-        
+                
         $searched_data =  MostSearchedKeyword::select('id',DB::raw('count(keyword) as keyword_count'), 'keyword')->groupBy('keyword')
         ->having(DB::raw('count(keyword)'), '>', 0)
         ->orderBy(DB::raw('count(keyword)'), 'desc')
@@ -289,7 +185,10 @@ class HomeController extends Controller
                 }
 
                 if (count($all_employees) > 0) {
-                    MostSearchedKeyword::insert(['keyword' => $keyword]);
+                    if (!isset($request->page)) {
+                        MostSearchedKeyword::insert(['keyword' => $keyword]);
+                    }
+
                 }
             }
 
@@ -325,8 +224,10 @@ class HomeController extends Controller
                                     </div>
                                 </div>
                             </div>';
-                            if($count % 3 == 0) {
+                            if(($count > 2) && ($count % 3 == 0)) {
                             $data.='<div class="profile-info" style="display:none;">My Profile</div>';
+                            }else{
+                                 $data.='<div class="profile-info" style="display:none;">My Profile</div>';
                             }
                             $count++;
             }
@@ -336,6 +237,117 @@ class HomeController extends Controller
         // echo "<pre>";print_r($group_employees->toArray());"</pre>";exit;
         
         return view('home', compact('searched_data','employees','messages','employee_list','employee_data','filter_name','filter_mobile','filter_email','filter_group','draft_name','draft_mobile','draft_email','draft_subject','draft_employee_id','emp_id','group_employees','all_employees','keyword','group_id','group_id','emp_id'));
+    }
+
+
+    public function updateDraftForm(Request $request)
+    {
+        /*$check = Message::where('id',$request->id)->update($request->except('_token'));
+
+        $arr = [];
+        if($check){ 
+
+            $arr = array('success'=>true,'message' => 'Draft updated successfully!');
+
+        }*/
+
+        if (isset($request->reciver_id) && !empty($request->reciver_id)) {
+            $employee = Employee::select('PersonalEmail','NameFirst','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->reciver_id)->first();
+
+            // $email = $employee->PersonalEmail;
+            $email = 'er.krishna.mishra@gmail.com';
+            // $mob_num = $employee->Mobilephone;
+            $mob_num = '9026574061';
+            $c = '2244';
+            $name = $employee->name;
+            $name_emp = $employee->NameFirst;
+            $user = User::make(['email' => $email, 'name' => $name]);
+
+
+            $details = [
+                'greeting' => 'Hi'.$name,
+                'subject' => $request->subject,
+                'body' => $request->body,
+                'name' => $request->name,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
+            ];
+
+            \Notification::send($user, new Draft($details));
+
+            Message::where('id',$request->id)->update(['is_sent' => 1]);
+
+            $messages = "Hi $name_emp URGENT We have today at 14.13 talked with $request->name $request->body Phone number: $request->mobile"; 
+
+            // $url = "http://login.pacttown.com/api/mt/SendSMS?user=N2RTECHNOLOGIES&password=994843&senderid=NTRTEC&channel=Trans&DCS=0&flashsms=0&number={$mob_num}&text=Your%20one%20time%20password%20to%20activate%20your%20account%20is%20{$c}&route=2";
+
+            /*if ($employee->SendMessage == 1) {
+
+                $url = "http://login.pacttown.com/api/mt/SendSMS?user=N2RTECHNOLOGIES&password=994843&senderid=NTRTEC&channel=Trans&DCS=0&flashsms=0&number={$mob_num}&text={$messages}&route=2";
+
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url); 
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+                $output = curl_exec($ch);   
+                $output = json_decode($output);
+                curl_close($ch);
+            }*/
+        }
+
+        $arr = array('success'=>true,'message' => 'Draft updated successfully!');
+        return Response()->json($arr);
+    }
+
+
+    public function sendMessage(Request $request)
+    {
+        if ($request->department == 'all') {
+            $employees = Employee::select('Department','PersonalEmail','NameFirst','GroupPhone','GroupEmail','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->get();
+        }else{
+            $employees = Employee::select('Department','PersonalEmail','NameFirst','GroupPhone','GroupEmail','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('Department',$request->department)->get();
+        }
+
+        foreach ($employees as $key => $employee) {
+  
+            $email = $employee->PersonalEmail;
+            $email = 'er.krishna.mishra@gmail.com';
+            $mob_num = $employee->Mobilephone;
+            $mob_num = '9026574061';
+            $c = '2244';
+            $name = $employee->name;
+            $name_emp = $employee->NameFirst;
+            $user = User::make(['email' => $email, 'name' => $name]);
+
+            $List = implode(' | ', $request->message_type);
+
+
+            $details = [
+                'greeting' => 'Hi'.$name,
+                'body' => $List,
+                'text' => "We have today at 14.13 talked with $name"
+            ];
+
+            \Notification::send($user, new SendMessage($details));
+
+            $messages = "Hi $name_emp URGENT We have today at 14.13 talked with $request->name $request->body Phone number: $request->mobile"; 
+
+            // $url = "http://login.pacttown.com/api/mt/SendSMS?user=N2RTECHNOLOGIES&password=994843&senderid=NTRTEC&channel=Trans&DCS=0&flashsms=0&number={$mob_num}&text=Your%20one%20time%20password%20to%20activate%20your%20account%20is%20{$c}&route=2";
+
+            if ($employee->SendMessage == 1) {
+
+                // $url = "http://login.pacttown.com/api/mt/SendSMS?user=N2RTECHNOLOGIES&password=994843&senderid=NTRTEC&channel=Trans&DCS=0&flashsms=0&number={$mob_num}&text={$messages}&route=2";
+
+                /*$ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url); 
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+                $output = curl_exec($ch);   
+                $output = json_decode($output);
+                curl_close($ch);*/
+            }
+            break;
+        }
+        $arr = array('success'=>true,'message' => 'Message sended to all!');
+        return Response()->json($arr);
     }
 
     public function saveDraft(Request $request)
@@ -408,11 +420,34 @@ class HomeController extends Controller
         return view('emp_profile', compact('id','employee'));
     }
 
+
+    public function updateDraft(Request $request)
+    {
+        $id = $request->id;
+        $message = Message::where('id',$id)->first();
+        if ($message->reciver_id) {
+            $message->reciver_name = Employee::select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$message->reciver_id)->first()->name;
+        }else{
+            $message->reciver_name = '';
+        }
+
+        $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
+        
+        return view('update_draft', compact('id','message','employee_list'));    
+    }
+
     public function editDraft(Request $request)
     {
         $id = $request->id;
         $message = Message::where('id',$id)->first();
-        $message->reciver_name = Employee::select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$message->reciver_id)->first()->name;
+        if ($message->reciver_id) {
+            $message->reciver_name = Employee::select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$message->reciver_id)->first()->name;
+        }else{
+            $message->reciver_name = '';
+        }
+
+        // echo "<pre>";print_r($message);"</pre>";exit;
+
         return view('edit_draft', compact('id','message'));    
     }
 

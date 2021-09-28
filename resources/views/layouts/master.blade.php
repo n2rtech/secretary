@@ -11,10 +11,8 @@
 	<link rel="shortcut icon" href="{{asset('img/icons/icon-48x48.png')}}" />
 
 	<title>@yield('title')</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
 	<link href="{{asset('css/master.css')}}" rel="stylesheet">
 	<link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
 </head>
 
 <body>
