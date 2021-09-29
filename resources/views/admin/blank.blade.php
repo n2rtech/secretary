@@ -1,183 +1,265 @@
-@extends('layouts.master')
-@section('content')
-@can('users_manage')
-<div class="container-fluid p-0">
-    <div class="row mb-2 mb-xl-3">
-        <div class="col-auto d-none d-sm-block">
-            <h3>Blank Page</h3>
-        </div>
+<!DOCTYPE html> 
 
-        <div class="col-auto ml-auto text-right mt-n1">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Blank Page</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <div class="row mb-2 mb-xl-3">
-                <div class="col-auto d-none d-sm-block">
-                    <form class="row row-cols-md-auto align-items-center" method="POST" action="">
-                        @csrf
-                        <div class="col-12">
-                            <label class="sr-only" for="inlineFormInputGroupUsername2">User</label>
-                            <div class="input-group mb-2 mr-sm-2">
-                                <div class="input-group-text">
-                                    <i class="align-middle mr-2" data-feather="user"></i>
-                                </div>
-                                <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Name">
-                            </div>
-                        </div>
+<html> 
 
-                        <div class="col-12">
-                            <label class="sr-only" for="inlineFormInputGroupUsername2">Email</label>
-                            <div class="input-group mb-2 mr-sm-2">
-                                <div class="input-group-text">
-                                    <i class="align-middle mr-2" data-feather="mail"></i>
-                                </div>
-                                <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Email">
-                            </div>
-                        </div>
+<head> 
 
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary mb-2"><i class="align-middle mr-2" data-feather="filter"></i>Filter</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-auto ml-auto text-right mt-n1">
-                 <a href="{{route('admin.users.create')}}" class="btn btn-success float-right"><i data-feather="user-plus"></i> {{ trans('global.create') }} {{ trans('cruds.user.title_singular') }}</a>
-             </div>
-         </div>
+    <meta charset="utf-8"> 
 
+    <meta name="viewport" content="width=device-width"> 
 
-     </div>
-     <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-stripe">
-                <thead>
-                    <tr>
-                        <th width="10">
+    <title>fullcalendar get current view date</title> 
 
-                        </th>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.css" /> 
 
-                        <th>
-                            {{ trans('cruds.user.fields.id') }}
-                        </th>
+</head> 
 
-                        <th>
-                            {{ trans('cruds.user.fields.name') }}
-                        </th>
+<style type="text/css"> 
 
-                        <th>
-                            {{ trans('cruds.user.fields.email') }}
-                        </th>
+    #calendar { 
 
-                        <th>
-                            {{ trans('cruds.user.fields.roles') }}
-                        </th>
+        width:80%; 
 
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
+        margin: 20px auto; 
 
-                    <tr data-entry-id="">
-                        <td>
+    } 
 
-                        </td>
+</style> 
 
-                        <td>
-                            {{ $user->id ?? '' }}
-                        </td>
+<body> 
 
-                        <td>
-                            {{ $user->name ?? '' }}
-                        </td>
+    <div id="calendar"></div> 
 
-                        <td>
-                            {{ $user->email ?? '' }}
-                        </td>
-                        <td>
+</body> 
 
-                        </td>
-                        <td>
-                            <a class="btn btn-xs btn-warning" href="#">
-                                {{ trans('global.view') }}
-                            </a>
+<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script> 
 
-                            <a class="btn btn-xs btn-info" href="#">
-                                {{ trans('global.edit') }}
-                            </a>
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script> 
 
-                            <form action="" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.js"></script> 
 
-                                <input type="hidden" name="_method" value="DELETE">
+<script type="text/javascript"> 
 
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    var defaultEvents = [ 
 
-                                <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                            </form>
+    { 
 
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-</div>
-@endcan
-@endsection
-@section('scripts')
-@parent
-<script>
-    $(function () {
-      let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-      @can('users_manage')
-      let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
-      let deleteButton = {
-        text: deleteButtonTrans,
-        url: "{{ route('admin.users.mass_destroy') }}",
-        className: 'btn-danger',
-        action: function (e, dt, node, config) {
-          var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-              return $(entry).data('entry-id')
-          });
+        // Just an event 
 
-          if (ids.length === 0) {
-            alert('{{ trans('global.datatables.zero_selected') }}')
+        title: 'Long Event', 
 
-            return
-        }
+        start: '2017-02-07', 
 
-        if (confirm('{{ trans('global.areYouSure') }}')) {
-            $.ajax({
-              headers: {'x-csrf-token': _token},
-              method: 'POST',
-              url: config.url,
-              data: { ids: ids, _method: 'DELETE' }})
-            .done(function () { location.reload() })
-        }
-    }
-}
-dtButtons.push(deleteButton)
-@endcan
+        end: '2017-02-10', 
 
-$.extend(true, $.fn.dataTable.defaults, {
-    order: [[ 1, 'desc' ]],
-    pageLength: 100,
-});
-$('.datatable-User:not(.ajaxTable)').DataTable({ buttons: dtButtons })
-$('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
-    $($.fn.dataTable.tables(true)).DataTable()
-    .columns.adjust();
-});
-})
+        className: 'scheduler_basic_event' 
 
-</script>
-@endsection
+    }, 
+
+    { 
+
+        // Custom repeating event 
+
+        id: 999, 
+
+        title: 'Repeating Event', 
+
+        start: '2017-02-09T16:00:00', 
+
+        className: 'scheduler_basic_event' 
+
+    }, 
+
+    { 
+
+        // Custom repeating event 
+
+        id: 999, 
+
+        title: 'Repeating Event', 
+
+        start: '2017-02-16T16:00:00', 
+
+        className: 'scheduler_basic_event' 
+
+    }, 
+
+    { 
+
+        // Just an event 
+
+        title: 'Lunch', 
+
+        start: '2017-02-12T12:00:00', 
+
+        className: 'scheduler_basic_event', 
+
+    }, 
+
+    { 
+
+        // Just an event 
+
+        title: 'Happy Hour', 
+
+        start: '2017-02-12T17:30:00', 
+
+        className: 'scheduler_basic_event' 
+
+    }, 
+
+    {    
+
+        // Monthly event 
+
+        id: 111, 
+
+        title: 'Meeting', 
+
+        start: '2000-01-01T00:00:00', 
+
+        className: 'scheduler_basic_event', 
+
+        repeat: 1 
+
+    }, 
+
+    { 
+
+        // Annual avent 
+
+        id: 222, 
+
+        title: 'Birthday Party', 
+
+        start: '2017-02-04T07:00:00', 
+
+        description: 'This is a cool event', 
+
+        className: 'scheduler_basic_event', 
+
+        repeat: 2 
+
+    }, 
+
+    { 
+
+        // Weekday event 
+
+        title: 'Click for Google', 
+
+        url: 'http://google.com/', 
+
+        start: '2017-02-28', 
+
+        className: 'scheduler_basic_event', 
+
+        dow: [1,5] 
+
+    } 
+
+]; 
+
+ 
+
+// Any value represanting monthly repeat flag 
+
+var REPEAT_MONTHLY = 1; 
+
+// Any value represanting yearly repeat flag 
+
+var REPEAT_YEARLY = 2; 
+
+     
+
+$('#calendar').fullCalendar({ 
+
+    header: { 
+
+        left: 'prev,next today', 
+
+        center: 'title', 
+
+        right: 'month,agendaWeek,agendaDay' 
+
+    }, 
+
+    editable: true, 
+
+    // defaultDate: '2017-02-16', 
+
+    eventSources: [defaultEvents], 
+
+    dayRender: function( date, cell ) { 
+
+    // Get all events 
+
+    var events = $('#calendar').fullCalendar('clientEvents').length ? $('#calendar').fullCalendar('clientEvents') : defaultEvents; 
+
+ 
+
+        // Start of a day timestamp 
+
+        var dateTimestamp = date.hour(0).minutes(0); 
+
+        var recurringEvents = new Array(); 
+
+         
+
+        // find all events with monthly repeating flag, having id, repeating at that day few months ago   
+
+        var monthlyEvents = events.filter(function (event) { 
+
+            return event.repeat === REPEAT_MONTHLY && 
+
+            event.id && 
+
+            moment(event.start).hour(0).minutes(0).diff(dateTimestamp, 'months', true) % 1 == 0 
+
+        }); 
+
+ 
+
+        // find all events with monthly repeating flag, having id, repeating at that day few years ago   
+
+        var yearlyEvents = events.filter(function (event) { 
+
+            return event.repeat === REPEAT_YEARLY && 
+
+            event.id && 
+
+            moment(event.start).hour(0).minutes(0).diff(dateTimestamp, 'years', true) % 1 == 0 
+
+        }); 
+
+ 
+
+        recurringEvents = monthlyEvents.concat(yearlyEvents); 
+
+ 
+
+        $.each(recurringEvents, function(key, event) { 
+
+        var timeStart = moment(event.start); 
+
+         
+
+        var currentDate = $('#calendar').fullCalendar('getDate'); 
+
+        var calDate = currentDate.format('DD.MM.YYYY'); 
+
+        console.log(calDate); 
+
+ 
+
+        }); 
+
+ 
+
+    } 
+
+}); 
+
+</script> 
+
+</html> 

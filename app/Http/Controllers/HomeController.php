@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
-
+use Response;
 use DB;
 use App\Models\Employee;
 use App\Models\Message;
+use App\Models\CalendarInformation;
 use App\User;
 use App\Models\Group;
 use App\Models\EmployeeGroup;
 use App\Notifications\Draft;
 use App\Notifications\SendMessage;
+use App\Notifications\SendEmpMessage;
 
 use App\Models\MostSearchedKeyword;
 
@@ -224,10 +226,8 @@ class HomeController extends Controller
                                     </div>
                                 </div>
                             </div>';
-                            if(($count > 2) && ($count % 3 == 0)) {
+                            if((count($all_employees) == $count ) || ($count % 3 == 0)) {
                             $data.='<div class="profile-info" style="display:none;">My Profile</div>';
-                            }else{
-                                 $data.='<div class="profile-info" style="display:none;">My Profile</div>';
                             }
                             $count++;
             }
@@ -265,7 +265,7 @@ class HomeController extends Controller
 
 
             $details = [
-                'greeting' => 'Hi'.$name,
+                'greeting' => 'Hi '.$name,
                 'subject' => $request->subject,
                 'body' => $request->body,
                 'name' => $request->name,
@@ -298,6 +298,55 @@ class HomeController extends Controller
         return Response()->json($arr);
     }
 
+  public function sendMessageToEmployee(Request $request)
+    {
+            $employee = Employee::select('Department','PersonalEmail','NameFirst','GroupPhone','GroupEmail','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->id)->first();
+  
+            $email = $employee->PersonalEmail;
+            $email = 'er.krishna.mishra@gmail.com';
+            $mob_num = $employee->Mobilephone;
+            // $mob_num = '9026574061';
+            $c = '2244';
+            $name = $employee->name;
+            $name_emp = $employee->NameFirst;
+            $user = User::make(['email' => $email, 'name' => $name]);
+
+            $List = implode(' | ', @$request->message_type);
+
+            $user_name = $request->name;
+            $user_email = $request->email;
+            $user_mobile = $request->mobile;
+
+
+            $details = [
+                'greeting' => 'Hi '.$name,
+                'body' => $List,
+                'text' => "We have today at 14.13 talked with $user_name($user_mobile)",
+                'message' => $request->body,
+                'mobile' => 'Phone number: '.$request->mobile,
+            ];
+
+            \Notification::send($user, new SendEmpMessage($details));
+
+            $messages = "Hi $name_emp URGENT We have today at 14.13 talked with $request->name $request->body Phone number: $request->mobile"; 
+
+            // $url = "http://login.pacttown.com/api/mt/SendSMS?user=N2RTECHNOLOGIES&password=994843&senderid=NTRTEC&channel=Trans&DCS=0&flashsms=0&number={$mob_num}&text=Your%20one%20time%20password%20to%20activate%20your%20account%20is%20{$c}&route=2";
+
+            if ($employee->SendMessage == 1) {
+
+                // $url = "http://login.pacttown.com/api/mt/SendSMS?user=N2RTECHNOLOGIES&password=994843&senderid=NTRTEC&channel=Trans&DCS=0&flashsms=0&number={$mob_num}&text={$messages}&route=2";
+
+                /*$ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url); 
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+                $output = curl_exec($ch);   
+                $output = json_decode($output);
+                curl_close($ch);*/
+            }
+
+        $arr = array('success'=>true,'message' => 'Message sended to all!');
+        return Response()->json($arr);
+    }
 
     public function sendMessage(Request $request)
     {
@@ -322,7 +371,7 @@ class HomeController extends Controller
 
 
             $details = [
-                'greeting' => 'Hi'.$name,
+                'greeting' => 'Hi '.$name,
                 'body' => $List,
                 'text' => "We have today at 14.13 talked with $name"
             ];
@@ -347,6 +396,36 @@ class HomeController extends Controller
             break;
         }
         $arr = array('success'=>true,'message' => 'Message sended to all!');
+        return Response()->json($arr);
+    }
+
+
+    public function saveEvent(Request $request)
+    {
+
+         $input = $request->all();
+    $date_from = $input['from_date'];
+    $date_to = $input['to_date'];
+    $time_from = $input['from_time'];
+    $time_to = $input['to_time'];
+    $start = date('Y-m-d H:i:s', strtotime("$date_from $time_from"));
+    $end = date('Y-m-d H:i:s', strtotime("$date_to $time_to"));
+    $input['start'] = $start;
+    $input['end'] = $end;
+    if ($request->message_status == 'on') {
+        $input['message_status'] = 1;
+    }
+
+        $check = CalendarInformation::create($input);
+
+        $arr = [];
+        if($check){ 
+
+            $arr = array('success'=>true,'message' => 'Event saved successfully!');
+
+        }
+
+       
         return Response()->json($arr);
     }
 
@@ -375,7 +454,7 @@ class HomeController extends Controller
 
 
             $details = [
-                'greeting' => 'Hi'.$name,
+                'greeting' => 'Hi '.$name,
                 'subject' => $request->subject,
                 'body' => $request->body,
                 'name' => $request->name,
@@ -415,9 +494,13 @@ class HomeController extends Controller
 
         $employee = Employee::where('ID',$id)->first();
 
-        $employee->drafts = Message::select('messages.*', DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->join('employees','employees.ID','messages.reciver_id')->where('employees.ID',$id)->latest('messages.created_at')->paginate(10);
+        $employee_drafts = Message::select('messages.*', DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->join('employees','employees.ID','messages.reciver_id')->where('employees.ID',$id)->latest('messages.created_at')->paginate(10);
 
-        return view('emp_profile', compact('id','employee'));
+        $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
+
+        // echo "<pre>";print_r(compact('id','employee','employee_list','employee_drafts'));"</pre>";exit;
+
+        return view('emp_profile', compact('id','employee','employee_list','employee_drafts'));
     }
 
 
@@ -459,7 +542,7 @@ class HomeController extends Controller
         $draft_email = $request->input('draft-email');
         $draft_mobile = $request->input('draft-mobile');     
         $draft_subject = $request->input('draft-subject');     
-        $draft_employee_id = $request->input('draft-employee-id');     
+        $draft_employee_id = $request->input('draft-reciver_id');     
 
         if ($request->has('draft-name')) {
             $messages2->where('messages.name','LIKE', '%'.$request->input('draft-name').'%');
@@ -469,8 +552,8 @@ class HomeController extends Controller
             $messages2->where('messages.subject','LIKE', '%'.$request->input('draft-subject').'%');
         }
 
-        if ($request->has('draft-employee-id')) {
-            $messages2->where('messages.reciver_id',$request->input('draft-employee-id'));
+        if ($request->has('draft-reciver_id')) {
+            $messages2->where('messages.reciver_id',$request->input('draft-reciver_id'));
         }
 
         if($request->has('draft-email')) {  
@@ -520,7 +603,7 @@ class HomeController extends Controller
             $messages2->where('messages.subject','LIKE', '%'.$request->input('draft-subject').'%');
         }
 
-        if ($request->has('[draft-reciver_id')) {
+        if ($request->has('draft-reciver_id')) {
             $messages2->where('messages.reciver_id',$request->input('draft-reciver_id'));
         }
 
@@ -545,6 +628,27 @@ class HomeController extends Controller
         }
 
         return $html;
+    }
+
+    public function calendarInfo(Request $request)
+    {
+
+        if(request()->ajax())
+        {
+            $start = (!empty($_GET["start"])) ? ($_GET["start"]) : ('');
+
+            $end = (!empty($_GET["end"])) ? ($_GET["end"]) : ('');
+
+            $mc = CalendarInformation::select('calendar_informations.*', DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->join('employees','employees.ID','calendar_informations.employee_id')->where('employee_id',$request->emp_id)->whereDate('start', '>=', $start)->whereDate('end',   '<=', $end)->get();      
+
+            foreach ($mc as $key => $data) {
+                $mc[$key]->title = $data->event_activity;
+                $mc[$key]->message_status = ($data->message_status) ? 'On' : 'Off';
+            }
+
+            return Response::json($mc);
+
+        }
     }
 
 }

@@ -1,10 +1,12 @@
 @extends('layouts.master')
 @section('title','Dashboard')
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.css" /> 
 <style>
    .ajax-loading{
      text-align: center;
    }
+   .popover{ pointer-events:none; }
 
    .error{ color:red; } 
 </style>
@@ -146,11 +148,9 @@
 														  @endforeach
 														</select>
 													</div>
-
 													<div class="savebtn">
 														<button type="submit" id="submit-btn" class="btn btn-primary">Save</button>
 													</div>
-
 												</form>
 											</div>
 											<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -310,9 +310,7 @@
 									</div>
 								</div>
 							</div>
-							@if(($loop->iteration) >2 && ($loop->iteration % 3 == 0)) 
-							<div class="profile-info" style="display:none;">My Profile</div>
-							@else
+							@if(($loop->iteration % 3 == 0) || $loop->last) 
 							<div class="profile-info" style="display:none;">My Profile</div>
 							@endif
 							@endforeach
@@ -435,7 +433,7 @@
 									</div>
 								</div>
 							</div>
-							@if($loop->iteration % 3 == 0) 
+							@if(($loop->iteration % 3 == 0) || $loop->last) 
 							<div class="profile-info" style="display:none;">My Profile</div>
 							@endif
 							@endforeach
@@ -876,6 +874,8 @@
 @section('scripts')
 @parent
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.js"></script>
+
 <script>
 	$(document).ready(function(){
 		$("#profiletoggle").click(function(){
@@ -884,6 +884,30 @@
 		$(".messbtn").click(function(){
 			$(".sendmessage").toggle();
 		});
+
+
+		$(document).on('click', '.editshowhidedraft', function(event) {
+			event.preventDefault();
+
+			var id = $(this).attr('data-id');
+
+		var ajaxurl = '{{route('admin.edit-draft')}}';
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': "{{ csrf_token() }}",
+          }
+      });
+        $.ajax({
+            url: ajaxurl,
+            data : {id:$(this).attr('data-id')},
+            type: "post",
+            success: function(data){
+                $data = $(data); 
+                $(".editmessagedraft").show().html($data);
+            }
+        });
+		});
+
 
 		$(document).on('click', '.editshowhide', function(event) {
 			event.preventDefault();
@@ -986,6 +1010,7 @@
     }
 
     $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+    	$('.profile-info').empty();
     	localStorage.setItem('activeTab', $(e.target).html());
     	page = $(e.target).attr('data-paginate');
     	load_more(page);
@@ -1019,6 +1044,7 @@
 		}
 
 		$('.profile-info').hide();
+		$('.profile-info').empty();
 		var obj = $(this).parents('.profile-grid').parent().nextAll('.profile-info').first();
 
 		var ajaxurl = '{{route('admin.emp-info')}}';
@@ -1038,6 +1064,67 @@
         });
 
 	});
+
+
+	function loadCalendar(){
+
+		$('#calendar').fullCalendar('destroy');
+
+		var SITEURL = "{{ route('admin.calendar-info')}}"+location.search;
+
+		$.ajaxSetup({
+
+			headers: {
+
+				'X-CSRF-TOKEN': '{{ csrf_token() }}'
+
+			}
+
+		});
+
+		var calendar = $('#calendar').fullCalendar({
+
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right:''
+			},
+
+			editable: true,
+
+			eventLimit: true,
+
+			selectable: true,
+
+			selectHelper: true,
+
+			navLinks: true,
+
+			events: SITEURL+"?emp_id={{ $employee->ID }}",
+
+			displayEventTime: true,
+
+			eventColor: 'yellow',
+
+			eventRender: function(event, element){
+
+				if (event.allDay === 'true') {
+					event.allDay = true;
+				} else {
+					event.allDay = false;
+				}
+
+				element.popover({
+					html:true,
+					animation:true,
+					delay: 300,
+					content: "<b>Employee Name(Id)</b> : "+event.emp_name+" (#"+event.employee_id+")"+"</br><b>From Date </b> : "+event.from_date+"</br><b>From Time </b> : "+event.from_time+"</br><b>To Date </b> : "+event.to_date+"</br><b>To Time </b> : "+event.to_time+"</br><b>Event Type </b> : "+event.event_type+"</br><b>Event Activity </b> : "+event.event_activity+"</br><b>Message Status </b> : "+event.message_status+"</br>",
+					trigger: 'hover'
+				});
+				console.log('sss');
+			},
+		});
+	}
 </script>
 
 
@@ -1080,9 +1167,12 @@
 
 <script type="text/javascript">
 
+
+
+
+
 	$("#send-msg-to-all-all").submit(function(event) {
 		event.preventDefault();
-		return false;
 
 		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
 
@@ -1114,7 +1204,6 @@
 
 $("#send-msg-to-all-{{ $key }}").submit(function(event) {
 		event.preventDefault();
-		return false;
 
 		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
 
@@ -1208,7 +1297,7 @@ $(document).on('submit', "#edit-draft-form", function(event) {
   </script>
 
    <script type="text/javascript">
-        $('#load-moree').click(function() {
+        $('#load-more').click(function() {
             var page = $(this).data('paginate');
             var draft_name = $(this).attr('data-draft-name');
             var draft_mobile = $(this).attr('data-draft-mobile');
@@ -1348,5 +1437,4 @@ $(document).on('submit', "#edit-draft-form", function(event) {
   });
   
     </script>
-
 @endsection
