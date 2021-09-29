@@ -587,36 +587,32 @@ class HomeController extends Controller
 
     public function draftFilter(Request $request)
     {
-        $messages2 = Message::where('is_sent',0)->latest('messages.created_at');
+        $messages2 = Message::where('is_sent',0)->latest('created_at');
 
-        $draft_name = $request->input('draft-name');
-        $draft_email = $request->input('draft-email');
-        $draft_mobile = $request->input('draft-mobile');     
-        $draft_subject = $request->input('draft-subject');     
-        $draft_employee_id = $request->input('draft-reciver_id');     
-
-        if ($request->has('draft-name')) {
-            $messages2->where('messages.name','LIKE', '%'.$request->input('draft-name').'%');
+        if ($request->has('draft-name') && !empty($request->input('draft-name'))) {
+            $messages2->where('name','LIKE', '%'.$request->input('draft-name').'%');
         }
 
-        if ($request->has('draft-subject')) {
-            $messages2->where('messages.subject','LIKE', '%'.$request->input('draft-subject').'%');
+        if ($request->has('draft-subject') && !empty($request->input('draft-subject'))) {
+            $messages2->where('subject','LIKE', '%'.$request->input('draft-subject').'%');
         }
 
-        if ($request->has('draft-reciver_id')) {
-            $messages2->where('messages.reciver_id',$request->input('draft-reciver_id'));
+        if ($request->has('draft-reciver_id') && !empty($request->input('draft-reciver_id'))) {
+            $messages2->where('reciver_id', $request->input('draft-reciver_id'));
         }
 
-        if($request->has('draft-email')) {  
-            $messages2->where('messages.email','LIKE', '%'.$request->input('draft-email').'%');
+        if($request->has('draft-email') && !empty($request->input('draft-email'))) {  
+            $messages2->where('email','LIKE', '%'.$request->input('draft-email').'%');
         }
 
-        if($request->has('draft-mobile')) {
-            $messages2->where('messages.mobile','LIKE', '%'.$request->input('draft-mobile').'%');
+        if($request->has('draft-mobile') && !empty($request->input('draft-mobile'))) {
+            $messages2->where('mobile','LIKE', '%'.$request->input('draft-mobile').'%');
         }
         $posts = $messages2->paginate(10);
 
         $html = '';
+
+        echo "<pre>";print_r($posts);"</pre>";exit;
 
         foreach ($posts as $post) {
 
