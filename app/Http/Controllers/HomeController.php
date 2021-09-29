@@ -612,8 +612,6 @@ class HomeController extends Controller
 
         $html = '';
 
-        echo "<pre>";print_r($posts);"</pre>";exit;
-
         foreach ($posts as $post) {
 
             $html.='<tr class="editshowhide" data-id="'.$post->id.'">
