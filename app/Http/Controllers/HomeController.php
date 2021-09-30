@@ -645,4 +645,34 @@ class HomeController extends Controller
         }
     }
 
+    public function editProfile(Request $request)
+    {
+        $id = $request->id;
+
+        $employee = Employee::select('employees.*', DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$id)->first();
+
+        $employee_drafts = Message::select('messages.*', DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->join('employees','employees.ID','messages.reciver_id')->where('employees.ID',$id)->latest('messages.created_at')->paginate(10);
+
+        $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
+
+        $departments = Employee::distinct()->get('Department')->pluck('Department');
+
+        return view('edit_profile', compact('id','employee','employee_list','employee_drafts','departments'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        Employee::where('ID',$request->id)->update($request->except(['_token','id']));
+        $arr = array('success'=>true,'message' => 'Profile updated successfully!');
+            return Response()->json($arr);
+        /*[NameFirst] => Lynne
+    [NamesMiddle] => 
+    [NameLast] => Gwafranca
+    [Mobilephone] => 3855436924
+    [PersonalEmail] => tubajon@sbcglobal.net
+    [GroupEmail] => 
+    [_token] => 6jbErmObIItr6P5RQSfaawW3yURQJ39mlli2eHEM*/
+       echo "<pre>";print_r($request->except(['_token']));"</pre>";exit;
+    }
+
 }

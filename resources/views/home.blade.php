@@ -769,7 +769,7 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body" id="edit-profile-html">
 				<div class="row">
 					<div class="col-sm-6 col-xs-6 border-right">
 						<div class="changeprofile">
@@ -1034,6 +1034,8 @@
 	})
 </script>
 <script type="text/javascript">
+
+
 	$(document).on('click', '.click-profile' , function() {
 		if ($(this).attr('is_close') == 'no') {
 			$(this).parents('.profile-grid').parent().nextAll('.profile-info').first().hide();
@@ -1435,6 +1437,10 @@ $(document).on('submit', "#edit-draft-form", function(event) {
   	$(activeTab).find(".button-filter").trigger('click');
 
   });
+
+
+  
   
     </script>
+
 @endsection

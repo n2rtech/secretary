@@ -14,7 +14,7 @@
 						<div class="posttag">Sales, Management</div>
 					</div>
 					<div class="editbtn">
-						<a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Edit Details</a>
+						<a href="#" data-toggle="modal" data-target="#myModal" id="edit-profile" data-id="{{ $employee->ID }}" class="btn btn-primary">Edit Details</a>
 					</div>
 				</div>
 			</div>
@@ -302,3 +302,278 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+
+
+	$(document).on('submit','#event-form',function(event) {
+		event.preventDefault();
+
+		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+
+		var $form = $(this);
+
+		$.ajax({
+			url: '{{ route('admin.save-event') }}',
+			type: 'POST',
+			data: $form.serialize() + "&_token={{ csrf_token() }}",
+			beforeSend: function() {
+				$("#event-form-btn").text('Loading...');
+			}
+		}).done(function(data) {
+			$("#event-form")[0].reset();
+			$("#event-form-btn").text('Save');
+			$("#event-form-message").show().html(data.message);
+			setTimeout(function() {
+				$("#event-form-message").show().fadeOut('fast');
+			}, 5000);
+		}).fail(function() {
+			$("#event-form-message").text('failed');
+		});
+
+	});
+
+
+		$(document).on('submit','#profile-draft-form',function(event) {
+		event.preventDefault();
+
+		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+
+		var $form = $(this),
+		url = $form.attr('action');
+
+		$.ajax({
+			url: '{{ route('admin.save-draft') }}',
+			type: 'POST',
+			data: $form.serialize() + "&_token={{ csrf_token() }}",
+			beforeSend: function() {
+				$("#profile-draft").text('Loading...');
+			}
+		}).done(function(data) {
+			$("#profile-draft-form")[0].reset();
+			$("#profile-draft").text('Save');
+			$("#profile-draft--message").show().html(data.message);
+			setTimeout(function() {
+				$("#profile-draft--message").show().fadeOut('fast');
+			}, 5000);
+		}).fail(function() {
+			$("#profile-draft--message").text('failed');
+		});
+
+	});
+
+	$(document).on('submit','#send-message-form',function(event) {
+		event.preventDefault();
+
+		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+
+		var $form = $(this),
+		url = $form.attr('action');
+
+		$.ajax({
+			url: '{{ route('admin.send-message-emp') }}',
+			type: 'POST',
+			data: $form.serialize() + "&_token={{ csrf_token() }}",
+			beforeSend: function() {
+				$("#send-message-form-btn").text('Loading...');
+			}
+		}).done(function(data) {
+			$("#send-message-form")[0].reset();
+			$("#send-message-form-btn").text('Save');
+			$("#success-msg-send-message").show().html(data.message);
+			setTimeout(function() {
+				$("#success-msg-send-message").show().fadeOut('fast');
+			}, 5000);
+		}).fail(function() {
+			$("#success-msg-send-message").text('failed');
+		});
+
+	});
+</script>
+
+
+<script type="text/javascript">
+        $('#load-more-draft').click(function() {
+            var page = $(this).data('paginate');
+            var draft_name = $(this).attr('data-draft-name');
+            var draft_mobile = $(this).attr('data-draft-mobile');
+            var draft_email = $(this).attr('data-draft-email');
+            var draft_subject = $(this).attr('data-draft-subject');
+            var draft_reciver_id = $(this).attr('data-draft-reciver_id');
+
+            loadMoreData(page,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id);
+            $(this).data('paginate', page+1);
+        });
+        // run function when user click load more button
+        function loadMoreData(paginate,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id) {
+
+        	var url = '{{ route('admin.get-draft') }}?page=' + paginate;
+
+        	if (draft_name) {
+        		url += '&draft-name='+ draft_name;
+        	}
+
+        	if (draft_email) {
+        		url += '&draft-email='+ draft_email;
+        	}
+
+        	if (draft_mobile) {
+        		url += '&draft-mobile='+ draft_mobile;
+        	}
+
+        	if (draft_subject) {
+        		url += '&draft-subject='+ draft_subject;
+        	}
+
+        	if (draft_reciver_id) {
+        		url += '&draft-reciver_id='+ draft_reciver_id;
+        	}
+
+            $.ajax({
+                url: url,
+                type: 'get',
+                datatype: 'html',
+                beforeSend: function() {
+                    $('#load-more-draft').text('Loading...');
+                }
+            })
+            .done(function(data) {
+                if(data.length == 0) {
+                    $('.invisible-draft').removeClass('invisible');
+                    $('#load-more-draft').text('Show More');
+                    return;
+                  } else {
+                    $('#load-more-draft').text('Load more...');
+                    $('#post-draft').append(data);
+                  }
+            })
+               .fail(function(jqXHR, ajaxOptions, thrownError) {
+                  alert('Something went wrong.');
+               });
+        }
+    </script>
+
+    <script type="text/javascript">
+    	
+    	$(document).ready(function () {
+
+		var SITEURL = "{{ route('admin.calendar-info')}}"+location.search;
+
+		$.ajaxSetup({
+
+			headers: {
+
+				'X-CSRF-TOKEN': '{{ csrf_token() }}'
+
+			}
+
+		});
+
+		var calendar = $('#calendar').fullCalendar({
+
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right:''
+			},
+
+			// editable: true,
+
+			eventLimit: true,
+
+			selectable: true,
+
+			selectHelper: true,
+
+			// navLinks: true,
+
+			events: SITEURL+"?emp_id={{ $id }}",
+
+			displayEventTime: true,
+
+			eventColor: 'yellow',
+
+			eventRender: function(event, element){
+
+				if (event.allDay === 'true') {
+					event.allDay = true;
+				} else {
+					event.allDay = false;
+				}
+
+				element.popover({
+					html:true,
+					animation:true,
+					delay: 300,
+					content: "<b>Employee Name(Id)</b> : "+event.emp_name+" (#"+event.employee_id+")"+"</br><b>From Date </b> : "+event.from_date+"</br><b>From Time </b> : "+event.from_time+"</br><b>To Date </b> : "+event.to_date+"</br><b>To Time </b> : "+event.to_time+"</br><b>Event Type </b> : "+event.event_type+"</br><b>Event Activity </b> : "+event.event_activity+"</br><b>Message Status </b> : "+event.message_status+"</br>",
+					trigger: 'hover'
+				});
+				console.log('sss');
+			},
+		});
+	});
+
+
+    </script>
+
+    <script type="text/javascript">
+
+
+    	$("#draft-search").submit(function(event) {
+
+    		event.preventDefault();
+
+    		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+
+    		var $form = $(this),
+    		url = $form.attr('action');
+
+    		$.each($form.serialize().split('&'), function (index, elem) {
+    			var vals = elem.split('=');
+    			$(".set-filter-data").attr('data-'+vals[0],decodeURIComponent((vals[1]+'').replace(/\+/g, '%20')))
+    		});
+
+    		var posting = $.post("{{ route('admin.filter.draft')}}", $form.serialize() + "&_token={{ csrf_token() }}");
+
+    		posting.done(function(data) {
+    			if(data.length == 0) {
+    				$('#post').empty();
+    				$('#post').append('<tr>No data...</tr>');
+    				return;
+    			} else {
+    				$('#post').empty();
+    				$('#post').append(data);
+    				$('#load-more').show();
+    			}
+    		})
+    		.fail(function(jqXHR, ajaxOptions, thrownError) {
+    			alert('Something went wrong.');
+    		});
+    	});
+
+
+  $(document).on('click', '#edit-profile' , function() {
+  	var id = $(this).attr('data-id');
+
+  	var options = {
+  		'backdrop': 'static'
+  	};
+  	$('#myModal').modal(options);
+
+  	var ajaxurl = '{{route('admin.edit-profile')}}';
+  	$.ajaxSetup({
+  		headers: {
+  			'X-CSRF-TOKEN': "{{ csrf_token() }}",
+  		}
+  	});
+  	$.ajax({
+  		url: ajaxurl,
+  		data : {id:id},
+  		type: "post",
+  		success: function(data){
+  			$data = $(data); 
+  			$("#edit-profile-html").show().html($data);
+  		}
+  	});
+
+  });
+  </script>
