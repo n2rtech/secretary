@@ -84,7 +84,7 @@
 								</div>
 
 								<div class="savebtn">
-									<button type="submit" id="send-message-form-btn" class="btn btn-primary">Send</button>
+									<button type="button" id="send-message-form-btn" class="btn btn-primary">Send</button>
 								</div>
 
 							</form>
@@ -102,7 +102,7 @@
 							<div class="tab-content" id="myTabContent3">
 								<div class="tab-pane fade show active" id="home-profile" role="tabpanel" aria-labelledby="home-tab3">
 
-									<div id="profile-draft--message" style="display:none;" class="alert alert-success"></div>
+									<div id="profile-draft-message" style="display:none;" class="alert alert-success"></div>
 
 									<form class="create" id="profile-draft-form">
 										<div class="form-group">
@@ -131,12 +131,14 @@
 										</div>
 
 										<div class="savebtn">
-											<button type="submit" id="profile-draft" class="btn btn-primary">Save</button>
+											<button type="button" data-id="{{ $id }}" id="profile-draft" class="btn btn-primary">Save</button>
 										</div>
 
 									</form>
 								</div>
 								<div class="tab-pane fade" id="profile-draft-save" role="tabpanel" aria-labelledby="profile-tab3">
+
+									<div id="profile-draft-save-message" style="display:none;" class="alert alert-success"></div>
 
 									<form class="create" id="profile-draft-save-form">
 										<div class="form-group">
@@ -152,7 +154,7 @@
 											<input required class="form-control form-control-lg inputstyle" type="text" name="subject" placeholder="Message Subject">
 										</div>
 										<div class="form-group">
-											<textarea name="body" class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
+											<textarea name="body" required class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
 										</div>
 										<div class="form-group">
 											<select name="reciver_id" class="form-control form-select">
@@ -164,7 +166,7 @@
 										</div>
 
 										<div class="savebtn">
-											<button type="submit" id="profile-draft-save-btn" class="btn btn-primary">Save</button>
+											<button type="button" data-id="{{ $id }}" id="profile-draft-save-btn" class="btn btn-primary">Save</button>
 										</div>
 
 									</form>
@@ -289,7 +291,7 @@
 									</div>
 
 									<div class="savebtn">
-										<button type="submit" id="event-form-btn" class="btn btn-primary">Send</button>
+										<button type="button" id="event-form-btn" class="btn btn-primary">Send</button>
 									</div>
 
 								</form>
@@ -333,8 +335,42 @@
 	});
 
 
-		$(document).on('submit','#profile-draft-form',function(event) {
+	$(document).on('submit','#profile-draft-form1',function(event) {
 		event.preventDefault();
+
+		var id = $("#profile-draft").attr('data-id');
+
+		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+
+		var $form = $(this),
+		url = $form.attr('action');
+
+		$.ajax({
+			url: '{{ route('admin.save-send-draft') }}',
+			type: 'POST',
+			data: $form.serialize() + "&_token={{ csrf_token() }}",
+			beforeSend: function() {
+				$("#profile-draft").text('Loading...');
+			}
+		}).done(function(data) {
+			loadMoreDataDraftReset(1,'','','','',id);
+			$("#profile-draft-form")[0].reset();
+			$("#profile-draft").text('Save');
+			$("#profile-draft-message").show().html(data.message);
+			setTimeout(function() {
+				$("#profile-draft-message").show().fadeOut('fast');
+			}, 5000);
+		}).fail(function() {
+			$("#profile-draft-message").text('failed');
+		});
+
+	});
+
+
+	$(document).on('submit','#profile-draft-save-form1',function(event) {
+		event.preventDefault();
+
+		var id = $("#profile-draft-save-btn").attr('data-id');
 
 		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
 
@@ -346,19 +382,19 @@
 			type: 'POST',
 			data: $form.serialize() + "&_token={{ csrf_token() }}",
 			beforeSend: function() {
-				$("#profile-draft").text('Loading...');
+				$("#profile-draft-save-btn").text('Loading...');
 			}
 		}).done(function(data) {
-			$("#profile-draft-form")[0].reset();
-			$("#profile-draft").text('Save');
-			$("#profile-draft--message").show().html(data.message);
+			loadMoreDataDraftReset(1,'','','','',id);
+			$("#profile-draft-save-form")[0].reset();
+			$("#profile-draft-save-btn").text('Save');
+			$("#profile-draft-save-message").show().html(data.message);
 			setTimeout(function() {
-				$("#profile-draft--message").show().fadeOut('fast');
+				$("#profile-draft-save-message").show().fadeOut('fast');
 			}, 5000);
 		}).fail(function() {
-			$("#profile-draft--message").text('failed');
+			$("#profile-draft-save-message").text('failed');
 		});
-
 	});
 
 	$(document).on('submit','#send-message-form',function(event) {
@@ -400,13 +436,61 @@
             var draft_subject = $(this).attr('data-draft-subject');
             var draft_reciver_id = $(this).attr('data-draft-reciver_id');
 
-            loadMoreData(page,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id);
+            loadMoreDataDraft(page,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id);
             $(this).data('paginate', page+1);
         });
-        // run function when user click load more button
-        function loadMoreData(paginate,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id) {
 
-        	var url = '{{ route('admin.get-draft') }}?page=' + paginate;
+         function loadMoreDataDraftReset(paginate,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id) {
+         	$('#post-draft').empty();
+        	var url = '{{ route('admin.get-draft-emp') }}?page=' + paginate;
+
+        	if (draft_name) {
+        		url += '&draft-name='+ draft_name;
+        	}
+
+        	if (draft_email) {
+        		url += '&draft-email='+ draft_email;
+        	}
+
+        	if (draft_mobile) {
+        		url += '&draft-mobile='+ draft_mobile;
+        	}
+
+        	if (draft_subject) {
+        		url += '&draft-subject='+ draft_subject;
+        	}
+
+        	if (draft_reciver_id) {
+        		url += '&draft-reciver_id='+ draft_reciver_id;
+        	}
+
+            $.ajax({
+                url: url,
+                type: 'get',
+                datatype: 'html',
+                beforeSend: function() {
+                    $('#load-more-draft').text('Loading...');
+                }
+            })
+            .done(function(data) {
+                if(data.length == 0) {
+                    $('.invisible-draft').removeClass('invisible');
+                    $('#load-more-draft').text('Show More');
+                    return;
+                  } else {                  	
+                    $('#load-more-draft').text('Load more...');
+                    $('#post-draft').append(data);
+                  }
+            })
+               .fail(function(jqXHR, ajaxOptions, thrownError) {
+                  alert('Something went wrong.');
+               });
+        }
+
+        // run function when user click load more button
+        function loadMoreDataDraft(paginate,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id) {
+
+        	var url = '{{ route('admin.get-draft-emp') }}?page=' + paginate;
 
         	if (draft_name) {
         		url += '&draft-name='+ draft_name;

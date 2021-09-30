@@ -23,10 +23,10 @@
 					</div>
 					<div class="form-group">
 						<select class="form-control form-select" disabled>
-							<option selected="">Assign To Employee</option>
-							<option selected value="{{ $message->reciver_id }}">{{ $message->reciver_name }}</option>
-							<option value="2">Two</option>
-							<option value="3">Three</option>
+							<option selected value="">Assign To Employee</option>
+							@foreach($employee_list as $key => $employee)
+							<option @if($message->reciver_id == $key) selected @endif value="{{ $key}}">{{ $employee}}</option>
+							@endforeach
 						</select>
 					</div>
 
@@ -34,7 +34,7 @@
 						<a href="javascript:void(0)" class="btn btn-primary" data-id="{{ $message->id }}" id="edit-item" data-toggle="modal" data-target="#myModal2">Send Message With Corrections</a>
 					</div>
 					<div class="savebtn editmessbtn">
-						<button type="button" class="btn btn-primary">Send Message Without Corrections</button>
+						<button type="button" data-id="{{ $message->id }}" id="send-message-wc" class="btn btn-primary">Send Message Without Corrections</button>
 					</div>
 
 				</form>

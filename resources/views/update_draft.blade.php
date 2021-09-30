@@ -21,7 +21,7 @@
 		<select class="form-control form-select" required name="reciver_id" id="reciver_id">
 			<option selected value="">Assign To Employee</option>
 			@foreach($employee_list as $key => $employee)
-			<option value="{{ $key}}">{{ $employee}}</option>
+			<option @if($message->reciver_id == $key) selected @endif value="{{ $key}}">{{ $employee}}</option>
 			@endforeach
 		</select>
 	</div>

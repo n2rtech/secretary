@@ -1195,6 +1195,7 @@ $("#send-msg-to-all-{{ $key }}").submit(function(event) {
 			}
 		}).done(function(data) {
 			$("#draft-form")[0].reset();
+			$("#draft-search").submit();
 			$('#submit-btn').text('Save');
 			$('#success-msg').show().html(data.message);
 			setTimeout(function() {
@@ -1274,7 +1275,6 @@ $(document).on('submit', "#edit-draft-form", function(event) {
         	if (draft_reciver_id) {
         		url += '&draft-reciver_id='+ draft_reciver_id;
         	}
-
             $.ajax({
                 url: url,
                 type: 'get',
@@ -1378,7 +1378,33 @@ $(document).on('submit', "#edit-draft-form", function(event) {
 
   });
 
+  $(document).on('click', '#send-message-wc',function(){
+  	var id = $(this).attr('data-id');
+  	var obj = $(this);
 
+  	var ajaxurl = '{{route('admin.send-message-woc')}}';
+  	$.ajaxSetup({
+  		headers: {
+  			'X-CSRF-TOKEN': "{{ csrf_token() }}",
+  		}
+  	});
+  	$.ajax({
+  		url: ajaxurl,
+  		data : {id:$(this).attr('data-id')},
+  		type: "post",
+  		beforeSend: function()
+  		{
+  			obj.text('Sending...');
+  		},
+  		success: function(data){
+  			obj.text('Sended');
+  			{{-- alert(data.message); --}}
+  			setTimeout(function() {
+  				location.reload();
+  			}, 2000);
+  		}
+  	});
+  });
   
   
     </script>

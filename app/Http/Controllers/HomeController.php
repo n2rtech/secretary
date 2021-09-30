@@ -240,6 +240,83 @@ class HomeController extends Controller
     }
 
 
+    public function sendMessageWoc(Request $request)
+    {
+        $data = Message::where('id',$request->id)->first();
+
+        if (isset($data->reciver_id) && !empty($data->reciver_id)) {
+            $employee = Employee::select('PersonalEmail','NameFirst','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$data->reciver_id)->first();
+
+            $email = $employee->PersonalEmail;
+            // $email = 'er.krishna.mishra@gmail.com';
+            $mob_num = $employee->Mobilephone;
+            // $mob_num = '9026574061';
+            $c = '2244';
+            $name = $employee->name;
+            $name_emp = $employee->NameFirst;
+            $user = User::make(['email' => $email, 'name' => $name]);
+
+
+            $details = [
+                'greeting' => 'Hi '.$employee->name,
+                'subject' => $data->subject,
+                'body' => $data->body,
+                'name' => $data->name,
+                'email' => $data->email,
+                'mobile' => $data->mobile,
+            ];
+
+            \Notification::send($user, new Draft($details));
+
+            Message::where('id',$request->id)->update(['is_sent' => 1]);
+
+            $messages = "Hi $name_emp URGENT We have today at 14.13 talked with $request->name $request->body Phone number: $request->mobile";
+
+        }
+
+        $arr = array('success'=>true,'message' => 'Message sended successfully!');
+        return Response()->json($arr);
+    }
+
+
+    public function saveSendDraft(Request $request)
+    {
+        $check = Message::create($request->except('_token'));
+
+        if (isset($request->reciver_id) && !empty($request->reciver_id)) {
+            $employee = Employee::select('PersonalEmail','NameFirst','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->reciver_id)->first();
+
+            $email = $employee->PersonalEmail;
+            // $email = 'er.krishna.mishra@gmail.com';
+            $mob_num = $employee->Mobilephone;
+            // $mob_num = '9026574061';
+            $c = '2244';
+            $name = $employee->name;
+            $name_emp = $employee->NameFirst;
+            $user = User::make(['email' => $email, 'name' => $name]);
+
+
+            $details = [
+                'greeting' => 'Hi '.$name,
+                'subject' => $request->subject,
+                'body' => $request->body,
+                'name' => $request->name,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
+            ];
+
+            \Notification::send($user, new Draft($details));
+
+            Message::where('id',$request->id)->update(['is_sent' => 1]);
+
+            $messages = "Hi $name_emp URGENT We have today at 14.13 talked with $request->name $request->body Phone number: $request->mobile"; 
+        }
+
+        $arr = array('success'=>true,'message' => 'Draft updated successfully!');
+        return Response()->json($arr);
+    }
+
+
     public function updateDraftForm(Request $request)
     {
         $check = Message::where('id',$request->id)->update($request->except('_token'));
@@ -529,9 +606,59 @@ class HomeController extends Controller
             $message->reciver_name = '';
         }
 
-        // echo "<pre>";print_r($message);"</pre>";exit;
+       $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
 
-        return view('edit_draft', compact('id','message'));    
+        return view('edit_draft', compact('id','message','employee_list'));    
+    }
+
+    public function getDraftEmp(Request $request)
+    {
+        $messages2 = Message::latest('messages.created_at');
+
+        $draft_name = $request->input('draft-name');
+        $draft_email = $request->input('draft-email');
+        $draft_mobile = $request->input('draft-mobile');     
+        $draft_subject = $request->input('draft-subject');     
+        $draft_employee_id = $request->input('draft-reciver_id'); 
+
+
+        if ($request->has('draft-name') && !empty($request->input('draft-name'))) {
+            $messages2->where('name','LIKE', '%'.$request->input('draft-name').'%');
+        }
+
+        if ($request->has('draft-subject') && !empty($request->input('draft-subject'))) {
+            $messages2->where('subject','LIKE', '%'.$request->input('draft-subject').'%');
+        }
+
+        if ($request->has('draft-reciver_id') && !empty($request->input('draft-reciver_id'))) {
+            $messages2->where('reciver_id', $request->input('draft-reciver_id'));
+        }
+
+        if($request->has('draft-email') && !empty($request->input('draft-email'))) {  
+            $messages2->where('email','LIKE', '%'.$request->input('draft-email').'%');
+        }
+
+        if($request->has('draft-mobile') && !empty($request->input('draft-mobile'))) {
+            $messages2->where('mobile','LIKE', '%'.$request->input('draft-mobile').'%');
+        }
+
+        $posts = $messages2->paginate(10);
+
+        if ($request->ajax()) {
+            $html = '';
+
+            foreach ($posts as $post) {
+                $html.='<tr class="editshowhide" data-id="'.$post->id.'">
+                <td class="title">'. $post->subject .'</td>
+                <td class="comment">'. $post->body .'</td>
+                <td class="time">'. date('h:i A',strtotime($post->created_at)) .'</td>
+                </tr>';
+            }
+
+            return $html;
+        }
+
+        return view('post');
     }
 
     public function getDraft(Request $request)
@@ -542,31 +669,30 @@ class HomeController extends Controller
         $draft_email = $request->input('draft-email');
         $draft_mobile = $request->input('draft-mobile');     
         $draft_subject = $request->input('draft-subject');     
-        $draft_employee_id = $request->input('draft-reciver_id');     
+        $draft_employee_id = $request->input('draft-reciver_id'); 
 
-        if ($request->has('draft-name')) {
-            $messages2->where('messages.name','LIKE', '%'.$request->input('draft-name').'%');
+
+        if ($request->has('draft-name') && !empty($request->input('draft-name'))) {
+            $messages2->where('name','LIKE', '%'.$request->input('draft-name').'%');
         }
 
-        if ($request->has('draft-subject')) {
-            $messages2->where('messages.subject','LIKE', '%'.$request->input('draft-subject').'%');
+        if ($request->has('draft-subject') && !empty($request->input('draft-subject'))) {
+            $messages2->where('subject','LIKE', '%'.$request->input('draft-subject').'%');
         }
 
-        if ($request->has('draft-reciver_id')) {
-            $messages2->where('messages.reciver_id',$request->input('draft-reciver_id'));
+        if ($request->has('draft-reciver_id') && !empty($request->input('draft-reciver_id'))) {
+            $messages2->where('reciver_id', $request->input('draft-reciver_id'));
         }
 
-        if($request->has('draft-email')) {  
-            $messages2->where('messages.email','LIKE', '%'.$request->input('draft-email').'%');
+        if($request->has('draft-email') && !empty($request->input('draft-email'))) {  
+            $messages2->where('email','LIKE', '%'.$request->input('draft-email').'%');
         }
 
-        if($request->has('draft-mobile')) {
-            $messages2->where('messages.mobile','LIKE', '%'.$request->input('draft-mobile').'%');
+        if($request->has('draft-mobile') && !empty($request->input('draft-mobile'))) {
+            $messages2->where('mobile','LIKE', '%'.$request->input('draft-mobile').'%');
         }
 
         $posts = $messages2->paginate(10);
-
-        // $posts = Message::where('is_sent',0)->latest('messages.created_at')->paginate(10);
 
         if ($request->ajax()) {
             $html = '';
