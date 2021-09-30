@@ -242,14 +242,14 @@ class HomeController extends Controller
 
     public function updateDraftForm(Request $request)
     {
-        /*$check = Message::where('id',$request->id)->update($request->except('_token'));
+        $check = Message::where('id',$request->id)->update($request->except('_token'));
 
         $arr = [];
         if($check){ 
 
             $arr = array('success'=>true,'message' => 'Draft updated successfully!');
 
-        }*/
+        }
 
         if (isset($request->reciver_id) && !empty($request->reciver_id)) {
             $employee = Employee::select('PersonalEmail','NameFirst','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->reciver_id)->first();
