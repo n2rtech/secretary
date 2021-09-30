@@ -84,7 +84,7 @@
 								</div>
 
 								<div class="savebtn">
-									<button type="button" id="send-message-form-btn" class="btn btn-primary">Send</button>
+									<button type="submit" id="send-message-form-btn" class="btn btn-primary">Send</button>
 								</div>
 
 							</form>
@@ -131,7 +131,7 @@
 										</div>
 
 										<div class="savebtn">
-											<button type="button" data-id="{{ $id }}" id="profile-draft" class="btn btn-primary">Save</button>
+											<button type="submit" data-id="{{ $id }}" id="profile-draft" class="btn btn-primary">Save</button>
 										</div>
 
 									</form>
@@ -249,9 +249,9 @@
 						<div class="panel-body">
 							<div class="calendarform">
 
-								<div id="event-form-message" style="display:none;" class="alert alert-success"></div>
+								<div id="calendar-info-form-message" style="display:none;" class="alert alert-success"></div>
 
-								<form class="create" method="POST" id="event-form">
+								<form class="create" method="POST" id="calendar-info-form">
 									<div class="form-group">
 										<input type="hidden" name="employee_id" value="{{ $id }}">
 										<input title="Select From Date" required class="form-control form-control-lg inputstyle" type="date" name="from_date" />
@@ -291,12 +291,11 @@
 									</div>
 
 									<div class="savebtn">
-										<button type="button" id="event-form-btn" class="btn btn-primary">Send</button>
+										<button type="button" id="calendar-info-form-btn" class="btn btn-primary">Send</button>
 									</div>
 
 								</form>
 							</div>
-
 						</div>
 					</div>
 				</div>
@@ -306,36 +305,7 @@
 </div>
 <script type="text/javascript">
 
-
-	$(document).on('submit','#event-form',function(event) {
-		event.preventDefault();
-
-		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
-
-		var $form = $(this);
-
-		$.ajax({
-			url: '{{ route('admin.save-event') }}',
-			type: 'POST',
-			data: $form.serialize() + "&_token={{ csrf_token() }}",
-			beforeSend: function() {
-				$("#event-form-btn").text('Loading...');
-			}
-		}).done(function(data) {
-			$("#event-form")[0].reset();
-			$("#event-form-btn").text('Save');
-			$("#event-form-message").show().html(data.message);
-			setTimeout(function() {
-				$("#event-form-message").show().fadeOut('fast');
-			}, 5000);
-		}).fail(function() {
-			$("#event-form-message").text('failed');
-		});
-
-	});
-
-
-	$(document).on('submit','#profile-draft-form1',function(event) {
+	$(document).on('submit','#profile-draft-form',function(event) {
 		event.preventDefault();
 
 		var id = $("#profile-draft").attr('data-id');
@@ -353,7 +323,7 @@
 				$("#profile-draft").text('Loading...');
 			}
 		}).done(function(data) {
-			loadMoreDataDraftReset(1,'','','','',id);
+			// loadMoreDataDraftReset(1,'','','','',id);
 			$("#profile-draft-form")[0].reset();
 			$("#profile-draft").text('Save');
 			$("#profile-draft-message").show().html(data.message);
@@ -385,7 +355,7 @@
 				$("#profile-draft-save-btn").text('Loading...');
 			}
 		}).done(function(data) {
-			loadMoreDataDraftReset(1,'','','','',id);
+			// loadMoreDataDraftReset(1,'','','','',id);
 			$("#profile-draft-save-form")[0].reset();
 			$("#profile-draft-save-btn").text('Save');
 			$("#profile-draft-save-message").show().html(data.message);
@@ -422,26 +392,25 @@
 		}).fail(function() {
 			$("#success-msg-send-message").text('failed');
 		});
-
 	});
 </script>
 
 
 <script type="text/javascript">
-        $('#load-more-draft').click(function() {
-            var page = $(this).data('paginate');
-            var draft_name = $(this).attr('data-draft-name');
-            var draft_mobile = $(this).attr('data-draft-mobile');
-            var draft_email = $(this).attr('data-draft-email');
-            var draft_subject = $(this).attr('data-draft-subject');
-            var draft_reciver_id = $(this).attr('data-draft-reciver_id');
+	$('#load-more-draft').click(function() {
+		var page = $(this).data('paginate');
+		var draft_name = $(this).attr('data-draft-name');
+		var draft_mobile = $(this).attr('data-draft-mobile');
+		var draft_email = $(this).attr('data-draft-email');
+		var draft_subject = $(this).attr('data-draft-subject');
+		var draft_reciver_id = $(this).attr('data-draft-reciver_id');
 
-            loadMoreDataDraft(page,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id);
-            $(this).data('paginate', page+1);
-        });
+		loadMoreDataDraft(page,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id);
+		$(this).data('paginate', page+1);
+	});
 
-         function loadMoreDataDraftReset(paginate,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id) {
-         	$('#post-draft').empty();
+        function loadMoreDataDraftReset(paginate,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id) {
+        	$('#post-draft').empty();
         	var url = '{{ route('admin.get-draft-emp') }}?page=' + paginate;
 
         	if (draft_name) {
@@ -464,30 +433,29 @@
         		url += '&draft-reciver_id='+ draft_reciver_id;
         	}
 
-            $.ajax({
-                url: url,
-                type: 'get',
-                datatype: 'html',
-                beforeSend: function() {
-                    $('#load-more-draft').text('Loading...');
-                }
-            })
-            .done(function(data) {
-                if(data.length == 0) {
-                    $('.invisible-draft').removeClass('invisible');
-                    $('#load-more-draft').text('Show More');
-                    return;
-                  } else {                  	
-                    $('#load-more-draft').text('Load more...');
-                    $('#post-draft').append(data);
-                  }
-            })
-               .fail(function(jqXHR, ajaxOptions, thrownError) {
-                  alert('Something went wrong.');
-               });
+        	$.ajax({
+        		url: url,
+        		type: 'get',
+        		datatype: 'html',
+        		beforeSend: function() {
+        			$('#load-more-draft').text('Loading...');
+        		}
+        	})
+        	.done(function(data) {
+        		if(data.length == 0) {
+        			$('.invisible-draft').removeClass('invisible');
+        			$('#load-more-draft').text('Show More');
+        			return;
+        		} else {                  	
+        			$('#load-more-draft').text('Load more...');
+        			$('#post-draft').append(data);
+        		}
+        	})
+        	.fail(function(jqXHR, ajaxOptions, thrownError) {
+        		alert('Something went wrong.');
+        	});
         }
 
-        // run function when user click load more button
         function loadMoreDataDraft(paginate,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id) {
 
         	var url = '{{ route('admin.get-draft-emp') }}?page=' + paginate;
@@ -512,27 +480,27 @@
         		url += '&draft-reciver_id='+ draft_reciver_id;
         	}
 
-            $.ajax({
-                url: url,
-                type: 'get',
-                datatype: 'html',
-                beforeSend: function() {
-                    $('#load-more-draft').text('Loading...');
-                }
-            })
-            .done(function(data) {
-                if(data.length == 0) {
-                    $('.invisible-draft').removeClass('invisible');
-                    $('#load-more-draft').text('Show More');
-                    return;
-                  } else {
-                    $('#load-more-draft').text('Load more...');
-                    $('#post-draft').append(data);
-                  }
-            })
-               .fail(function(jqXHR, ajaxOptions, thrownError) {
-                  alert('Something went wrong.');
-               });
+        	$.ajax({
+        		url: url,
+        		type: 'get',
+        		datatype: 'html',
+        		beforeSend: function() {
+        			$('#load-more-draft').text('Loading...');
+        		}
+        	})
+        	.done(function(data) {
+        		if(data.length == 0) {
+        			$('.invisible-draft').removeClass('invisible');
+        			$('#load-more-draft').text('Show More');
+        			return;
+        		} else {
+        			$('#load-more-draft').text('Load more...');
+        			$('#post-draft').append(data);
+        		}
+        	})
+        	.fail(function(jqXHR, ajaxOptions, thrownError) {
+        		alert('Something went wrong.');
+        	});
         }
     </script>
 
@@ -540,124 +508,86 @@
     	
     	$(document).ready(function () {
 
-		var SITEURL = "{{ route('admin.calendar-info')}}"+location.search;
+    		var SITEURL = "{{ route('admin.calendar-info')}}"+location.search;
 
-		$.ajaxSetup({
+    		$.ajaxSetup({
 
-			headers: {
+    			headers: {
 
-				'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    				'X-CSRF-TOKEN': '{{ csrf_token() }}'
 
-			}
+    			}
 
-		});
+    		});
 
-		var calendar = $('#calendar').fullCalendar({
+    		var calendar = $('#calendar').fullCalendar({
 
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right:''
-			},
+    			header: {
+    				left: 'prev,next today',
+    				center: 'title',
+    				right:''
+    			},
 
-			// editable: true,
+    			eventLimit: true,
 
-			eventLimit: true,
+    			selectable: true,
 
-			selectable: true,
+    			selectHelper: true,
 
-			selectHelper: true,
+    			events: SITEURL+"?emp_id={{ $id }}",
 
-			// navLinks: true,
+    			displayEventTime: true,
 
-			events: SITEURL+"?emp_id={{ $id }}",
+    			eventColor: 'yellow',
 
-			displayEventTime: true,
+    			eventRender: function(event, element){
 
-			eventColor: 'yellow',
+    				if (event.allDay === 'true') {
+    					event.allDay = true;
+    				} else {
+    					event.allDay = false;
+    				}
 
-			eventRender: function(event, element){
-
-				if (event.allDay === 'true') {
-					event.allDay = true;
-				} else {
-					event.allDay = false;
-				}
-
-				element.popover({
-					html:true,
-					animation:true,
-					delay: 300,
-					content: "<b>Employee Name(Id)</b> : "+event.emp_name+" (#"+event.employee_id+")"+"</br><b>From Date </b> : "+event.from_date+"</br><b>From Time </b> : "+event.from_time+"</br><b>To Date </b> : "+event.to_date+"</br><b>To Time </b> : "+event.to_time+"</br><b>Event Type </b> : "+event.event_type+"</br><b>Event Activity </b> : "+event.event_activity+"</br><b>Message Status </b> : "+event.message_status+"</br>",
-					trigger: 'hover'
-				});
-				console.log('sss');
-			},
-		});
-	});
+    				element.popover({
+    					html:true,
+    					animation:true,
+    					delay: 300,
+    					content: "<b>Employee Name(Id)</b> : "+event.emp_name+" (#"+event.employee_id+")"+"</br><b>From Date </b> : "+event.from_date+"</br><b>From Time </b> : "+event.from_time+"</br><b>To Date </b> : "+event.to_date+"</br><b>To Time </b> : "+event.to_time+"</br><b>Event Type </b> : "+event.event_type+"</br><b>Event Activity </b> : "+event.event_activity+"</br><b>Message Status </b> : "+event.message_status+"</br>",
+    					trigger: 'hover'
+    				});
+    				console.log('sss');
+    			},
+    		});
+    	});
 
 
     </script>
 
     <script type="text/javascript">
 
+    	$(document).on('click', '#edit-profile' , function() {
 
-    	$("#draft-search").submit(function(event) {
+    		var id = $(this).attr('data-id');
+    		var options = {
+    			'backdrop': 'static'
+    		};
+    		$('#myModal').modal(options);
 
-    		event.preventDefault();
-
-    		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
-
-    		var $form = $(this),
-    		url = $form.attr('action');
-
-    		$.each($form.serialize().split('&'), function (index, elem) {
-    			var vals = elem.split('=');
-    			$(".set-filter-data").attr('data-'+vals[0],decodeURIComponent((vals[1]+'').replace(/\+/g, '%20')))
-    		});
-
-    		var posting = $.post("{{ route('admin.filter.draft')}}", $form.serialize() + "&_token={{ csrf_token() }}");
-
-    		posting.done(function(data) {
-    			if(data.length == 0) {
-    				$('#post').empty();
-    				$('#post').append('<tr>No data...</tr>');
-    				return;
-    			} else {
-    				$('#post').empty();
-    				$('#post').append(data);
-    				$('#load-more').show();
+    		var ajaxurl = '{{route('admin.edit-profile')}}';
+    		$.ajaxSetup({
+    			headers: {
+    				'X-CSRF-TOKEN': "{{ csrf_token() }}",
     			}
-    		})
-    		.fail(function(jqXHR, ajaxOptions, thrownError) {
-    			alert('Something went wrong.');
     		});
+    		$.ajax({
+    			url: ajaxurl,
+    			data : {id:id},
+    			type: "post",
+    			success: function(data){
+    				$data = $(data); 
+    				$("#edit-profile-html").show().html($data);
+    			}
+    		});
+
     	});
-
-
-  $(document).on('click', '#edit-profile' , function() {
-  	var id = $(this).attr('data-id');
-
-  	var options = {
-  		'backdrop': 'static'
-  	};
-  	$('#myModal').modal(options);
-
-  	var ajaxurl = '{{route('admin.edit-profile')}}';
-  	$.ajaxSetup({
-  		headers: {
-  			'X-CSRF-TOKEN': "{{ csrf_token() }}",
-  		}
-  	});
-  	$.ajax({
-  		url: ajaxurl,
-  		data : {id:id},
-  		type: "post",
-  		success: function(data){
-  			$data = $(data); 
-  			$("#edit-profile-html").show().html($data);
-  		}
-  	});
-
-  });
   </script>
