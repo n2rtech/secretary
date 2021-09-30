@@ -1067,12 +1067,6 @@
 
 	});
 
-</script>
-
-
-<script type="text/javascript">
-
-
 	$("#draft-search").submit(function(event) {
 
 		event.preventDefault();
@@ -1090,36 +1084,31 @@
 		var posting = $.post("{{ route('admin.filter.draft')}}", $form.serialize() + "&_token={{ csrf_token() }}");
 
 		posting.done(function(data) {
-                if(data.length == 0) {
-                   $('#post').empty();
-                   $('#post').append('<tr>No data...</tr>');
-                    return;
-                  } else {
-                  	$('#post').empty();
-                    $('#post').append(data);
-                    $('#load-more').show();
-                  }
-            })
-               .fail(function(jqXHR, ajaxOptions, thrownError) {
-                  alert('Something went wrong.');
-               });
+			if(data.length == 0) {
+				$('#post').empty();
+				$('#post').append('<tr>No data...</tr>');
+				return;
+			} else {
+				$('#post').empty();
+				$('#post').append(data);
+				$('#load-more').show();
+			}
+		})
+		.fail(function(jqXHR, ajaxOptions, thrownError) {
+			alert('Something went wrong.');
+		});
 	});
   </script>
 
 
 <script type="text/javascript">
 
-
-
-
-
 	$("#send-msg-to-all-all").submit(function(event) {
 		event.preventDefault();
 
 		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
 
-		var $form = $(this),
-		url = $form.attr('action');
+		var $form = $(this);
 
 		$.ajax({
 			url: '{{ route('admin.send-message') }}',
