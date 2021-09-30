@@ -440,7 +440,7 @@ class HomeController extends Controller
 
         }
 
-        if (isset($request->reciver_id) && !empty($request->reciver_id)) {
+        /*if (isset($request->reciver_id) && !empty($request->reciver_id)) {
             $employee = Employee::select('PersonalEmail','NameFirst','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->reciver_id)->first();
 
             $email = $employee->PersonalEmail;
@@ -481,7 +481,7 @@ class HomeController extends Controller
                 $output = json_decode($output);
                 curl_close($ch);
             }
-        }
+        }*/
 
 
         return Response()->json($arr);
