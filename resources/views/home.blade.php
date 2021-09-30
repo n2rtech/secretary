@@ -1067,66 +1067,6 @@
 
 	});
 
-
-	function loadCalendar(){
-
-		$('#calendar').fullCalendar('destroy');
-
-		var SITEURL = "{{ route('admin.calendar-info')}}"+location.search;
-
-		$.ajaxSetup({
-
-			headers: {
-
-				'X-CSRF-TOKEN': '{{ csrf_token() }}'
-
-			}
-
-		});
-
-		var calendar = $('#calendar').fullCalendar({
-
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right:''
-			},
-
-			editable: true,
-
-			eventLimit: true,
-
-			selectable: true,
-
-			selectHelper: true,
-
-			navLinks: true,
-
-			events: SITEURL+"?emp_id={{ $employee->ID }}",
-
-			displayEventTime: true,
-
-			eventColor: 'yellow',
-
-			eventRender: function(event, element){
-
-				if (event.allDay === 'true') {
-					event.allDay = true;
-				} else {
-					event.allDay = false;
-				}
-
-				element.popover({
-					html:true,
-					animation:true,
-					delay: 300,
-					content: "<b>Employee Name(Id)</b> : "+event.emp_name+" (#"+event.employee_id+")"+"</br><b>From Date </b> : "+event.from_date+"</br><b>From Time </b> : "+event.from_time+"</br><b>To Date </b> : "+event.to_date+"</br><b>To Time </b> : "+event.to_time+"</br><b>Event Type </b> : "+event.event_type+"</br><b>Event Activity </b> : "+event.event_activity+"</br><b>Message Status </b> : "+event.message_status+"</br>",
-					trigger: 'hover'
-				});
-				console.log('sss');
-			},
-		});
-	}
 </script>
 
 
