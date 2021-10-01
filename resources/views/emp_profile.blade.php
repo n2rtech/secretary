@@ -166,7 +166,7 @@
 										</div>
 
 										<div class="savebtn">
-											<button type="button" data-id="{{ $id }}" id="profile-draft-save-btn" class="btn btn-primary">Save</button>
+											<button type="submit" data-id="{{ $id }}" id="profile-draft-save-btn" class="btn btn-primary">Save</button>
 										</div>
 
 									</form>
@@ -249,7 +249,7 @@
 						<div class="panel-body">
 							<div class="calendarform">
 
-								<div id="calendar-info-form-message" style="display:none;" class="alert alert-success"></div>
+								<div id="calendar-info-form-message" style="display:none;" class="alert alert-success">dddddddd</div>
 
 								<form class="create" method="POST" id="calendar-info-form">
 									<div class="form-group">
@@ -291,7 +291,7 @@
 									</div>
 
 									<div class="savebtn">
-										<button type="button" id="calendar-info-form-btn" class="btn btn-primary">Send</button>
+										<button type="submit" id="calendar-info-form-btn" class="btn btn-primary">Send</button>
 									</div>
 
 								</form>
@@ -323,7 +323,7 @@
 				$("#profile-draft").text('Loading...');
 			}
 		}).done(function(data) {
-			// loadMoreDataDraftReset(1,'','','','',id);
+			loadMoreDataDraftReset(1,'','','','',id);
 			$("#profile-draft-form")[0].reset();
 			$("#profile-draft").text('Save');
 			$("#profile-draft-message").show().html(data.message);
@@ -337,7 +337,7 @@
 	});
 
 
-	$(document).on('submit','#profile-draft-save-form1',function(event) {
+	$(document).on('submit','#profile-draft-save-form',function(event) {
 		event.preventDefault();
 
 		var id = $("#profile-draft-save-btn").attr('data-id');
@@ -355,7 +355,7 @@
 				$("#profile-draft-save-btn").text('Loading...');
 			}
 		}).done(function(data) {
-			// loadMoreDataDraftReset(1,'','','','',id);
+			loadMoreDataDraftReset(1,'','','','',id);
 			$("#profile-draft-save-form")[0].reset();
 			$("#profile-draft-save-btn").text('Save');
 			$("#profile-draft-save-message").show().html(data.message);
@@ -409,185 +409,97 @@
 		$(this).data('paginate', page+1);
 	});
 
-        function loadMoreDataDraftReset(paginate,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id) {
-        	$('#post-draft').empty();
-        	var url = '{{ route('admin.get-draft-emp') }}?page=' + paginate;
+	function loadMoreDataDraftReset(paginate,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id) {
+		$('#post-draft').empty();
+		var url = '{{ route('admin.get-draft-emp') }}?page=' + paginate;
 
-        	if (draft_name) {
-        		url += '&draft-name='+ draft_name;
-        	}
+		if (draft_name) {
+			url += '&draft-name='+ draft_name;
+		}
 
-        	if (draft_email) {
-        		url += '&draft-email='+ draft_email;
-        	}
+		if (draft_email) {
+			url += '&draft-email='+ draft_email;
+		}
 
-        	if (draft_mobile) {
-        		url += '&draft-mobile='+ draft_mobile;
-        	}
+		if (draft_mobile) {
+			url += '&draft-mobile='+ draft_mobile;
+		}
 
-        	if (draft_subject) {
-        		url += '&draft-subject='+ draft_subject;
-        	}
+		if (draft_subject) {
+			url += '&draft-subject='+ draft_subject;
+		}
 
-        	if (draft_reciver_id) {
-        		url += '&draft-reciver_id='+ draft_reciver_id;
-        	}
+		if (draft_reciver_id) {
+			url += '&draft-reciver_id='+ draft_reciver_id;
+		}
 
-        	$.ajax({
-        		url: url,
-        		type: 'get',
-        		datatype: 'html',
-        		beforeSend: function() {
-        			$('#load-more-draft').text('Loading...');
-        		}
-        	})
-        	.done(function(data) {
-        		if(data.length == 0) {
-        			$('.invisible-draft').removeClass('invisible');
-        			$('#load-more-draft').text('Show More');
-        			return;
-        		} else {                  	
-        			$('#load-more-draft').text('Load more...');
-        			$('#post-draft').append(data);
-        		}
-        	})
-        	.fail(function(jqXHR, ajaxOptions, thrownError) {
-        		alert('Something went wrong.');
-        	});
-        }
+		$.ajax({
+			url: url,
+			type: 'get',
+			datatype: 'html',
+			beforeSend: function() {
+				$('#load-more-draft').text('Loading...');
+			}
+		})
+		.done(function(data) {
+			if(data.length == 0) {
+				$('.invisible-draft').removeClass('invisible');
+				$('#load-more-draft').text('Show More');
+				return;
+			} else {                  	
+				$('#load-more-draft').text('Load more...');
+				$('#post-draft').append(data);
+			}
+		})
+		.fail(function(jqXHR, ajaxOptions, thrownError) {
+			alert('Something went wrong.');
+		});
+	}
 
-        function loadMoreDataDraft(paginate,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id) {
+	function loadMoreDataDraft(paginate,draft_name,draft_mobile,draft_email,draft_subject,draft_reciver_id) {
 
-        	var url = '{{ route('admin.get-draft-emp') }}?page=' + paginate;
+		var url = '{{ route('admin.get-draft-emp') }}?page=' + paginate;
 
-        	if (draft_name) {
-        		url += '&draft-name='+ draft_name;
-        	}
+		if (draft_name) {
+			url += '&draft-name='+ draft_name;
+		}
 
-        	if (draft_email) {
-        		url += '&draft-email='+ draft_email;
-        	}
+		if (draft_email) {
+			url += '&draft-email='+ draft_email;
+		}
 
-        	if (draft_mobile) {
-        		url += '&draft-mobile='+ draft_mobile;
-        	}
+		if (draft_mobile) {
+			url += '&draft-mobile='+ draft_mobile;
+		}
 
-        	if (draft_subject) {
-        		url += '&draft-subject='+ draft_subject;
-        	}
+		if (draft_subject) {
+			url += '&draft-subject='+ draft_subject;
+		}
 
-        	if (draft_reciver_id) {
-        		url += '&draft-reciver_id='+ draft_reciver_id;
-        	}
+		if (draft_reciver_id) {
+			url += '&draft-reciver_id='+ draft_reciver_id;
+		}
 
-        	$.ajax({
-        		url: url,
-        		type: 'get',
-        		datatype: 'html',
-        		beforeSend: function() {
-        			$('#load-more-draft').text('Loading...');
-        		}
-        	})
-        	.done(function(data) {
-        		if(data.length == 0) {
-        			$('.invisible-draft').removeClass('invisible');
-        			$('#load-more-draft').text('Show More');
-        			return;
-        		} else {
-        			$('#load-more-draft').text('Load more...');
-        			$('#post-draft').append(data);
-        		}
-        	})
-        	.fail(function(jqXHR, ajaxOptions, thrownError) {
-        		alert('Something went wrong.');
-        	});
-        }
-    </script>
-
-    <script type="text/javascript">
-    	
-    	$(document).ready(function () {
-
-    		var SITEURL = "{{ route('admin.calendar-info')}}"+location.search;
-
-    		$.ajaxSetup({
-
-    			headers: {
-
-    				'X-CSRF-TOKEN': '{{ csrf_token() }}'
-
-    			}
-
-    		});
-
-    		var calendar = $('#calendar').fullCalendar({
-
-    			header: {
-    				left: 'prev,next today',
-    				center: 'title',
-    				right:''
-    			},
-
-    			eventLimit: true,
-
-    			selectable: true,
-
-    			selectHelper: true,
-
-    			events: SITEURL+"?emp_id={{ $id }}",
-
-    			displayEventTime: true,
-
-    			eventColor: 'yellow',
-
-    			eventRender: function(event, element){
-
-    				if (event.allDay === 'true') {
-    					event.allDay = true;
-    				} else {
-    					event.allDay = false;
-    				}
-
-    				element.popover({
-    					html:true,
-    					animation:true,
-    					delay: 300,
-    					content: "<b>Employee Name(Id)</b> : "+event.emp_name+" (#"+event.employee_id+")"+"</br><b>From Date </b> : "+event.from_date+"</br><b>From Time </b> : "+event.from_time+"</br><b>To Date </b> : "+event.to_date+"</br><b>To Time </b> : "+event.to_time+"</br><b>Event Type </b> : "+event.event_type+"</br><b>Event Activity </b> : "+event.event_activity+"</br><b>Message Status </b> : "+event.message_status+"</br>",
-    					trigger: 'hover'
-    				});
-    				console.log('sss');
-    			},
-    		});
-    	});
-
-
-    </script>
-
-    <script type="text/javascript">
-
-    	$(document).on('click', '#edit-profile' , function() {
-
-    		var id = $(this).attr('data-id');
-    		var options = {
-    			'backdrop': 'static'
-    		};
-    		$('#myModal').modal(options);
-
-    		var ajaxurl = '{{route('admin.edit-profile')}}';
-    		$.ajaxSetup({
-    			headers: {
-    				'X-CSRF-TOKEN': "{{ csrf_token() }}",
-    			}
-    		});
-    		$.ajax({
-    			url: ajaxurl,
-    			data : {id:id},
-    			type: "post",
-    			success: function(data){
-    				$data = $(data); 
-    				$("#edit-profile-html").show().html($data);
-    			}
-    		});
-
-    	});
-  </script>
+		$.ajax({
+			url: url,
+			type: 'get',
+			datatype: 'html',
+			beforeSend: function() {
+				$('#load-more-draft').text('Loading...');
+			}
+		})
+		.done(function(data) {
+			if(data.length == 0) {
+				$('.invisible-draft').removeClass('invisible');
+				$('#load-more-draft').text('Show More');
+				return;
+			} else {
+				$('#load-more-draft').text('Load more...');
+				$('#post-draft').append(data);
+			}
+		})
+		.fail(function(jqXHR, ajaxOptions, thrownError) {
+			alert('Something went wrong.');
+		});
+	}
+</script>  

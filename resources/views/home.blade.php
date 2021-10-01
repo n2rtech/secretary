@@ -9,6 +9,12 @@
    .popover{ pointer-events:none; }
 
    .error{ color:red; } 
+
+   .alert {
+   	padding: 11px !important;
+   	margin: 8px !important;
+   	text-align: center !important;
+   }
 </style>
 <div class="container-fluid p-3">
 	<div class="row">

@@ -752,7 +752,6 @@ class HomeController extends Controller
 
     public function calendarInfo(Request $request)
     {
-
         if(request()->ajax())
         {
             $start = (!empty($_GET["start"])) ? ($_GET["start"]) : ('');
@@ -763,6 +762,10 @@ class HomeController extends Controller
 
             foreach ($mc as $key => $data) {
                 $mc[$key]->title = $data->event_activity;
+                $mc[$key]->from_date = date('d-m-Y',strtotime($data->from_date));
+                $mc[$key]->to_date = date('d-m-Y',strtotime($data->to_date));
+                $mc[$key]->from_time = date('h:i A',strtotime($data->from_time));
+                $mc[$key]->to_time = date('h:i A',strtotime($data->to_time));
                 $mc[$key]->message_status = ($data->message_status) ? 'On' : 'Off';
             }
 
