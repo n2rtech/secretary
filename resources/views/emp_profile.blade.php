@@ -503,3 +503,35 @@
 		});
 	}
 </script>  
+
+<script type="text/javascript">
+
+
+
+	$(document).on('click', '#edit-profile' , function() {
+
+		var id = $(this).attr('data-id');
+		var options = {
+			'backdrop': 'static'
+		};
+		$('#myModal').modal(options);
+
+		var ajaxurl = '{{route('admin.edit-profile')}}';
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': "{{ csrf_token() }}",
+			}
+		});
+		$.ajax({
+			url: ajaxurl,
+			data : {id:id},
+			type: "post",
+			success: function(data){
+				$data = $(data); 
+				$("#edit-profile-html").show().html($data);
+			}
+		});
+
+	});
+</script>
+
