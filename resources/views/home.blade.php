@@ -1375,6 +1375,11 @@ $(document).on('submit', "#edit-draft-form", function(event) {
 
   $(document).on('click', '#send-message-wc',function(){
   	var id = $(this).attr('data-id');
+  	var reciver_id = $(this).attr('data-reciver_id');
+  	if (reciver_id == '') {
+  		$("#messagebox-error").show();
+  		return false;
+  	}
   	var obj = $(this);
 
   	var ajaxurl = '{{route('admin.send-message-woc')}}';

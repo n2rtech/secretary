@@ -30,11 +30,13 @@
 						</select>
 					</div>
 
+					<div id="messagebox-error" style="color: red;display:none;">Message should not go without assign employee</div>
+
 					<div class="savebtn editmessbtn">
 						<a href="javascript:void(0)" class="btn btn-primary" data-id="{{ $message->id }}" id="edit-item" data-toggle="modal" data-target="#myModal2">Send Message With Corrections</a>
 					</div>
 					<div class="savebtn editmessbtn">
-						<button type="button" data-id="{{ $message->id }}" id="send-message-wc" class="btn btn-primary">Send Message Without Corrections</button>
+						<button type="button" data-reciver_id="{{ $message->reciver_id }}" data-id="{{ $message->id }}" id="send-message-wc" class="btn btn-primary">Send Message Without Corrections</button>
 					</div>
 
 				</form>
