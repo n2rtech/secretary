@@ -268,6 +268,7 @@ table.dataTable thead .sorting_desc {
 .dashboard-right .nav-tabs {
     background: #fff;
     padding: 12px;
+    padding-bottom: 0;
 }
 .dashboard-right .nav-tabs li a.active {
     border-bottom: 2px solid #0C2556;
@@ -278,6 +279,8 @@ table.dataTable thead .sorting_desc {
 }
 .dashboard-right .nav-tabs li {
     padding: 0 25px;
+    margin-bottom: 15px;
+    line-height: 30px;
 }
 .dashboard-right .nav-tabs li a {
     font-family: 'Acumin Pro Regular';
@@ -888,5 +891,34 @@ table.dataTable thead .sorting_desc {
 #myModal2 .modal-dialog .modal-content .modal-body .create {
     padding-top: 50px;
     padding-bottom: 50px;
+}
+.notestitle {
+    color: #000;
+    font-weight: 600;
+    font-size: 15px;
+    padding-left: 14px;
+    margin-bottom: 15px;
+}
+.notes .table.notetable {
+    background-color: #fff;
+}
+.notetable.table>tbody>tr>td.notedisc {
+    font-size: 11px;
+    color: #777;
+    font-family: 'Roboto';
+}
+.notetable.table>tbody>tr>td {
+    padding: 10px;
+}
+.notetable.table>tbody>tr>td.noteedit a i {
+    color: #0c2556;
+    font-size: 13px;
+}
+.notetable.table>tbody>tr>td.notetrash a i {
+    color: #0c2556;
+    font-size: 13px;
+}
+.note-editor {
+  margin-bottom: 5rem !important;
 }
 /***********End*****************/

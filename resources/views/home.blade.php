@@ -215,12 +215,12 @@
 					<div id="menua6" class="tab-pane fade">
 						<div class="searchmember">
 							<div class="row">
-								<div class="col-sm-4">
+								<div class="col-sm-6">
 									<div class="messagebtn">
 										<button type="button" class="btn btn-primary messbtn">Send Message To All</button>
 									</div>
 								</div>
-								<div class="col-sm-8">
+								<div class="col-sm-6">
 									<div id="searchinput" class="input-group">
 										<input type="text" name="keyword" id="keyword" placeholder="Search Members" class="form-control inputstyle">
 										<span class="input-group-btn">
@@ -338,12 +338,12 @@
 					<div id="menu{{ $key }}" class="tab-pane @if($key == 0) active @endif">
 						<div class="searchmember">
 							<div class="row">
-								<div class="col-sm-5">
+								<div class="col-sm-6">
 									<div class="messagebtn">
 										<button type="button" class="btn btn-primary messbtn">Send Message To {{ $group_employee->Department }}</button>
 									</div>
 								</div>
-								<div class="col-sm-7">
+								<div class="col-sm-6">
 									<div id="searchinput" class="input-group">
 										<input type="text" name="keyword" id="keyword" placeholder="Search Members" class="form-control inputstyle">
 										<span class="input-group-btn">
@@ -757,8 +757,78 @@
 					</div>
 					@endforeach
 					<div id="menua5" class="tab-pane fade">
-						<h3>Notes</h3>
-						<p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+						<div class="searchmember">
+							<div class="row">
+								<div class="col-sm-12 col-xs-12">
+									<div class="createbtn messagebtn">
+										<a data-toggle="modal" data-target="#myModal3" class="btn btn-primary messbtn">Create a Note</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 col-xs-12">
+								<div class="notes">
+									<div class="notestitle">Notes</div>
+									<div class="table-responsive">
+										<table class="table notetable">
+										  <tbody>
+										    <tr>
+										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
+										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
+										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
+										    </tr>
+										    <tr>
+										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
+										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
+										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
+										    </tr>
+										    <tr>
+										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
+										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
+										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
+										    </tr>
+										    <tr>
+										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
+										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
+										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
+										    </tr>
+										    <tr>
+										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
+										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
+										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
+										    </tr>
+										    <tr>
+										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
+										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
+										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
+										    </tr>
+										    <tr>
+										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
+										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
+										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
+										    </tr>
+										    <tr>
+										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
+										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
+										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
+										    </tr>
+										    <tr>
+										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
+										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
+										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
+										    </tr>
+										    <tr>
+										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
+										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
+										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
+										    </tr>
+										  </tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -836,39 +906,73 @@
 						<div id="success-msg-update" style="display:none;" class="alert alert-success"></div>
 						<div class="col-sm-6 col-xs-12 m-auto" id="update-draft-html">
 
-							<form class="create" id="contactForm">
-								<div class="form-group">
-									<input class="form-control form-control-lg inputstyle" type="name" name="name" id="name" placeholder="{{ $message->name }}">
-								</div>
-								<div class="form-group">
-									<input class="form-control form-control-lg inputstyle" type="email" name="email" id="email" placeholder="{{ $message->email }}">
-								</div>
-								<div class="form-group">
-									<input class="form-control form-control-lg inputstyle" type="number" name="mobile" id="mobile" placeholder="{{ $message->mobile }}">
-								</div>
-
-								<div class="form-group">
-									<input class="form-control form-control-lg inputstyle" type="number" name="subject" id="subject" placeholder="{{ $message->subject }}">
-								</div>
-
-								<div class="form-group">
-									<textarea name="body" id="body" class="form-control" placeholder="{{ $message->body }}" cols="3" rows="3"></textarea>
-								</div>
-								<div class="form-group">
-									<select class="form-control form-select">
-										{{-- <option selected="">Assign To Employee</option> --}}
-										<option selected value="{{ $message->reciver_id }}">{{ $message->reciver_name }}</option>
-										<option value="2">Two</option>
-										<option value="3">Three</option>
-									</select>
-								</div>
-								<div class="savebtn">
-									<button type="button" class="btn btn-primary">Send</button>
-								</div>
-
-							</form>
+							
 						</div>
 				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<!-- Modal-3 -->
+<div class="modal fade" id="myModal3" role="dialog">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body" id="edit-profile-html">
+				<textarea name="summernote" id="summernote" cols="30" rows="10">
+    <h3 style="text-align: center; "><a href="http://www.jquery2dotnet.com" style="background-color: rgb(255, 255, 255); line-height: 1.428571429;">jquery2dotnet</a></h3>
+    <div class="alert alert-success">
+      <strong>Well done!</strong> You successfully read this important alert message.
+    </div><div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          Collapsible Group Item #1
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="panel-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          Collapsible Group Item #2
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="panel-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+          Collapsible Group Item #3
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse">
+      <div class="panel-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+</div></textarea>
 			</div>
 		</div>
 
@@ -881,7 +985,9 @@
 @parent
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.js"></script>
-
+<script>
+	$('#summernote').summernote({height: 300});
+</script>
 <script>
 	$(document).ready(function(){
 		$("#profiletoggle").click(function(){
