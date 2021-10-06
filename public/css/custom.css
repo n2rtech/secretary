@@ -933,9 +933,9 @@ table.dataTable thead .sorting_desc {
     overflow-x: hidden !important;
 }
 #myModal3 .modal-dialog .modal-content .modal-body {
-    padding: 87px;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 0px;
 }
 .note-editor {
     position: relative;

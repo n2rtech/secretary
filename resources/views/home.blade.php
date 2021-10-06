@@ -879,7 +879,7 @@
 
 <!-- Modal-3 -->
 <div class="modal fade" id="myModal3" role="dialog">
-	<div class="modal-dialog modal-dialog-centered modal-lg">
+	<div class="modal-dialog modal-dialog-centered modal-xl">
 
 		<!-- Modal content-->
 		<div class="modal-content">
