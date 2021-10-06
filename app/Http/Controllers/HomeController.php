@@ -46,9 +46,9 @@ class HomeController extends Controller
         $keyword = $request->input('keyword');    
                 
         $searched_data =  MostSearchedKeyword::select('id',DB::raw('count(keyword) as keyword_count'), 'keyword')->groupBy('keyword')
-        ->having(DB::raw('count(keyword)'), '>', 0)
+        ->having(DB::raw('count(keyword)'), '>', 3)
         ->orderBy(DB::raw('count(keyword)'), 'desc')
-        ->get()->take('20'); 
+        ->get()->take('30'); 
 
         $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
 
