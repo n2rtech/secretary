@@ -914,10 +914,10 @@ table.dataTable thead .sorting_desc {
 .note-editor {
   margin-bottom: 5rem !important;
 }
-#myModal3 .modal-dialog .modal-content .modal-header {
+#myModal3 .modal-dialog .modal-content button.close {
     justify-content: right;
 }
-#myModal3 .modal-dialog .modal-content .modal-header button.close {
+#myModal3 .modal-dialog .modal-content button.close {
     border: none;
     font-size: 30px;
     padding: 0;

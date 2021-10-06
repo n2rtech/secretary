@@ -883,9 +883,8 @@
 
 		<!-- Modal content-->
 		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-			</div>
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			
 			<div id="success-notes-form" style="display:none;" class="alert alert-success"></div>
 			<form id="notes-form" method="POST">
 			<div class="modal-body">
