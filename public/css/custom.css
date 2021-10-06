@@ -939,6 +939,9 @@ table.dataTable thead .sorting_desc {
 }
 .note-editor {
     position: relative;
-    margin-bottom: 40px !important;
+    margin-bottom: 20px !important;
+}
+#notes-form-btn {
+    margin-bottom: 20px;
 }
 /***********End*****************/
