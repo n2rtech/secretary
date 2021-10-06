@@ -115,8 +115,8 @@
 										<div class="form-group">
 											<input class="form-control form-control-lg inputstyle" required type="email" name="email" placeholder="Email Address">
 										</div>
-										<div class="form-group">
-											<input class="form-control form-control-lg inputstyle" required type="message-subject" name="subject" placeholder="Message Subject">
+										<div class="form-group" style="display:none;">
+											<input class="form-control form-control-lg inputstyle" type="message-subject" name="subject" placeholder="Message Subject">
 										</div>
 										<div class="form-group">
 											<textarea class="form-control" name="body" placeholder="Message" required cols="3" rows="3"></textarea>
@@ -150,8 +150,8 @@
 										<div class="form-group">
 											<input required class="form-control form-control-lg inputstyle" type="email" name="email" placeholder="Email Address">
 										</div>
-										<div class="form-group">
-											<input required class="form-control form-control-lg inputstyle" type="text" name="subject" placeholder="Message Subject">
+										<div class="form-group" style="display:none;">
+											<input class="form-control form-control-lg inputstyle" type="text" name="subject" placeholder="Message Subject">
 										</div>
 										<div class="form-group">
 											<textarea name="body" required class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
@@ -220,7 +220,7 @@
 											<tbody id="post-draft">
 												@foreach($employee_drafts as $draft)
 													<tr class="editshowhidedraft">
-														<td class="title">{{ $draft->subject }}</td>
+														<td class="title">{{ $draft->name }}</td>
 														<td class="comment">{{ $draft->body }}</td>
 														<td class="time">{{ $draft->created_at }}</td>
 													</tr>

@@ -96,7 +96,7 @@
 												<tbody id="post">
 													@foreach($messages as $message)
 													<tr class="editshowhide" data-id="{{ $message->id }}">
-														<td class="title">{{ $message->subject }}</td>
+														<td class="title">{{ $message->name }}</td>
 														<td class="comment">{{ $message->body }}</td>
 														<td class="time">{{ date('h:i A',strtotime($message->created_at)) }}</td>
 													</tr>
@@ -140,8 +140,8 @@
 														<input class="form-control form-control-lg inputstyle" type="email" name="email" id="email" required placeholder="Email Address" />
 														<span class="text-danger error-email"></span>
 													</div>
-													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="text" id="subject" required name="subject" placeholder="Message Subject" />
+													<div class="form-group" style="display:none;">
+														<input class="form-control form-control-lg inputstyle" type="text" id="subject" name="subject" placeholder="Message Subject" />
 														<span class="text-danger error-subject"></span>
 													</div>
 													<div class="form-group">
@@ -172,7 +172,7 @@
 													<div class="form-group">
 														<input class="form-control form-control-lg inputstyle" type="email" name="draft-email" id="draft-email" placeholder="Email Address" />
 													</div>
-													<div class="form-group">
+													<div class="form-group" style="display:none;">
 														<input class="form-control form-control-lg inputstyle" type="text" name="draft-subject" id="draft-subject" placeholder="Message Subject" />
 													</div>
 													<div class="form-group">
@@ -224,9 +224,9 @@
 								</div>
 								<div class="col-sm-6">
 									<div id="searchinput" class="input-group">
-										<input type="text" name="keyword" id="keyword" placeholder="Search Members" class="form-control inputstyle">
+										<input type="text" name="keyword" id="keyword" placeholder="Search Members" class="text-search form-control inputstyle">
 										<span class="input-group-btn">
-											<i class="button-filter fa fa-search"></i>
+											{{-- <i class="button-filter fa fa-search"></i> --}}
 										</span>
 									</div>
 								</div>
@@ -242,7 +242,7 @@
 											<form class="create" method="POST" id="send-msg-to-all-all">
 												<div class="form-group">
 													<input type="hidden" name="department" value="all">
-													<input class="form-control form-control-lg inputstyle" type="text" required name="subject" placeholder="Message Subject">
+													<input style="display:none;" class="form-control form-control-lg inputstyle" type="text" name="subject" placeholder="Message Subject">
 												</div>
 
 												<div class="form-group">
@@ -274,6 +274,8 @@
 															Extremely urgent
 														</label>
 													</div>
+
+													<div style="display:none;" id="show-checkbox-error-all"><p style="color:red;">You must check at least one checkbox.</p></div>
 
 												</div>
 
@@ -347,9 +349,8 @@
 								</div>
 								<div class="col-sm-6">
 									<div id="searchinput" class="input-group">
-										<input type="text" name="keyword" id="keyword" placeholder="Search Members" class="form-control inputstyle">
+										<input type="text" name="keyword" id="keyword" placeholder="Search Members" class="text-search form-control inputstyle">
 										<span class="input-group-btn">
-											<i class="button-filter fa fa-search"></i>
 										</span>
 									</div>
 								</div>
@@ -365,7 +366,7 @@
 											<form class="create" method="POST" id="send-msg-to-all-{{ $key }}">
 												<div class="form-group">
 													<input type="hidden" name="department" value="{{ $group_employee->Department }}">
-													<input class="form-control form-control-lg inputstyle" type="text" required name="subject" placeholder="Message Subject">
+													<input style="display:none;" class="form-control form-control-lg inputstyle" type="text" name="subject" placeholder="Message Subject">
 												</div>
 
 												<div class="form-group">
@@ -397,6 +398,8 @@
 															Extremely urgent
 														</label>
 													</div>
+
+													<div style="display:none;" id="show-checkbox-error-{{$key}}"><p style="color:red;">You must check at least one checkbox.</p></div>
 
 												</div>
 
@@ -775,56 +778,13 @@
 									<div class="table-responsive">
 										<table class="table notetable">
 										  <tbody>
+										  @foreach($notes as $note)
 										    <tr>
-										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
-										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
-										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
+										      <td class="notedisc">{!! \Illuminate\Support\Str::limit($note->note, 126, $end='...') !!}</td>
+										      <td class="noteedit" data-toggle="modal" data-target="#myModal3" data-id="{{ $note->id }}"><a href="#"><i class="fa fa-edit"></i></a></td>
+										      <td class="notetrash"><a href="{{ route('admin.notes.delete', $note->id) }}" ><i class="fa fa-trash-alt"></i></a></td>
 										    </tr>
-										    <tr>
-										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
-										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
-										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
-										    </tr>
-										    <tr>
-										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
-										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
-										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
-										    </tr>
-										    <tr>
-										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
-										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
-										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
-										    </tr>
-										    <tr>
-										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
-										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
-										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
-										    </tr>
-										    <tr>
-										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
-										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
-										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
-										    </tr>
-										    <tr>
-										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
-										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
-										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
-										    </tr>
-										    <tr>
-										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
-										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
-										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
-										    </tr>
-										    <tr>
-										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
-										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
-										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
-										    </tr>
-										    <tr>
-										      <td class="notedisc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry....</td>
-										      <td class="noteedit"><a href="#"><i class="fa fa-edit"></i></a></td>
-										      <td class="notetrash"><a href="#"><i class="fa fa-trash-alt"></i></a></td>
-										    </tr>
+										    @endforeach
 										  </tbody>
 										</table>
 									</div>
@@ -926,16 +886,17 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
+			<div id="success-notes-form" style="display:none;" class="alert alert-success"></div>
+			<form id="notes-form" method="POST">
 			<div class="modal-body">
-				<div id="summernote">
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+			<input type="hidden" name="id" id="notes-id">
+			<textarea id="summernote" required name="note"></textarea>					
 				</div>
 				<div class="savebtn text-center">
-					<button type="submit" id="submit-btn" class="btn btn-primary">Save</button>
+					<button type="button" id="notes-form-btn" class="btn btn-primary">Save</button>
 				</div>
 			</div>
+			</form>
 		</div>
 
 	</div>
@@ -1107,7 +1068,7 @@
     	page++;
     	$(e.target).attr('data-paginate',page);
     });
-	$('.button-filter').on('click', function() {
+	$('.text-search').on('keyup', function() {
 		var activeTab = localStorage.getItem('activeTab');
 		$value=$(this).parent().parent().find('input[name=\'keyword\']').val();
 		$.ajax({
@@ -1194,7 +1155,15 @@
 <script type="text/javascript">
 
 	$("#send-msg-to-all-all").submit(function(event) {
+		$("#show-checkbox-error-all").hide();
 		event.preventDefault();
+
+		checked = $(this).find("input[type=checkbox]:checked").length;
+
+      if(!checked) {
+      	$("#show-checkbox-error-all").show();
+        return false;
+      }
 
 		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
 
@@ -1224,7 +1193,15 @@
 @foreach($group_employees as $key => $group_employee)
 
 $("#send-msg-to-all-{{ $key }}").submit(function(event) {
+	$("#show-checkbox-error-{{ $key }}").hide();
 		event.preventDefault();
+
+      checked = $(this).find("input[type=checkbox]:checked").length;
+
+      if(!checked) {
+      	$("#show-checkbox-error-{{ $key }}").show();
+        return false;
+      }
 
 		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
 
@@ -1292,8 +1269,6 @@ $(document).on('submit', "#edit-draft-form", function(event) {
 		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
 
 		var $form = $(this);
-
-		// var posting = $.post("{{ route('admin.update-draft-form')}}", $form.serialize() + "&_token={{ csrf_token() }}");
 
 		$.ajax({
 			url: '{{ route('admin.update-draft-form') }}',
@@ -1453,8 +1428,7 @@ $(document).on('submit', "#edit-draft-form", function(event) {
   $(document).on('click', '.forcustom',function(){
   	var activeTab = $('.dashboard-right .nav-tabs li a.active').attr('href');
   	$(activeTab).find("input[name='keyword']").val($(this).html());
-  	$(activeTab).find(".button-filter").trigger('click');
-
+  	$(activeTab).find("input[name='keyword']").keyup();
   });
 
   $(document).on('click', '#send-message-wc',function(){
@@ -1482,7 +1456,6 @@ $(document).on('submit', "#edit-draft-form", function(event) {
   		},
   		success: function(data){
   			obj.text('Sended');
-  			{{-- alert(data.message); --}}
   			setTimeout(function() {
   				location.reload();
   			}, 2000);
@@ -1490,7 +1463,62 @@ $(document).on('submit', "#edit-draft-form", function(event) {
   	});
   });
   
-  
+  $(document).on('submit', "#notes-form", function(event) {
+  	event.preventDefault();
+  	var $form = $(this);
+  	$.ajax({
+  		url: '{{ route('admin.notes.store') }}',
+  		type: 'POST',
+  		data: $form.serialize() + "&_token={{ csrf_token() }}",
+  		beforeSend: function() {
+  			$('#notes-form-btn').text('Loading...');
+  		}
+  	}).done(function(data) {
+  		$("#notes-form")[0].reset();
+  		$('#notes-form-btn').text('Save');
+  		$('#success-notes-form').show().html(data.message);
+  		setTimeout(function() {
+  			$('#success-notes-form').show().fadeOut('fast');
+  			$('.close').trigger('click');
+  			location.reload();
+  		}, 3000);
+  	}).fail(function() {
+  		$('#success-notes-form').text('failed');
+  	});
+
+  });
+
+
+  $(document).on('click', ".noteedit1", function() {
+     var id = $(this).attr('data-id');
+
+    var options = {
+      'backdrop': 'static'
+    };
+    $('#myModal3').modal(options);
+
+    var ajaxurl = '{{route('admin.notes.getData')}}';
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': "{{ csrf_token() }}",
+          }
+      });
+        $.ajax({
+            url: ajaxurl,
+            data : {id:id},
+            type: "post",
+            success: function(data){
+
+            	$('#notes-id').val(id);
+            	$('#summernote').summernote('editor.pasteHTML', data);
+
+               
+            }
+        });
+
+
+  });
+
     </script>
 
 @endsection

@@ -8,6 +8,7 @@ use Response;
 use DB;
 use App\Models\Employee;
 use App\Models\Message;
+use App\Models\Note;
 use App\Models\CalendarInformation;
 use App\User;
 use App\Models\Group;
@@ -52,6 +53,7 @@ class HomeController extends Controller
         $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
 
         $employees2 = Employee::latest('MetaTimeCreated');
+        $notes = Note::latest()->paginate(15);
 
         $filter_name = $request->input('filter_name');
         $filter_email = $request->input('filter_email');
@@ -236,7 +238,7 @@ class HomeController extends Controller
 
         // echo "<pre>";print_r($group_employees->toArray());"</pre>";exit;
         
-        return view('home', compact('searched_data','employees','messages','employee_list','employee_data','filter_name','filter_mobile','filter_email','filter_group','draft_name','draft_mobile','draft_email','draft_subject','draft_employee_id','emp_id','group_employees','all_employees','keyword','group_id','group_id','emp_id'));
+        return view('home', compact('searched_data','employees','messages','employee_list','employee_data','filter_name','filter_mobile','filter_email','filter_group','draft_name','draft_mobile','draft_email','draft_subject','draft_employee_id','emp_id','group_employees','all_employees','keyword','group_id','group_id','emp_id','notes'));
     }
 
 
@@ -248,10 +250,7 @@ class HomeController extends Controller
             $employee = Employee::select('PersonalEmail','NameFirst','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$data->reciver_id)->first();
 
             $email = $employee->PersonalEmail;
-            // $email = 'er.krishna.mishra@gmail.com';
             $mob_num = $employee->Mobilephone;
-            // $mob_num = '9026574061';
-            $c = '2244';
             $name = $employee->name;
             $name_emp = $employee->NameFirst;
             $user = User::make(['email' => $email, 'name' => $name]);
@@ -271,6 +270,28 @@ class HomeController extends Controller
             Message::where('id',$request->id)->update(['is_sent' => 1]);
 
             $messages = "Hi $name_emp URGENT We have today at 14.13 talked with $request->name $request->body Phone number: $request->mobile";
+
+            if ($employee->SendMessage == 1) {
+
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "https://api.sms.to/sms/send?api_key=QMOszp1DsHtNdMJhcQAy5fGvMD1u38Zn&bypass_optout=true&to=+919026574061&message=This is test and %0A this is a new line&sender_id=smsto",  
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "GET",
+                ));
+
+                $response = curl_exec($curl);
+
+                curl_close($curl);
+                // $response;
+            }
+
 
         }
 
@@ -309,10 +330,32 @@ class HomeController extends Controller
 
             Message::where('id',$request->id)->update(['is_sent' => 1]);
 
-            $messages = "Hi $name_emp URGENT We have today at 14.13 talked with $request->name $request->body Phone number: $request->mobile"; 
+            $messages = "Hi $name_emp URGENT We have today at 14.13 talked with $request->name $request->body Phone number: $request->mobile";
+
+            if ($employee->SendMessage == 1) {
+
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "https://api.sms.to/sms/send?api_key=QMOszp1DsHtNdMJhcQAy5fGvMD1u38Zn&bypass_optout=true&to=+919026574061&message=This is test and %0A this is a new line&sender_id=smsto",  
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "GET",
+                ));
+
+                $response = curl_exec($curl);
+
+                curl_close($curl);
+                // $response;
+            }
+
         }
 
-        $arr = array('success'=>true,'message' => 'Draft updated successfully!');
+        $arr = array('success'=>true,'message' => 'Message sended successfully!');
         return Response()->json($arr);
     }
 
@@ -325,21 +368,17 @@ class HomeController extends Controller
         if($check){ 
 
             $arr = array('success'=>true,'message' => 'Draft updated successfully!');
-
         }
 
         if (isset($request->reciver_id) && !empty($request->reciver_id)) {
             $employee = Employee::select('PersonalEmail','NameFirst','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->reciver_id)->first();
 
             $email = $employee->PersonalEmail;
-            // $email = 'er.krishna.mishra@gmail.com';
             $mob_num = $employee->Mobilephone;
-            // $mob_num = '9026574061';
             $c = '2244';
             $name = $employee->name;
             $name_emp = $employee->NameFirst;
             $user = User::make(['email' => $email, 'name' => $name]);
-
 
             $details = [
                 'greeting' => 'Hi '.$name,
@@ -356,22 +395,29 @@ class HomeController extends Controller
 
             $messages = "Hi $name_emp URGENT We have today at 14.13 talked with $request->name $request->body Phone number: $request->mobile"; 
 
-            // $url = "http://login.pacttown.com/api/mt/SendSMS?user=N2RTECHNOLOGIES&password=994843&senderid=NTRTEC&channel=Trans&DCS=0&flashsms=0&number={$mob_num}&text=Your%20one%20time%20password%20to%20activate%20your%20account%20is%20{$c}&route=2";
+            if ($employee->SendMessage == 1) {
 
-            /*if ($employee->SendMessage == 1) {
+                $curl = curl_init();
 
-                $url = "http://login.pacttown.com/api/mt/SendSMS?user=N2RTECHNOLOGIES&password=994843&senderid=NTRTEC&channel=Trans&DCS=0&flashsms=0&number={$mob_num}&text={$messages}&route=2";
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "https://api.sms.to/sms/send?api_key=QMOszp1DsHtNdMJhcQAy5fGvMD1u38Zn&bypass_optout=true&to=+919026574061&message=This is test and %0A this is a new line&sender_id=smsto",  
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "GET",
+                ));
 
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url); 
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-                $output = curl_exec($ch);   
-                $output = json_decode($output);
-                curl_close($ch);
-            }*/
+                $response = curl_exec($curl);
+
+                curl_close($curl);
+                // $response;
+            }
         }
 
-        $arr = array('success'=>true,'message' => 'Draft updated successfully!');
+        $arr = array('success'=>true,'message' => 'Message Sended successfully!');
         return Response()->json($arr);
     }
 
@@ -380,10 +426,7 @@ class HomeController extends Controller
             $employee = Employee::select('Department','PersonalEmail','NameFirst','GroupPhone','GroupEmail','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->id)->first();
   
             $email = $employee->PersonalEmail;
-            $email = 'er.krishna.mishra@gmail.com';
             $mob_num = $employee->Mobilephone;
-            // $mob_num = '9026574061';
-            $c = '2244';
             $name = $employee->name;
             $name_emp = $employee->NameFirst;
             $user = User::make(['email' => $email, 'name' => $name]);
@@ -407,21 +450,28 @@ class HomeController extends Controller
 
             $messages = "Hi $name_emp URGENT We have today at 14.13 talked with $request->name $request->body Phone number: $request->mobile"; 
 
-            // $url = "http://login.pacttown.com/api/mt/SendSMS?user=N2RTECHNOLOGIES&password=994843&senderid=NTRTEC&channel=Trans&DCS=0&flashsms=0&number={$mob_num}&text=Your%20one%20time%20password%20to%20activate%20your%20account%20is%20{$c}&route=2";
-
             if ($employee->SendMessage == 1) {
 
-                // $url = "http://login.pacttown.com/api/mt/SendSMS?user=N2RTECHNOLOGIES&password=994843&senderid=NTRTEC&channel=Trans&DCS=0&flashsms=0&number={$mob_num}&text={$messages}&route=2";
+                $curl = curl_init();
 
-                /*$ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url); 
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-                $output = curl_exec($ch);   
-                $output = json_decode($output);
-                curl_close($ch);*/
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "https://api.sms.to/sms/send?api_key=QMOszp1DsHtNdMJhcQAy5fGvMD1u38Zn&bypass_optout=true&to=+919026574061&message=This is test and %0A this is a new line&sender_id=smsto",  
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "GET",
+                ));
+
+                $response = curl_exec($curl);
+
+                curl_close($curl);
+                // $response;
             }
 
-        $arr = array('success'=>true,'message' => 'Message sended to all!');
+        $arr = array('success'=>true,'message' => 'Message sended successfully!');
         return Response()->json($arr);
     }
 
@@ -436,10 +486,7 @@ class HomeController extends Controller
         foreach ($employees as $key => $employee) {
   
             $email = $employee->PersonalEmail;
-            // $email = 'er.krishna.mishra@gmail.com';
             $mob_num = $employee->Mobilephone;
-            // $mob_num = '9026574061';
-            $c = '2244';
             $name = $employee->name;
             $name_emp = $employee->NameFirst;
             $user = User::make(['email' => $email, 'name' => $name]);
@@ -457,18 +504,26 @@ class HomeController extends Controller
 
             $messages = "Hi $name_emp URGENT We have today at 14.13 talked with $request->name $request->body Phone number: $request->mobile"; 
 
-            // $url = "http://login.pacttown.com/api/mt/SendSMS?user=N2RTECHNOLOGIES&password=994843&senderid=NTRTEC&channel=Trans&DCS=0&flashsms=0&number={$mob_num}&text=Your%20one%20time%20password%20to%20activate%20your%20account%20is%20{$c}&route=2";
-
             if ($employee->SendMessage == 1) {
 
-                // $url = "http://login.pacttown.com/api/mt/SendSMS?user=N2RTECHNOLOGIES&password=994843&senderid=NTRTEC&channel=Trans&DCS=0&flashsms=0&number={$mob_num}&text={$messages}&route=2";
+                $curl = curl_init();
 
-                /*$ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url); 
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-                $output = curl_exec($ch);   
-                $output = json_decode($output);
-                curl_close($ch);*/
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "https://api.sms.to/sms/send?api_key=QMOszp1DsHtNdMJhcQAy5fGvMD1u38Zn&bypass_optout=true&to=+919026574061&message=This is test and %0A this is a new line&sender_id=smsto",  
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "GET",
+                ));
+
+                $response = curl_exec($curl);
+
+                curl_close($curl);
+                // $response;
+
             }
             break;
         }
@@ -517,52 +572,7 @@ class HomeController extends Controller
 
         }
 
-        /*if (isset($request->reciver_id) && !empty($request->reciver_id)) {
-            $employee = Employee::select('PersonalEmail','NameFirst','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->reciver_id)->first();
-
-            $email = $employee->PersonalEmail;
-            // $email = 'er.krishna.mishra@gmail.com';
-            $mob_num = $employee->Mobilephone;
-            // $mob_num = '9026574061';
-            $c = '2244';
-            $name = $employee->name;
-            $name_emp = $employee->NameFirst;
-            $user = User::make(['email' => $email, 'name' => $name]);
-
-
-            $details = [
-                'greeting' => 'Hi '.$name,
-                'subject' => $request->subject,
-                'body' => $request->body,
-                'name' => $request->name,
-                'email' => $request->email,
-                'mobile' => $request->mobile,
-            ];
-
-            \Notification::send($user, new Draft($details));
-
-            Message::where('id',$check->id)->update(['is_sent' => 1]);
-
-            $messages = "Hi $name_emp URGENT We have today at 14.13 talked with $request->name $request->body Phone number: $request->mobile"; 
-
-            // $url = "http://login.pacttown.com/api/mt/SendSMS?user=N2RTECHNOLOGIES&password=994843&senderid=NTRTEC&channel=Trans&DCS=0&flashsms=0&number={$mob_num}&text=Your%20one%20time%20password%20to%20activate%20your%20account%20is%20{$c}&route=2";
-
-            if ($employee->SendMessage == 1) {
-
-                $url = "http://login.pacttown.com/api/mt/SendSMS?user=N2RTECHNOLOGIES&password=994843&senderid=NTRTEC&channel=Trans&DCS=0&flashsms=0&number={$mob_num}&text={$messages}&route=2";
-
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url); 
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-                $output = curl_exec($ch);   
-                $output = json_decode($output);
-                curl_close($ch);
-            }
-        }*/
-
-
         return Response()->json($arr);
-        return redirect()->back()->with("message", "Draft saved successfully!");
     }
 
     public function empInfo(Request $request)
@@ -649,7 +659,7 @@ class HomeController extends Controller
 
             foreach ($posts as $post) {
                 $html.='<tr class="editshowhide" data-id="'.$post->id.'">
-                <td class="title">'. $post->subject .'</td>
+                <td class="title">'. $post->name .'</td>
                 <td class="comment">'. $post->body .'</td>
                 <td class="time">'. date('h:i A',strtotime($post->created_at)) .'</td>
                 </tr>';
@@ -699,7 +709,7 @@ class HomeController extends Controller
 
             foreach ($posts as $post) {
                 $html.='<tr class="editshowhide" data-id="'.$post->id.'">
-                <td class="title">'. $post->subject .'</td>
+                <td class="title">'. $post->name .'</td>
                 <td class="comment">'. $post->body .'</td>
                 <td class="time">'. date('h:i A',strtotime($post->created_at)) .'</td>
                 </tr>';
@@ -741,7 +751,7 @@ class HomeController extends Controller
         foreach ($posts as $post) {
 
             $html.='<tr class="editshowhide" data-id="'.$post->id.'">
-            <td class="title">'. $post->subject .'</td>
+            <td class="title">'. $post->name .'</td>
             <td class="comment">'. $post->body .'</td>
             <td class="time">'. date('h:i A',strtotime($post->created_at)) .'</td>
             </tr>';
@@ -803,5 +813,11 @@ class HomeController extends Controller
     [_token] => 6jbErmObIItr6P5RQSfaawW3yURQJ39mlli2eHEM*/
        echo "<pre>";print_r($request->except(['_token']));"</pre>";exit;
     }
-
+    
+    public function destroy($id)
+    {
+      $task=Note::find($id);
+      $task->delete();
+      return back()->with('success','Task deleted successfully');
+  }    
 }

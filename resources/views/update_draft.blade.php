@@ -10,8 +10,8 @@
 		<input class="form-control form-control-lg inputstyle" type="number" required name="mobile" id="mobile" value="{{ $message->mobile }}">
 	</div>
 
-	<div class="form-group">
-		<input class="form-control form-control-lg inputstyle" type="text" required name="subject" id="subject" value="{{ $message->subject }}">
+	<div class="form-group" style="display:none">
+		<input class="form-control form-control-lg inputstyle" type="text" name="subject" id="subject" value="{{ $message->subject }}">
 	</div>
 
 	<div class="form-group">

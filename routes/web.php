@@ -56,6 +56,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::resource('roles', 'Admin\RolesController');
     Route::delete('roles_mass_destroy', 'Admin\RolesController@massDestroy')->name('roles.mass_destroy');
     
+    Route::resource('notes', 'NoteController');
+    Route::post('notes/getData', 'NoteController@getData')->name('notes.getData');
+
+
+    Route::get('notes/delete/{id}', 'HomeController@destroy')->name('notes.delete');
+
     //Users Route
     Route::resource('users', 'Admin\UsersController');
     Route::delete('users_mass_destroy', 'Admin\UsersController@massDestroy')->name('users.mass_destroy');

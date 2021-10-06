@@ -14,7 +14,7 @@
 						<input class="form-control form-control-lg inputstyle" type="number" name="mobile" id="mobile" placeholder="{{ $message->mobile }}" disabled>
 					</div>
 
-					<div class="form-group">
+					<div class="form-group" style="display:none;">
 						<input class="form-control form-control-lg inputstyle" type="number" name="subject" id="subject" placeholder="{{ $message->subject }}" disabled>
 					</div>
 
