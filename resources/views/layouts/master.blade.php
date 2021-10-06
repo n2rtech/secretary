@@ -13,7 +13,6 @@
 	<title>@yield('title')</title>
 	<link href="{{asset('css/master.css')}}" rel="stylesheet">
 	<link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
-	<link href="http://fonts.cdnfonts.com/css/acumin-pro" rel="stylesheet">
 </head>
 
 <body>

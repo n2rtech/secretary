@@ -1,3 +1,28 @@
+@font-face {
+    font-family: 'Acumin Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: url('https://fonts.cdnfonts.com/s/14432/Acumin-RPro.woff') format('woff');
+}
+@font-face {
+    font-family: 'Acumin Pro';
+    font-style: italic;
+    font-weight: 400;
+    src: url('https://fonts.cdnfonts.com/s/14432/Acumin-ItPro.woff') format('woff');
+}
+@font-face {
+    font-family: 'Acumin Pro';
+    font-style: normal;
+    font-weight: 700;
+    src: url('https://fonts.cdnfonts.com/s/14432/Acumin-BdPro.woff') format('woff');
+}
+@font-face {
+    font-family: 'Acumin Pro';
+    font-style: italic;
+    font-weight: 700;
+    src: url('https://fonts.cdnfonts.com/s/14432/Acumin-BdItPro.woff') format('woff');
+}
+
 .ck-editor__editable,
 textarea {
     min-height: 150px;
