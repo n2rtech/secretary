@@ -236,7 +236,7 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="panel panel-default">
-										<div class="panel-heading">Send a Message</div>
+										<div class="panel-heading">Send a Message <a href="javascript:void(0)" class="messclose">&times;</a></div>
 										<div class="panel-body">
 											<div id="success-msg-send-allall" style="display:none;" class="alert alert-success"></div>
 											<form class="create" method="POST" id="send-msg-to-all-all">
@@ -313,9 +313,11 @@
 											</div>
 										</div>
 										<div class="col-sm-6 calendarpadding">
+											<a class="click-profile" data-id="{{ $all_employee->ID }}" >
 											<div class="calendarinfo">
 												Calendar Info
 											</div>
+											</a>
 										</div>
 									</div>
 								</div>
@@ -360,7 +362,7 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="panel panel-default">
-										<div class="panel-heading">Send a Message</div>
+										<div class="panel-heading">Send a Message  <a href="javascript:void(0)" class="messclose">&times;</a></div>
 										<div class="panel-body">
 											<div id="success-msg-send-all{{ $key }}" style="display:none;" class="alert alert-success"></div>
 											<form class="create" method="POST" id="send-msg-to-all-{{ $key }}">
@@ -437,9 +439,11 @@
 											</div>
 										</div>
 										<div class="col-sm-6 calendarpadding">
+											<a class="click-profile" data-id="{{ $all_employee->ID }}" >
 											<div class="calendarinfo">
 												Calendar Info
 											</div>
+										</a>
 										</div>
 									</div>
 								</div>
@@ -879,13 +883,12 @@
 
 <!-- Modal-3 -->
 <div class="modal fade" id="myModal3" role="dialog">
-	<div class="modal-dialog modal-dialog-centered modal-lg">
+	<div class="modal-dialog modal-dialog-centered modal-xl">
 
 		<!-- Modal content-->
 		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-			</div>
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+
 			<div id="success-notes-form" style="display:none;" class="alert alert-success"></div>
 			<form id="notes-form" method="POST">
 			<div class="modal-body">
@@ -926,6 +929,13 @@
         },
     });
 });
+</script>
+<script>
+	$(document).ready(function(){
+		$(".messclose").click(function(){
+			$(".sendmessage").css('display','none');
+		});
+	});
 </script>
 <script>
 	$(document).ready(function(){
