@@ -587,19 +587,19 @@ table.dataTable thead .sorting_desc {
     margin-top: 15px;
 }
 .btn-light {
-    border: 2px solid #0c2556;
+    border: 2px solid #3aab02;
     border-radius: 0;
     font-weight: 500;
     text-transform: uppercase;
     background: #fff;
-    color: rgba(12,37,86,1);
+    color: #292929;
     font-family: Acumin Pro;
     padding: 7px 10px 2px 10px;
     font-size: 13px;
 }
 .btn-light:hover{
-    border: 2px solid #0c2556;
-    background-color: #0c2556;
+    border: 2px solid #3aab02;
+    background-color: #3aab02;
     color: #fff !important;
 }
 .editprofile {
