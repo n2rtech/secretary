@@ -881,6 +881,10 @@ table.dataTable thead .sorting_desc {
     color: #6c757d;
     background-color: #fff;
 }
+.editmessbtn .btn-success {
+    width: 100%;
+    margin-bottom: 10px;
+}
 .editmessbtn .btn-primary {
     width: 100%;
     margin-bottom: 10px;
