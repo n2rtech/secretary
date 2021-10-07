@@ -108,7 +108,7 @@
 									</div>
 									<div class="showmorebtn text-center">
 										 <p class="invisible">No more posts...</p>
-										<button type="button" class="btn btn-light set-filter-data" id="load-more" data-paginate="2" data-draft-name="" data-draft-mobile="" data-draft-email="" data-draft-subject="" data-draft-reciver_id="">Show More</button>
+										<button type="button" @if($messages->total() <= 10) style="display: none;" @endif  class="btn btn-light set-filter-data" id="load-more" data-paginate="2" data-draft-name="" data-draft-mobile="" data-draft-email="" data-draft-subject="" data-draft-reciver_id="">Show More</button>
 									</div>
 								</div>
 							</div>
@@ -893,7 +893,7 @@
 			<textarea id="summernote" required name="note"></textarea>					
 				</div>
 				<div class="savebtn text-center">
-					<button type="button" id="notes-form-btn" class="btn btn-primary">Save</button>
+					<button type="submit" id="notes-form-btn" class="btn btn-primary">Save</button>
 				</div>
 			</div>
 			</form>
@@ -1489,7 +1489,7 @@ $(document).on('submit', "#edit-draft-form", function(event) {
   });
 
 
-  $(document).on('click', ".noteedit1", function() {
+  $(document).on('click', ".noteedit", function() {
      var id = $(this).attr('data-id');
 
     var options = {

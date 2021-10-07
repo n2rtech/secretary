@@ -135,7 +135,7 @@ class HomeController extends Controller
 
         $messages = $messages2->paginate(10);
 
-        // echo "<pre>";print_r($messages);"</pre>";exit;
+        // echo "<pre>";print_r($messages->toArray());"</pre>";exit;
 
         // echo "<pre>";print_r(compact('searched_data','employees','messages','employee_list','employee_data','filter_name','filter_mobile','filter_email','filter_group','draft_name','draft_mobile','draft_email','draft_subject','draft_employee_id','emp_id'));"</pre>";exit;
 
@@ -190,9 +190,10 @@ class HomeController extends Controller
 
                 if (count($all_employees) > 0) {
                     if (!isset($request->page)) {
-                        MostSearchedKeyword::insert(['keyword' => $keyword]);
+                        if (strlen($keyword) > 3) {
+                            MostSearchedKeyword::insert(['keyword' => $keyword]);
+                        }
                     }
-
                 }
             }
 
