@@ -1,31 +1,17 @@
 @font-face {
-    font-family: 'Acumin Pro';
-    font-style: normal;
+    font-family: 'Acumin Pro Regular';
+    src: url('../fonts/ACUMIN-PRO-REGULAR.TTF');
     font-weight: 400;
-    src: url('https://fonts.cdnfonts.com/s/14432/Acumin-RPro.woff') format('woff');
 }
-@font-face {
-    font-family: 'Acumin Pro';
-    font-style: italic;
-    font-weight: 400;
-    src: url('https://fonts.cdnfonts.com/s/14432/Acumin-ItPro.woff') format('woff');
-}
-@font-face {
-    font-family: 'Acumin Pro';
-    font-style: normal;
-    font-weight: 700;
-    src: url('https://fonts.cdnfonts.com/s/14432/Acumin-BdPro.woff') format('woff');
-}
-@font-face {
-    font-family: 'Acumin Pro';
-    font-style: italic;
-    font-weight: 700;
-    src: url('https://fonts.cdnfonts.com/s/14432/Acumin-BdItPro.woff') format('woff');
-}
+/*@font-face {
+    font-weight: normal;
+    font-family: 'Acumin Pro Regular';
+    src: url('../fonts/ACUMIN PRO CONDENSED.TTF');
+}*/
 
 .ck-editor__editable,
 textarea {
-    min-height: 150px;
+    min-height: 550px;
 }
 .datatable {
     width: 100% !important;
@@ -953,7 +939,7 @@ table.dataTable thead .sorting_desc {
     padding-top: 15px;
 }
 .note-editor .note-editing-area {
-    height: 300px;
+    height: 550px;
     overflow-y: scroll !important;
     overflow-x: hidden !important;
 }

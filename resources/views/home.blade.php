@@ -360,7 +360,7 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="panel panel-default">
-										<div class="panel-heading">Send a Message</div>
+										<div class="panel-heading">Send a Message  <a href="javascript:void(0)" class="messclose">&times;</a></div>
 										<div class="panel-body">
 											<div id="success-msg-send-all{{ $key }}" style="display:none;" class="alert alert-success"></div>
 											<form class="create" method="POST" id="send-msg-to-all-{{ $key }}">
