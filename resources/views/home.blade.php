@@ -1462,7 +1462,37 @@ $(document).on('submit', "#edit-draft-form", function(event) {
   		}
   	});
   });
+
+  </script>
   
+  <script type="text/javascript">  
+ 
+  $(document).on('click', ".noteedit", function() {
+  	var id = $(this).attr('data-id');
+
+  	var options = {
+  		'backdrop': 'static'
+  	};
+
+  	$('#myModal3').modal(options);
+
+  	var ajaxurl = '{{route('admin.notes.getData')}}';
+  	$.ajaxSetup({
+  		headers: {
+  			'X-CSRF-TOKEN': "{{ csrf_token() }}",
+  		}
+  	});
+  	$.ajax({
+  		url: ajaxurl,
+  		data : {id:id},
+  		type: "post",
+  		success: function(data){
+  			$('#notes-id').val(id);
+  			$('#summernote').summernote('editor.pasteHTML', data);
+  		}
+  	});
+  });
+
   $(document).on('submit', "#notes-form", function(event) {
   	event.preventDefault();
   	var $form = $(this);
@@ -1485,38 +1515,6 @@ $(document).on('submit', "#edit-draft-form", function(event) {
   	}).fail(function() {
   		$('#success-notes-form').text('failed');
   	});
-
-  });
-
-
-  $(document).on('click', ".noteedit", function() {
-     var id = $(this).attr('data-id');
-
-    var options = {
-      'backdrop': 'static'
-    };
-    $('#myModal3').modal(options);
-
-    var ajaxurl = '{{route('admin.notes.getData')}}';
-        $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': "{{ csrf_token() }}",
-          }
-      });
-        $.ajax({
-            url: ajaxurl,
-            data : {id:id},
-            type: "post",
-            success: function(data){
-
-            	$('#notes-id').val(id);
-            	$('#summernote').summernote('editor.pasteHTML', data);
-
-               
-            }
-        });
-
-
   });
 
     </script>
