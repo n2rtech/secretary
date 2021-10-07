@@ -236,7 +236,7 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="panel panel-default">
-										<div class="panel-heading">Send a Message</div>
+										<div class="panel-heading">Send a Message <a href="javascript:void(0)" class="messclose">&times;</a></div>
 										<div class="panel-body">
 											<div id="success-msg-send-allall" style="display:none;" class="alert alert-success"></div>
 											<form class="create" method="POST" id="send-msg-to-all-all">
@@ -884,7 +884,7 @@
 		<!-- Modal content-->
 		<div class="modal-content">
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			
+
 			<div id="success-notes-form" style="display:none;" class="alert alert-success"></div>
 			<form id="notes-form" method="POST">
 			<div class="modal-body">
@@ -925,6 +925,13 @@
         },
     });
 });
+</script>
+<script>
+	$(document).ready(function(){
+		$(".messclose").click(function(){
+			$(".sendmessage").css('display','none');
+		});
+	});
 </script>
 <script>
 	$(document).ready(function(){
