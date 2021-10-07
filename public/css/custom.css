@@ -421,7 +421,7 @@ table.dataTable thead .sorting_desc {
     cursor: pointer;
 }
 .messagetable {
-    height: 230px;
+    height: 345px;
     overflow-y: scroll;
 }
 .messagetable::-webkit-scrollbar-track
