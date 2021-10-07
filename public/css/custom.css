@@ -562,6 +562,11 @@ table.dataTable thead .sorting_desc {
     display: inline-block;
     line-height: 17px;
 }
+.profile-grid .calendarpadding a {
+    color: #292929;
+    text-decoration: none;
+    cursor: pointer;
+}
 .calendarinfo {
     font-size: 10px;
     border: 1px solid #cbcbcb;

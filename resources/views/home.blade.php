@@ -313,9 +313,11 @@
 											</div>
 										</div>
 										<div class="col-sm-6 calendarpadding">
+											<a class="click-profile" data-id="{{ $all_employee->ID }}" >
 											<div class="calendarinfo">
 												Calendar Info
 											</div>
+											</a>
 										</div>
 									</div>
 								</div>
@@ -437,9 +439,11 @@
 											</div>
 										</div>
 										<div class="col-sm-6 calendarpadding">
+											<a class="click-profile" data-id="{{ $all_employee->ID }}" >
 											<div class="calendarinfo">
 												Calendar Info
 											</div>
+										</a>
 										</div>
 									</div>
 								</div>
