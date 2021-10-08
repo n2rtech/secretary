@@ -53,17 +53,17 @@
 											<div class="row">
 												<div class="col-sm-12">
 													<div class="panel panel-default">
-														<div class="panel-heading">Paige Turner<br><span>11:45 AM</span> <a href="javascript:void(0)" class="close-div">&times;</a></div>
+														<div class="panel-heading"><br><span></span> <a href="javascript:void(0)" class="close-div">&times;</a></div>
 														<div class="panel-body">
 															<form class="create" id="contactForm">
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="name" name="name" id="name" placeholder="Paige Turner" disabled>
+														<input class="form-control form-control-lg inputstyle" type="name" name="name" id="name" placeholder="" disabled>
 													</div>
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="email" name="email" id="email" placeholder="paigeturner@gmail.com" disabled>
+														<input class="form-control form-control-lg inputstyle" type="email" name="email" id="email" placeholder="" disabled>
 													</div>
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="number" name="mobile" id="mobile" placeholder="9999998888" disabled>
+														<input class="form-control form-control-lg inputstyle" type="number" name="mobile" id="mobile" placeholder="" disabled>
 													</div>
 													
 													<div class="form-group">
@@ -1087,6 +1087,12 @@
 			data:{'keyword':$value,'department':activeTab},
 			success:function(data){
 				var active_tab = activeTab.replace(/ /g, "-");
+				if (data.length == 0) {
+					$("#results-"+active_tab).empty();
+				$("#results-"+active_tab).append('<div class="col-md-12" style="color:red;"><center>Search results not found</center></div>');
+				return;
+					
+				}
 				$("#results-"+active_tab).empty();
 				$("#results-"+active_tab).append(data);
 				 $('.dashboard-right .nav-tabs li a.active').attr('data-paginate',2);
@@ -1145,11 +1151,13 @@
 		var posting = $.post("{{ route('admin.filter.draft')}}", $form.serialize() + "&_token={{ csrf_token() }}");
 
 		posting.done(function(data) {
-			if(data.length == 0) {
+			if(!data || data.length === 0 ){
 				$('#post').empty();
-				$('#post').append('<tr>No data...</tr>');
+				$(".set-filter-data").hide();
+				$('#post').append('<tr><td colspan="3" style="color: red;"><center>No result found...</center></td></tr>');
 				return;
 			} else {
+				$(".set-filter-data").show();
 				$('#post').empty();
 				$('#post').append(data);
 				$('#load-more').show();
@@ -1525,6 +1533,34 @@ $(document).on('submit', "#edit-draft-form", function(event) {
   	}).fail(function() {
   		$('#success-notes-form').text('failed');
   	});
+  });
+
+
+  $(document).on('submit','#calendar-info-form',function(event) {
+  	event.preventDefault();
+
+  	$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+
+  	var $form = $(this);
+
+  	$.ajax({
+  		url: '{{ route('admin.save-event') }}',
+  		type: 'POST',
+  		data: $form.serialize() + "&_token={{ csrf_token() }}",
+  		beforeSend: function() {
+  			$("#calendar-info-form-btn").text('Loading...');
+  		}
+  	}).done(function(data) {
+  		$("#calendar-info-form")[0].reset();
+  		$("#calendar-info-form-btn").text('Save');
+  		$("#calendar-info-form-message").show().html(data.message);
+  		setTimeout(function() {
+  			$("#calendar-info-form-message").show().fadeOut('fast');
+  		}, 5000);
+  	}).fail(function() {
+  		$("#calendar-info-form-message").text('failed');
+  	});
+
   });
 
     </script>

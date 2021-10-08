@@ -749,6 +749,12 @@ class HomeController extends Controller
 
         $html = '';
 
+        /*if ($posts->total() == 0) {
+          return $html.='<tr>
+            <td colspan="3" style="color:red;"><center>Search results not found</center></td>
+            </tr>';
+        }*/
+
         foreach ($posts as $post) {
 
             $html.='<tr class="editshowhide" data-id="'.$post->id.'">

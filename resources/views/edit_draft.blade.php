@@ -30,7 +30,7 @@
 						</select>
 					</div>
 
-					<div id="messagebox-error" style="color: red;display:none;">Message should not go without assign employee</div>
+					<div id="messagebox-error" style="color: red;display:none;">Assign the employee first before sending a message</div>
 
 					<div class="savebtn editmessbtn">
 						<a href="javascript:void(0)" class="btn btn-success" data-id="{{ $message->id }}" id="edit-item" data-toggle="modal" data-target="#myModal2">Send Message With Corrections</a>

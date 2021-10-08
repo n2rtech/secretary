@@ -21,8 +21,8 @@
 		</div>
 		<div class="col-sm-8">
 			<div id="myChart">
-				{{-- <div id="calendar"></div>  --}}
-				<img src="{{asset('img/graph.png')}}" alt="Graph" class="img-fluid">
+				<div id="calendar"></div> 
+				{{-- <img src="{{asset('img/graph.png')}}" alt="Graph" class="img-fluid"> --}}
 			</div>
 		</div>
 	</div>
@@ -80,7 +80,7 @@
 											Extremely urgent
 										</label>
 									</div>
-
+									<div style="display:none;" id="send-message-form-checkbox"><p style="color:red;">You must check at least one checkbox.</p></div>
 								</div>
 
 								<div class="savebtn">
@@ -156,14 +156,7 @@
 										<div class="form-group">
 											<textarea name="body" required class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
 										</div>
-										<div class="form-group">
-											<select name="reciver_id" class="form-control form-select">
-												<option selected value="">Assign To Employee</option>
-												@foreach($employee_list as $key => $employee)
-												<option value="{{ $key}}">{{ $employee}}</option>
-												@endforeach
-											</select>
-										</div>
+										<input type="hidden" name="reciver_id" value="{{ $id }}">
 
 										<div class="savebtn">
 											<button type="submit" data-id="{{ $id }}" id="profile-draft-save-btn" class="btn btn-primary">Save</button>
@@ -231,7 +224,7 @@
 
 									<div class="showmorebtn text-center">
 										<p class="invisible-draft invisible">No more posts...</p>
-										<button type="button" id="load-more-draft" data-paginate="2" data-draft-reciver_id="{{ $id }}" class="btn btn-light"> Show More</button>
+										<button type="button" @if($employee_drafts->total() <= 10) style="display: none;" @endif id="load-more-draft" data-paginate="2" data-draft-reciver_id="{{ $id }}" class="btn btn-light"> Show More</button>
 									</div>
 								</div>
 
@@ -369,8 +362,17 @@
 
 	$(document).on('submit','#send-message-form',function(event) {
 		event.preventDefault();
+		$("#send-message-form-checkbox").hide();
 
 		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+
+		checked = $(this).find("input[type=checkbox]:checked").length;
+
+      if(!checked) {
+      	$("#send-message-form-checkbox").show();
+        return false;
+      }
+
 
 		var $form = $(this),
 		url = $form.attr('action');
@@ -533,5 +535,100 @@
 		});
 
 	});
+
+</script>
+
+    <script type="text/javascript">
+    	
+    	$(document).ready(function () {
+
+    		var SITEURL = "{{ route('admin.calendar-info')}}"+location.search;
+
+    		$.ajaxSetup({
+
+    			headers: {
+
+    				'X-CSRF-TOKEN': '{{ csrf_token() }}'
+
+    			}
+
+    		});
+
+    		var calendar = $('#calendar').fullCalendar({
+
+    			header: {
+    				left: 'prev,next today',
+    				center: 'title',
+    				right:''
+    			},
+
+    			eventLimit: true,
+
+    			selectable: true,
+
+    			selectHelper: true,
+
+    			events: SITEURL+"?emp_id={{ $id }}",
+
+    			// allDay: false,
+
+    			displayEventTime : false,
+
+    			// timeFormat: 'h(:mm)T',
+
+
+    			eventColor: 'yellow',
+
+    			eventRender: function(event, element){
+
+    				if (event.allDay === 'true') {
+    					event.allDay = true;
+    				} else {
+    					event.allDay = false;
+    				}
+
+    				element.popover({
+    					html:true,
+    					animation:true,
+    					delay: 300,
+    					content: "<b>Employee Name(Id)</b> : "+event.emp_name+" (#"+event.employee_id+")"+"</br><b>From Date </b> : "+event.from_date+"</br><b>From Time </b> : "+event.from_time+"</br><b>To Date </b> : "+event.to_date+"</br><b>To Time </b> : "+event.to_time+"</br><b>Event Type </b> : "+event.event_type+"</br><b>Event Activity </b> : "+event.event_activity+"</br><b>Message Status </b> : "+event.message_status+"</br>",
+    					trigger: 'hover'
+    				});
+    			},
+    		});
+    	});
+
+
+    </script>
+
+    <script type="text/javascript">
+
+    	$(document).on('click', '#edit-profile' , function() {
+
+    		var id = $(this).attr('data-id');
+    		var options = {
+    			'backdrop': 'static'
+    		};
+    		$('#myModal').modal(options);
+
+    		var ajaxurl = '{{route('admin.edit-profile')}}';
+    		$.ajaxSetup({
+    			headers: {
+    				'X-CSRF-TOKEN': "{{ csrf_token() }}",
+    			}
+    		});
+    		$.ajax({
+    			url: ajaxurl,
+    			data : {id:id},
+    			type: "post",
+    			success: function(data){
+    				$data = $(data); 
+    				$("#edit-profile-html").show().html($data);
+    			}
+    		});
+
+    	});
+
+
 </script>
 
