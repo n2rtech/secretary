@@ -271,6 +271,7 @@ table.dataTable thead .sorting_desc {
     letter-spacing: .5px;
     color: #0C2556;
     padding-top: 15px;
+    margin-bottom: 20px;
 }
 .dashboard-right .nav-tabs {
     background: #fff;
