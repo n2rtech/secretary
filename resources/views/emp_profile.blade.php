@@ -211,6 +211,7 @@
 									<div class="getdraft">
 										<table class="table table-striped">
 											<tbody id="post-draft">
+												@if(count($employee_drafts) > 0)
 												@foreach($employee_drafts as $draft)
 													<tr class="editshowhidedraft">
 														<td class="title">{{ $draft->name }}</td>
@@ -218,6 +219,9 @@
 														<td class="time">{{ $draft->created_at }}</td>
 													</tr>
 													@endforeach
+													@else
+													<div class="col-md-12" style="color:red;"><center>No drafts...</center></div>
+													@endif
 											</tbody>
 										</table>
 									</div>
@@ -506,37 +510,7 @@
 	}
 </script>  
 
-<script type="text/javascript">
 
-
-
-	$(document).on('click', '#edit-profile' , function() {
-
-		var id = $(this).attr('data-id');
-		var options = {
-			'backdrop': 'static'
-		};
-		$('#myModal').modal(options);
-
-		var ajaxurl = '{{route('admin.edit-profile')}}';
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': "{{ csrf_token() }}",
-			}
-		});
-		$.ajax({
-			url: ajaxurl,
-			data : {id:id},
-			type: "post",
-			success: function(data){
-				$data = $(data); 
-				$("#edit-profile-html").show().html($data);
-			}
-		});
-
-	});
-
-</script>
 
     <script type="text/javascript">
     	
@@ -600,35 +574,3 @@
 
 
     </script>
-
-    <script type="text/javascript">
-
-    	$(document).on('click', '#edit-profile' , function() {
-
-    		var id = $(this).attr('data-id');
-    		var options = {
-    			'backdrop': 'static'
-    		};
-    		$('#myModal').modal(options);
-
-    		var ajaxurl = '{{route('admin.edit-profile')}}';
-    		$.ajaxSetup({
-    			headers: {
-    				'X-CSRF-TOKEN': "{{ csrf_token() }}",
-    			}
-    		});
-    		$.ajax({
-    			url: ajaxurl,
-    			data : {id:id},
-    			type: "post",
-    			success: function(data){
-    				$data = $(data); 
-    				$("#edit-profile-html").show().html($data);
-    			}
-    		});
-
-    	});
-
-
-</script>
-

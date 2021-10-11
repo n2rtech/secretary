@@ -18,7 +18,7 @@
 		<textarea required name="body" id="body" class="form-control" cols="3" rows="3" placeholder="Message">{{ $message->body }}</textarea>
 	</div>
 	<div class="form-group">
-		<select class="form-control form-select" required name="reciver_id" id="reciver_id">
+		<select class="form-control form-select select-with-search-option" required name="reciver_id" id="reciver_id">
 			<option selected value="">Assign To Employee</option>
 			@foreach($employee_list as $key => $employee)
 			<option @if($message->reciver_id == $key) selected @endif value="{{ $key}}">{{ $employee}}</option>
@@ -30,3 +30,9 @@
 	</div>
 
 </form>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".select-with-search-option").select2();
+	});
+</script>

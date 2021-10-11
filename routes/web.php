@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('/send-message', 'HomeController@sendMessage')->name('send-message');
     Route::post('/send-message-emp', 'HomeController@sendMessageToEmployee')->name('send-message-emp');
     Route::get('/get-draft', 'HomeController@getDraft')->name('get-draft');
+    Route::get('/get-more-keywords', 'HomeController@getMoreKeywords')->name('get-more-keywords');
     Route::get('/get-draft-emp', 'HomeController@getDraftEmp')->name('get-draft-emp');
     Route::post('/emp-info', 'HomeController@empInfo')->name('emp-info');
     Route::post('/edit-profile', 'HomeController@editProfile')->name('edit-profile');

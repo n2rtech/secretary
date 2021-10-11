@@ -42,14 +42,15 @@ private $user;
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        // ->subject($this->user['subject'])
-        ->subject('New Enquiry Recived')
-        ->line('Welcome '.$this->user['greeting'])
-        ->line('You recived a Enquiry, please check details below.')
-        ->line('Enquiry Customer Detail :')
-        ->line('Name : '.$this->user['name'].', Email : '.$this->user['email'].', Mobile : '.$this->user['mobile'])
-        // ->line('Enquiry Subject : '.$this->user['subject'])
-        ->line('Enquiry Message : '.$this->user['body']);
+        ->subject('New Enquiry Received')
+        ->line($this->user['greeting'])
+        ->line('You have received a new Enquiry, please check details below')
+        ->line('Customer Detail :')
+        ->line('Name : '.$this->user['name'])
+        ->line('Email : '.$this->user['email'])
+        ->line('Mobile : '.$this->user['mobile'])
+        ->line('Message : ')
+        ->line($this->user['body']);
     }
 
     /**

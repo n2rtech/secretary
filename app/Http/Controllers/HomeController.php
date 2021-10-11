@@ -48,7 +48,7 @@ class HomeController extends Controller
         $searched_data =  MostSearchedKeyword::select('id',DB::raw('count(keyword) as keyword_count'), 'keyword')->groupBy('keyword')
         ->having(DB::raw('count(keyword)'), '>', 3)
         ->orderBy(DB::raw('count(keyword)'), 'desc')
-        ->get()->take('30'); 
+        ->paginate(25); 
 
         $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
 
@@ -258,7 +258,7 @@ class HomeController extends Controller
 
 
             $details = [
-                'greeting' => 'Hi '.$employee->name,
+                'greeting' => $employee->name,
                 'subject' => $data->subject,
                 'body' => $data->body,
                 'name' => $data->name,
@@ -319,7 +319,7 @@ class HomeController extends Controller
 
 
             $details = [
-                'greeting' => 'Hi '.$name,
+                'greeting' => $name,
                 'subject' => $request->subject,
                 'body' => $request->body,
                 'name' => $request->name,
@@ -382,7 +382,7 @@ class HomeController extends Controller
             $user = User::make(['email' => $email, 'name' => $name]);
 
             $details = [
-                'greeting' => 'Hi '.$name,
+                'greeting' => $name,
                 'subject' => $request->subject,
                 'body' => $request->body,
                 'name' => $request->name,
@@ -808,17 +808,15 @@ class HomeController extends Controller
 
     public function updateProfile(Request $request)
     {
-        Employee::where('ID',$request->id)->update($request->except(['_token','id']));
-        $arr = array('success'=>true,'message' => 'Profile updated successfully!');
-            return Response()->json($arr);
-        /*[NameFirst] => Lynne
-    [NamesMiddle] => 
-    [NameLast] => Gwafranca
-    [Mobilephone] => 3855436924
-    [PersonalEmail] => tubajon@sbcglobal.net
-    [GroupEmail] => 
-    [_token] => 6jbErmObIItr6P5RQSfaawW3yURQJ39mlli2eHEM*/
-       echo "<pre>";print_r($request->except(['_token']));"</pre>";exit;
+        $updated = Employee::where('ID',$request->id)->update($request->except(['_token','id']));
+
+        if ($updated) {
+            $arr = array('success'=>true,'message' => 'Profile updated successfully!');
+        }else{
+            $arr = array('success'=>false,'message' => 'Profile updated successfully!');
+        }
+
+        return Response()->json($arr);
     }
     
     public function destroy($id)
@@ -827,4 +825,33 @@ class HomeController extends Controller
       $task->delete();
       return back()->with('success','Task deleted successfully');
   }    
+
+  public function getMoreKeywords(Request $request)
+  {
+    $searched_data =  MostSearchedKeyword::select('id',DB::raw('count(keyword) as keyword_count'), 'keyword')->groupBy('keyword')
+    ->having(DB::raw('count(keyword)'), '>', 3)
+    ->orderBy(DB::raw('count(keyword)'), 'desc')
+    ->paginate(25); 
+    if ($request->ajax()) {
+        $html = '';
+        
+        foreach ($searched_data as $post) {
+
+            $html.='<li>
+            <div class="radio">
+            <label>
+            <input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
+            <span class="forcustom">'. $post->keyword .'</span>
+            <span class="counter">'. $post->keyword_count .'</span>
+            </label>
+            </div>
+            </li>';
+        }
+
+        return $html;
+    }
+
+    return view('post');
+}
+
 }

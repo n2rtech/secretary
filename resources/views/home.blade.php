@@ -3,7 +3,7 @@
 @section('content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.css" /> 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css">
-
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <style>
    .ajax-loading{
      text-align: center;
@@ -26,18 +26,20 @@
 				<h2>Most Searched Keyword</h2>
 				<div class="searchkeyword">
 					<ul class="list-inline" id="search-keywords">
-            			@foreach($searched_data as $most_searched)
-            			<li>
-            			<div class="radio">
-		                    <label>
-		                        <input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
-		                        <span class="forcustom">{{ $most_searched->keyword }}</span>
-		                        <span class="counter">{{ $most_searched->keyword_count }}</span>
-		                    </label>
-		                </div>
-		                </li>
-		                @endforeach
-            		</ul>
+						@foreach($searched_data as $most_searched)
+						<li>
+							<div class="radio">
+								<label>
+									<input type="radio" class="btn-check" name="btnradio" autocomplete="off">        
+									<span class="forcustom">{{ $most_searched->keyword }}</span>
+									<span class="counter">{{ $most_searched->keyword_count }}</span>
+								</label>
+							</div>
+						</li>
+						@endforeach
+					</ul>
+					<center><button type="button" @if($searched_data->total() <= 20) style="display: none;" @endif  class="btn btn-light set-filter-data" id="load-more-keywords" data-paginate="2">Show More</button></center>
+						<br>
 				</div>
 				<!--End-->
 				<!--Message-->
@@ -93,7 +95,8 @@
 										</div>
 										<div class="messagetable" id="scrollcl">
 											<table class="table table-striped">
-												<tbody id="post">
+												<tbody id="post">													
+													@if(count($messages) > 0)
 													@foreach($messages as $message)
 													<tr class="editshowhide" data-id="{{ $message->id }}">
 														<td class="title">{{ $message->name }}</td>
@@ -101,10 +104,13 @@
 														<td class="time">{{ date('h:i A',strtotime($message->created_at)) }}</td>
 													</tr>
 													@endforeach
+													@else
+													<div class="col-md-12" style="color:red;"><center>No drafts...</center></div>
+													@endif													
 												</tbody>
 											</table>
 										</div>
-										
+										<div style="display:none;" id="post-loder"><center><i class="fa fa-spinner fa-spin" style="font-size:48px;color:red"></i></center></div>
 									</div>
 									<div class="showmorebtn text-center">
 										 <p class="invisible">No more posts...</p>
@@ -149,7 +155,7 @@
 														<span class="text-danger error-body"></span>
 													</div>
 													<div class="form-group">
-														<select name="reciver_id" id="reciver_id" class="form-control form-select">
+														<select name="reciver_id" id="reciver_id" class="form-control form-select select-with-search">
 															<option selected value="">Assign To Employee</option>
 															@foreach($employee_list as $key => $employee)
 														  <option value="{{ $key}}">{{ $employee}}</option>
@@ -176,7 +182,7 @@
 														<input class="form-control form-control-lg inputstyle" type="text" name="draft-subject" id="draft-subject" placeholder="Message Subject" />
 													</div>
 													<div class="form-group">
-														<select name="draft-reciver_id" id="draft-reciver_id" class="form-control form-select">
+														<select name="draft-reciver_id" id="draft-reciver_id" class="form-control form-select select-with-search-opt">
 															<option value="" selected>Assign To Employee</option>
 															@foreach($employee_list as $key => $employee)
 														  <option value="{{ $key}}">{{ $employee}}</option>
@@ -816,9 +822,9 @@
 					<div class="col-sm-6 col-xs-6 border-right">
 						<div class="changeprofile">
 							<div class="proimg"> 
-								<a href="#"><span class="remove">&times;</span> Remove</a>
+								<a style="display:none;" href="#"><span class="remove">&times;</span> Remove</a>
 								<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
-								<a href="#"><span class="change">Change Picture</span></a>
+								<a style="display:none;" href="#"><span class="change">Change Picture</span></a>
 							</div>
 						</div>
 					</div>
@@ -912,6 +918,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script>
 	$(document).ready(function() {
     $('#summernote').summernote({
@@ -1352,14 +1360,15 @@ $(document).on('submit', "#edit-draft-form", function(event) {
                 type: 'get',
                 datatype: 'html',
                 beforeSend: function() {
+                	//$("#post-loder").show();
                     $('#load-more').text('Loading...');
                 }
             })
             .done(function(data) {
+                	//$("#post-loder").hide();
                 if(data.length == 0) {
                     $('.invisible').removeClass('invisible');
                     $('#load-more').text('Show More');
-                    // $('#load-more').hide();
                     return;
                   } else {
                     $('#load-more').text('Load more...');
@@ -1564,5 +1573,111 @@ $(document).on('submit', "#edit-draft-form", function(event) {
   });
 
     </script>
+<script type="text/javascript">
+        $('#load-more-keywords').click(function() {
+            var page = $(this).data('paginate');            
+            loadMoreKeywordData(page);
+            $(this).data('paginate', page+1);
+        });
+        // run function when user click load more button
+        function loadMoreKeywordData(paginate) {
+        	var url = '{{ route('admin.get-more-keywords') }}?page=' + paginate;
 
+            $.ajax({
+                url: url,
+                type: 'get',
+                datatype: 'html',
+                beforeSend: function() {
+                    $('#load-more-keywords').text('Loading...');
+                }
+            })
+            .done(function(data) {
+                if(data.length == 0) {
+                    $('#load-more-keywords').text('Show More');
+                    $('#load-more-keywords').hide();
+                    return;
+                  } else {
+                    $('#load-more-keywords').text('Load more...');
+                    $('#search-keywords').append(data);
+                  }
+            })
+               .fail(function(jqXHR, ajaxOptions, thrownError) {
+                  alert('Something went wrong.');
+               });
+        }
+    </script>
+
+
+<script type="text/javascript">
+	$(document).on('submit','#edit-profile-form',function(event) {
+		event.preventDefault();
+
+		$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+
+		var $form = $(this),
+		url = $form.attr('action');
+
+		$.ajax({
+			url: '{{ route('admin.update-profile') }}',
+			type: 'POST',
+			data: $form.serialize() + "&_token={{ csrf_token() }}",
+			beforeSend: function() {
+				$("#edit-profile-btn").text('Loading...');
+			}
+		}).done(function(data) {
+			if (data.success) {
+				$("#edit-profile-btn").text('Save');
+				$("#edit-profile-message").show().html(data.message);
+				setTimeout(function() {
+					$("#edit-profile-message").show().fadeOut('fast');
+				}, 5000);
+			}else{
+				$("#edit-profile-btn").text('Save');
+			}			
+		}).fail(function() {
+			$("#edit-profile-message").text('failed');
+		});
+
+	});
+</script>
+
+<script type="text/javascript">
+
+
+
+	$(document).on('click', '#edit-profile' , function() {
+
+		var id = $(this).attr('data-id');
+		var options = {
+			'backdrop': 'static'
+		};
+		$('#myModal').modal(options);
+
+		var ajaxurl = '{{route('admin.edit-profile')}}';
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': "{{ csrf_token() }}",
+			}
+		});
+		$.ajax({
+			url: ajaxurl,
+			data : {id:id},
+			type: "post",
+			success: function(data){
+				$data = $(data); 
+				$("#edit-profile-html").show().html($data);
+			}
+		});
+
+	});
+
+$(document).ready(function() {
+  $(".select-with-search").select2();
+});
+
+$(document).ready(function() {
+  $(".select-with-search-opt").select2();
+});
+
+</script>
 @endsection
