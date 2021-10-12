@@ -246,30 +246,51 @@
 						<div class="panel-body">
 							<div class="calendarform">
 
-								<div id="calendar-info-form-message" style="display:none;" class="alert alert-success">dddddddd</div>
+								<div id="calendar-info-form-message" style="display:none;" class="alert alert-success"></div>
 
 								<form class="create" method="POST" id="calendar-info-form">
-									<div class="form-group">
-										<input type="hidden" name="employee_id" value="{{ $id }}">
-										<input title="Select From Date" required class="form-control form-control-lg inputstyle" type="date" name="from_date" />
+
+									<div class="form-group" style="position: relative">
+											<input  title="Select From Date"
+                    onfocus="off" placeholder="Select From Date" required class="form-control form-control-lg inputstyle"
+											type="text" id="datedate" name="from_date" />
+										</div>
+
+										<div class="form-group" style="position: relative">
+											<input  title="Select To Date" placeholder="Select To Date" required class="form-control form-control-lg inputstyle"
+											type="text" id="datedateto" name="to_date" />
+										</div>										
+
+										<div class="form-group" style="position: relative">
+											<input  title="Select From Time" placeholder="Select From Time" required class="form-control form-control-lg inputstyle"
+											type="text" id="datetimeto" name="from_time" />
+										</div>
+
+										<div class="form-group" style="position: relative">
+											<input  placeholder="Select To Time" required title="Select To Time" class="form-control form-control-lg inputstyle"
+											type="text" id="datetime" name="to_time" />
+										</div>
+
+										<input type="hidden" name="employee_id" value="{{ $id }}">										
+									{{-- <div class="form-group">
+										<input title="Select From Date" placeholder="Slect Date" id="datetime" required class="form-control form-control-lg inputstyle" type="text" name="from_date" />
 									</div>
 									<div class="form-group">
 										<input title="Select To Date" required class="form-control form-control-lg inputstyle" type="date" name="to_date" />
 									</div>
 									<div class="form-group">
 										<input title="Select From Time" required class="form-control form-control-lg inputstyle" name="from_time" type="time" />
-
 									</div>
 									<div class="form-group">
 										<input title="Select To Time" required name="to_time" class="form-control form-control-lg inputstyle" type="time" />
-									</div>
+									</div> --}}
 
 									<div class="form-group">
 										<select name="event_type" required class="form-control form-select">
 											<option value="" selected>Events</option>
-											<option value="One">One</option>
-											<option value="Two">Two</option>
-											<option value="Three">Three</option>
+											<option value="Busy">Busy</option>
+											<option value="Leave">On Leave</option>
+											<option value="Working">Working</option>
 										</select>
 									</div>
 
@@ -279,9 +300,19 @@
 
 									<div class="form-group">
 										<div class="form-check">
-											<input name="message_status" class="form-check-input" type="checkbox" checked>
+											<input name="message_status" class="form-check-input" type="radio" value="1" checked>
 											<label class="form-check-label" for="checkbox">
-												Message On/off
+												Message ON
+											</label>
+										</div>
+
+									</div>
+
+									<div class="form-group">
+										<div class="form-check">
+											<input name="message_status" class="form-check-input" type="radio" value="0" >
+											<label class="form-check-label" for="checkbox">
+												Message OFF
 											</label>
 										</div>
 
@@ -570,6 +601,28 @@
     				});
     			},
     		});
+    	});
+
+
+    	$('#datetime').datetimepicker({
+    		format: 'hh:mm:ss a'
+    	});
+
+
+    	$('#datedate').datetimepicker({
+    		minDate:new Date(),
+    		format: 'YYYY-MM-DD'
+    	});
+
+
+    	$('#datetimeto').datetimepicker({
+    		format: 'hh:mm:ss a'
+    	});
+
+
+    	$('#datedateto').datetimepicker({
+    		minDate:new Date(),
+    		format: 'YYYY-MM-DD'
     	});
 
 

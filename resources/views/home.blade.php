@@ -4,7 +4,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.css" /> 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
+
 <style>
+
    .ajax-loading{
      text-align: center;
    }
@@ -315,7 +319,7 @@
 										</div>
 										<div class="col-sm-6">
 											<div class="contactno">
-												<span>{{ $all_employee->Mobilephone }}</span>
+												<span>{{ $all_employee->busy_status }}</span>
 											</div>
 										</div>
 										<div class="col-sm-6 calendarpadding">
@@ -441,7 +445,7 @@
 										</div>
 										<div class="col-sm-6">
 											<div class="contactno">
-												<span>{{ $employee->Mobilephone }}</span>
+												<span>{{ $employee->busy_status }}</span>
 											</div>
 										</div>
 										<div class="col-sm-6 calendarpadding">
@@ -919,6 +923,10 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script type="text/javascript" src=
+"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js">
+    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 
 <script>
 	$(document).ready(function() {
@@ -1560,6 +1568,7 @@ $(document).on('submit', "#edit-draft-form", function(event) {
   			$("#calendar-info-form-btn").text('Loading...');
   		}
   	}).done(function(data) {
+  		$('#calendar').fullCalendar("refetchEvents");
   		$("#calendar-info-form")[0].reset();
   		$("#calendar-info-form-btn").text('Save');
   		$("#calendar-info-form-message").show().html(data.message);

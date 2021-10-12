@@ -6,6 +6,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use Response;
 use DB;
+use Carbon\Carbon;
 use App\Models\Employee;
 use App\Models\Message;
 use App\Models\Note;
@@ -103,8 +104,6 @@ class HomeController extends Controller
             }
         }
 
-        // $messages2 = Message::select('messages.*', DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->join('employees','employees.ID','messages.reciver_id')->where('is_sent',0)->latest('messages.created_at');
-
         $messages2 = Message::where('is_sent',0)->latest('messages.created_at');
 
         $draft_name = $request->input('draft-name');
@@ -135,11 +134,6 @@ class HomeController extends Controller
 
         $messages = $messages2->paginate(10);
 
-        // echo "<pre>";print_r($messages->toArray());"</pre>";exit;
-
-        // echo "<pre>";print_r(compact('searched_data','employees','messages','employee_list','employee_data','filter_name','filter_mobile','filter_email','filter_group','draft_name','draft_mobile','draft_email','draft_subject','draft_employee_id','emp_id'));"</pre>";exit;
-
-
         if (isset($emp_id) && !empty($emp_id)) {
             $employee_data = Employee::select('employees.*',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->where('ID',$emp_id)->first();
 
@@ -150,11 +144,41 @@ class HomeController extends Controller
     
         $group_employees = Employee::distinct('Department')->oldest('Department')->get(['Department']);
 
-        foreach ($group_employees as $key => $department) {
-            $group_employees[$key]->employees = Employee::where('Department',$department->Department)->get()->take(12);
+        foreach ($group_employees as $key1 => $department) {
+
+            $employeesa = Employee::where('Department',$department->Department)->get()->take(12);
+
+            foreach ($employeesa as $key2 => $employeea) {
+                $schedule = CalendarInformation::where('employee_id',$employeea->ID)
+                ->where('start', '<=', Carbon::now())
+                ->where('end', '>=', Carbon::now())
+                ->count();
+
+                if ($schedule > 0) {
+                    $employeesa[$key2]->busy_status = 'Busy';
+                }else{
+                    $employeesa[$key2]->busy_status = $employeea->Mobilephone;
+                }
+            }
+
+            $group_employees[$key1]->employees = $employeesa;
         }
 
         $all_employees = Employee::paginate(12);
+        
+        foreach ($all_employees as $key => $all_employee) {
+            $schedule = CalendarInformation::where(['employee_id'=>$all_employee->ID,'event_type'=>'Busy'])
+            ->where('start', '<=', Carbon::now())
+            ->where('end', '>=', Carbon::now())
+            ->count();
+
+            if ($schedule > 0) {
+                $all_employees[$key]->busy_status = 'Busy';
+            }else{
+                $all_employees[$key]->busy_status = $all_employee->Mobilephone;
+            }
+        }
+
          $data = '';
         if ($request->ajax()) {
             if (isset($request->department) && ($request->department != 'All') && (!isset($request->keyword))) {
@@ -236,8 +260,6 @@ class HomeController extends Controller
             }
             return $data;
         }
-
-        // echo "<pre>";print_r($group_employees->toArray());"</pre>";exit;
         
         return view('home', compact('searched_data','employees','messages','employee_list','employee_data','filter_name','filter_mobile','filter_email','filter_group','draft_name','draft_mobile','draft_email','draft_subject','draft_employee_id','emp_id','group_employees','all_employees','keyword','group_id','group_id','emp_id','notes'));
     }
@@ -581,6 +603,19 @@ class HomeController extends Controller
         $id = $request->id;
 
         $employee = Employee::where('ID',$id)->first();
+
+        $calendar_count = CalendarInformation::where('employee_id',$employee->ID)->whereDate('start', '=', now()->format('Y-m-d'))->where('end', '>', now()->format('H:i:s'))->count();
+
+        $schedule = CalendarInformation::where('employee_id',$employee->ID)
+                ->where('start', '<=', Carbon::now())
+                ->where('end', '>=', Carbon::now())
+                ->count();
+
+        if ($schedule > 0) {
+            $employee->busy_status = 'Busy';
+        }else{
+            $employee->busy_status = $employee->Mobilephone;
+        }
 
         $employee_drafts = Message::select('messages.*', DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->join('employees','employees.ID','messages.reciver_id')->where('employees.ID',$id)->latest('messages.created_at')->paginate(10);
 
