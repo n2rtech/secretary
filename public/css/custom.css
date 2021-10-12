@@ -1100,7 +1100,7 @@ table.dataTable thead .sorting_desc {
   border: 4px #ddd solid;
   border-top: 4px #0c2556 solid;
   border-radius: 50%;
-  animation: sp-anime 1.5s infinite linear;
+  animation: sp-anime 0.9s infinite linear;
 }
 @keyframes sp-anime {
   100% { 
