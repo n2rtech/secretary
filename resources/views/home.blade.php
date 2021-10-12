@@ -164,7 +164,7 @@
 														<span class="text-danger error-body"></span>
 													</div>
 													<div class="form-group">
-														<select name="reciver_id" id="reciver_id" class="form-control form-select select-with-search">
+														<select name="reciver_id" id="reciver_id" class="form-control form-select select-with-search inputstyle">
 															<option selected value="">Assign To Employee</option>
 															@foreach($employee_list as $key => $employee)
 														  <option value="{{ $key}}">{{ $employee}}</option>
