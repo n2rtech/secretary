@@ -222,14 +222,14 @@
 		<div class="col-sm-6">
 			<div class="dashboard-right"> 
 				<ul class="nav nav-tabs">
-					<li><a data-toggle="tab" data-paginate="2" href="#menua6">All</a></li>
+					<li><a data-toggle="tab" data-paginate="2" class="active" href="#menua6">All</a></li>
 					@foreach($group_employees as $key => $group_employee)
-					<li><a data-toggle="tab"  data-paginate="2"  class="@if($key == 0) active @endif" href="#menu{{ $key }}">{{ $group_employee->Department }}</a></li>
+					<li><a data-toggle="tab"  data-paginate="2" href="#menu{{ $key }}">{{ $group_employee->Department }}</a></li>
 					@endforeach
 					<li><a data-toggle="tab" href="#menua5">Notes</a></li>
 				</ul>
 				<div class="tab-content">
-					<div id="menua6" class="tab-pane fade">
+					<div id="menua6" class="tab-pane active">
 						<div class="searchmember">
 							<div class="row">
 								<div class="col-sm-6">
@@ -324,7 +324,7 @@
 										</div>
 										<div class="col-sm-6">
 											<div class="contactno">
-												<span>{{ $all_employee->busy_status }}</span>
+												<span @if($all_employee->busy_status == 'Busy') style="background:red;" @endif>{{ $all_employee->busy_status }}</span>
 											</div>
 										</div>
 										<div class="col-sm-6 calendarpadding">
@@ -356,7 +356,7 @@
 						{{-- <div class="ajax-loading-All"><img src="{{ asset('img/icons/loading.gif') }}" /></div> --}}
 					</div>
 					@foreach($group_employees as $key => $group_employee)
-					<div id="menu{{ $key }}" class="tab-pane @if($key == 0) active @endif">
+					<div id="menu{{ $key }}" class="tab-pane fade">
 						<div class="searchmember">
 							<div class="row">
 								<div class="col-sm-6">
@@ -450,7 +450,7 @@
 										</div>
 										<div class="col-sm-6">
 											<div class="contactno">
-												<span>{{ $employee->busy_status }}</span>
+												<span @if($employee->busy_status == 'Busy') style="background:red;" @endif>{{ $employee->busy_status }}</span>
 											</div>
 										</div>
 										<div class="col-sm-6 calendarpadding">
@@ -1075,7 +1075,7 @@ $(document).on('click', '.editshowhideempdraft', function(event) {
 
 
 <script>
-	localStorage.setItem('activeTab', 'Freelancer');
+	localStorage.setItem('activeTab', 'All');
 
 	var activeTab = localStorage.getItem('activeTab');
 
