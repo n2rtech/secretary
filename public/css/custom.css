@@ -565,6 +565,8 @@ table.dataTable thead .sorting_desc {
     margin-top: 10px;
     display: inline-block;
     line-height: 17px;
+    min-width: 88px;
+    text-align: center;
 }
 .profile-grid .calendarpadding a {
     color: #292929;
@@ -578,6 +580,7 @@ table.dataTable thead .sorting_desc {
     padding: 6px 8px;
     margin-top: 10px;
     line-height: 16px;
+    text-align: center;
 }
 .contactno span.busy {
     background: #fe5151;
@@ -591,17 +594,23 @@ table.dataTable thead .sorting_desc {
     margin-top: 15px;
 }
 .btn-light {
-    border: 2px solid #3aab02;
-    border-radius: 0;
+    border: 2px solid #0C2556;
+    border-radius: 3px;
     font-weight: 500;
     text-transform: uppercase;
-    background: #fff;
-    color: #292929;
+    background: #0C2556;
+    color: #fff;
     font-family: Acumin Pro;
     padding: 7px 10px 2px 10px;
     font-size: 13px;
+    margin-bottom: 15px;
 }
 .btn-light:hover{
+    border: 2px solid #3aab02;
+    background-color: #3aab02;
+    color: #fff !important;
+}
+.btn-light:active{
     border: 2px solid #3aab02;
     background-color: #3aab02;
     color: #fff !important;
@@ -1071,13 +1080,17 @@ table.dataTable thead .sorting_desc {
 .messagebox{
 	position: relative;
 }
-#showmore{
-  display:block;
-  margin:20px auto;
-  padding:10px 30px;
-  background-color:#eee;
-  border:solid #ccc 1px;
-  cursor: pointer;
+.getdraft{
+	position: relative;
+}
+#overlay2{	
+  position: absolute;
+  top: 40%;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  text-align: center;
+  display: none;
 }
 #overlay{	
   position: absolute;
@@ -1100,7 +1113,7 @@ table.dataTable thead .sorting_desc {
   border: 4px #ddd solid;
   border-top: 4px #0c2556 solid;
   border-radius: 50%;
-  animation: sp-anime 0.9s infinite linear;
+  animation: sp-anime 0.8s infinite linear;
 }
 @keyframes sp-anime {
   100% { 
@@ -1109,5 +1122,40 @@ table.dataTable thead .sorting_desc {
 }
 .is-hide{
   display:none;
+}
+.select2-container--default .select2-selection--single {
+    box-shadow: 0px 3px 9px #00000029 !important;
+    background-color: #fff !important;
+    border-radius: 3px !important;
+    border-color: #fff !important;
+    font-size: 14px !important;
+    height: 40px !important;
+    padding: 5px 15px !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 7px !important;
+    right: 5px !important;
+}
+.getdraft .table tr.editshowhideempdraft {
+    cursor: pointer;
+}
+.editprofiledraft .panel-default .panel-heading {
+    font-size: 13px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.editprofiledraft .panel-default .panel-heading span {
+    font-size: 10px;
+    position: relative;
+    bottom: 5px;
+}
+.editprofiledraft .panel-default .panel-heading a.close-emp-div {
+    float: right;
+    line-height: 0;
+    font-size: 25px;
+    color: #f1f1f1;
+    position: relative;
+    bottom: 7px;
+    -webkit-text-stroke: .5px #0c2556;
 }
 /***********End*****************/

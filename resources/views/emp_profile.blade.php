@@ -228,7 +228,7 @@
 
 									<div class="showmorebtn text-center">
 										<p class="invisible-draft invisible">No more posts...</p>
-										<button type="button" @if($employee_drafts->total() <= 10) style="display: none;" @endif id="load-more-draft" data-paginate="2" data-draft-reciver_id="{{ $id }}" class="btn btn-light"> Show More</button>
+										<button id="showmoretwo" type="button" @if($employee_drafts->total() <= 10) @endif id="load-more-draft" data-paginate="2" data-draft-reciver_id="{{ $id }}" class="btn btn-light"> Show More</button>
 									</div>
 								</div>
 
@@ -331,6 +331,7 @@
 		</div>
 	</div>
 </div>
+
 
 <script>
 	$(document).ready(function(){
