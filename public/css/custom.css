@@ -606,6 +606,11 @@ table.dataTable thead .sorting_desc {
     background-color: #3aab02;
     color: #fff !important;
 }
+.btn-light:active{
+    border: 2px solid #3aab02;
+    background-color: #3aab02;
+    color: #fff !important;
+}
 .editprofile {
     background: #fff;
     border: 1px solid #dee2e6;
