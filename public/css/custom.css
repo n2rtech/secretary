@@ -1071,14 +1071,6 @@ table.dataTable thead .sorting_desc {
 .messagebox{
 	position: relative;
 }
-#showmore{
-  display:block;
-  margin:20px auto;
-  padding:10px 30px;
-  background-color:#eee;
-  border:solid #ccc 1px;
-  cursor: pointer;
-}
 #overlay{	
   position: absolute;
   top: 40%;
