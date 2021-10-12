@@ -1081,13 +1081,12 @@ table.dataTable thead .sorting_desc {
 }
 #overlay{	
   position: absolute;
-  top: 20%;
+  top: 40%;
   z-index: 100;
   left: 0;
   right: 0;
   text-align: center;
   display: none;
-  background: rgba(0,0,0,0.6);
 }
 .cv-spinner {
   height: 100%;
