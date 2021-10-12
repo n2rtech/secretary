@@ -158,7 +158,7 @@ class HomeController extends Controller
                 if ($schedule > 0) {
                     $employeesa[$key2]->busy_status = 'Busy';
                 }else{
-                    $employeesa[$key2]->busy_status = $employeea->Mobilephone;
+                    $employeesa[$key2]->busy_status = (!empty($employeea->Mobilephone)) ? $employeea->Mobilephone : 'Not Known' ;
                 }
             }
 
@@ -176,7 +176,7 @@ class HomeController extends Controller
             if ($schedule > 0) {
                 $all_employees[$key]->busy_status = 'Busy';
             }else{
-                $all_employees[$key]->busy_status = $all_employee->Mobilephone;
+                $all_employees[$key]->busy_status = (!empty($all_employee->Mobilephone)) ? $all_employee->Mobilephone : 'Not Known' ;
             }
         }
 
@@ -615,7 +615,7 @@ class HomeController extends Controller
         if ($schedule > 0) {
             $employee->busy_status = 'Busy';
         }else{
-            $employee->busy_status = $employee->Mobilephone;
+            $employee->busy_status = (!empty($employee->Mobilephone)) ? $employee->Mobilephone : 'Not Known' ;
         }
 
         $employee_drafts = Message::select('messages.*', DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->join('employees','employees.ID','messages.reciver_id')->where('employees.ID',$id)->latest('messages.created_at')->paginate(10);
