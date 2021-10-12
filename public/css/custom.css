@@ -533,7 +533,7 @@ table.dataTable thead .sorting_desc {
     left: auto;
 }
 .protitle {
-    min-height: 65px;
+    min-height: 50px;
 }
 .protitle a {
     font-size: 13px;
