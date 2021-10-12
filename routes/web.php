@@ -36,7 +36,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('/update-profile', 'HomeController@updateProfile')->name('update-profile');
     Route::get('/calendar-info', 'HomeController@calendarInfo')->name('calendar-info');
     Route::post('/edit-draft', 'HomeController@editDraft')->name('edit-draft');
+    Route::post('/edit-emp-draft', 'HomeController@editEmpDraft')->name('edit-emp-draft');
     Route::post('/update-draft', 'HomeController@updateDraft')->name('update-draft');
+    Route::post('/update-emp-draft', 'HomeController@updateEmpDraft')->name('update-emp-draft');
     Route::post('/update-draft-form', 'HomeController@updateDraftForm')->name('update-draft-form');
     Route::post('/save-send-draft', 'HomeController@saveSendDraft')->name('save-send-draft');
     Route::post('/send-message-woc', 'HomeController@sendMessageWoc')->name('send-message-woc');

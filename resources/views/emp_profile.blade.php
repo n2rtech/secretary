@@ -166,25 +166,25 @@
 								</div>
 								<div class="tab-pane fade" id="profile-draft-get" role="tabpanel" aria-labelledby="profile-tabdraft">
 
-									<div class="editmessagedraft" style="display: none;">
+									<div class="editprofiledraft" style="display: none;">
 											<div class="row">
 												<div class="col-sm-12">
 													<div class="panel panel-default">
-														<div class="panel-heading">Paige Turner<br><span>11:45 AM</span> <a href="javascript:void(0)" class="close-div">&times;</a></div>
+														<div class="panel-heading"><br><span></span> <a href="javascript:void(0)" class="close-div">&times;</a></div>
 														<div class="panel-body">
 															<form class="create" id="contactForm">
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="name" name="name" id="name" placeholder="Paige Turner" disabled>
+														<input class="form-control form-control-lg inputstyle" type="name" name="name" id="name" placeholder="" disabled>
 													</div>
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="email" name="email" id="email" placeholder="paigeturner@gmail.com" disabled>
+														<input class="form-control form-control-lg inputstyle" type="email" name="email" id="email" placeholder="" disabled>
 													</div>
 													<div class="form-group">
-														<input class="form-control form-control-lg inputstyle" type="number" name="mobile" id="mobile" placeholder="9999998888" disabled>
+														<input class="form-control form-control-lg inputstyle" type="number" name="mobile" id="mobile" placeholder="" disabled>
 													</div>
 													
 													<div class="form-group">
-														<textarea name="body" id="body" class="form-control" placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been" cols="3" rows="3" disabled></textarea>
+														<textarea name="body" id="body" class="form-control" placeholder="" cols="3" rows="3" disabled></textarea>
 													</div>
 													<div class="form-group">
 														<select class="form-control form-select" disabled>
@@ -213,7 +213,7 @@
 											<tbody id="post-draft">
 												@if(count($employee_drafts) > 0)
 												@foreach($employee_drafts as $draft)
-													<tr class="editshowhidedraft">
+													<tr class="editshowhideempdraft" data-id="{{ $draft->id }}">
 														<td class="title">{{ $draft->name }}</td>
 														<td class="comment">{{ $draft->body }}</td>
 														<td class="time">{{ $draft->created_at }}</td>
@@ -334,11 +334,13 @@
 
 <script>
 	$(document).ready(function(){
-		$(".editshowhidedraft").click(function(){
-			$(".editmessagedraft").css("display","block");
-		});
+		/*$(".editshowhideempdraft").click(function(){
+			$(".editprofiledraft").css("display","block");
+		});*/
 		$(".close-div").click(function(){
-			$(".editmessagedraft").css("display","none");
+			alert('d');
+			$(".editprofiledraft").css("display","none");
+			$(".editprofiledraft").hide();
 		});
 	});
 </script>

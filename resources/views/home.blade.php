@@ -963,6 +963,29 @@
 		});
 
 
+$(document).on('click', '.editshowhideempdraft', function(event) {
+			event.preventDefault();
+
+			var id = $(this).attr('data-id');
+
+		var ajaxurl = '{{route('admin.edit-emp-draft')}}';
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': "{{ csrf_token() }}",
+          }
+      });
+        $.ajax({
+            url: ajaxurl,
+            data : {id:$(this).attr('data-id')},
+            type: "post",
+            success: function(data){
+                $data = $(data); 
+                $(".editprofiledraft").show().html($data);
+            }
+        });
+		});
+
+
 		$(document).on('click', '.editshowhidedraft', function(event) {
 			event.preventDefault();
 
@@ -1442,6 +1465,34 @@ $(document).on('submit', "#edit-draft-form", function(event) {
     $('#edit-modal').modal(options);
 
     var ajaxurl = '{{route('admin.update-draft')}}';
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': "{{ csrf_token() }}",
+          }
+      });
+        $.ajax({
+            url: ajaxurl,
+            data : {id:id},
+            type: "post",
+            success: function(data){
+                $data = $(data); 
+                $("#update-draft-html").show().html($data);
+            }
+        });
+
+
+  });
+
+
+  $(document).on('click', "#edit-emp-item", function() {
+     var id = $(this).attr('data-id');
+
+    var options = {
+      'backdrop': 'static'
+    };
+    $('#edit-modal11').modal(options);
+
+    var ajaxurl = '{{route('admin.update-emp-draft')}}';
         $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': "{{ csrf_token() }}",

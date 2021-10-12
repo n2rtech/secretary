@@ -149,10 +149,11 @@ class HomeController extends Controller
             $employeesa = Employee::where('Department',$department->Department)->get()->take(12);
 
             foreach ($employeesa as $key2 => $employeea) {
-                $schedule = CalendarInformation::where('employee_id',$employeea->ID)
-                ->where('start', '<=', Carbon::now())
-                ->where('end', '>=', Carbon::now())
-                ->count();
+
+                $schedule = CalendarInformation::where(['employee_id'=>$employeea->ID,'event_type'=>'Busy'])
+                    ->where('start', '<=', Carbon::now())
+                    ->where('end', '>=', Carbon::now())
+                    ->count();
 
                 if ($schedule > 0) {
                     $employeesa[$key2]->busy_status = 'Busy';
@@ -242,7 +243,7 @@ class HomeController extends Controller
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="contactno">
-                                                <span>'.$all_employee->Mobilephone.'</span>
+                                                <span>'.$all_employee->busy_status.'</span>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 calendarpadding">
@@ -626,6 +627,21 @@ class HomeController extends Controller
         return view('emp_profile', compact('id','employee','employee_list','employee_drafts'));
     }
 
+    public function updateEmpDraft(Request $request)
+    {
+        $id = $request->id;
+        $message = Message::where('id',$id)->first();
+        if ($message->reciver_id) {
+            $message->reciver_name = Employee::select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$message->reciver_id)->first()->name;
+        }else{
+            $message->reciver_name = '';
+        }
+
+        $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
+        
+        return view('update_emp_draft', compact('id','message','employee_list'));    
+    }
+
 
     public function updateDraft(Request $request)
     {
@@ -641,6 +657,23 @@ class HomeController extends Controller
         
         return view('update_draft', compact('id','message','employee_list'));    
     }
+
+
+    public function editEmpDraft(Request $request)
+    {
+        $id = $request->id;
+        $message = Message::where('id',$id)->first();
+        if ($message->reciver_id) {
+            $message->reciver_name = Employee::select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$message->reciver_id)->first()->name;
+        }else{
+            $message->reciver_name = '';
+        }
+
+       $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
+
+        return view('edit_emp_draft', compact('id','message','employee_list'));    
+    }
+
 
     public function editDraft(Request $request)
     {
@@ -694,7 +727,7 @@ class HomeController extends Controller
             $html = '';
 
             foreach ($posts as $post) {
-                $html.='<tr class="editshowhide" data-id="'.$post->id.'">
+                $html.='<tr class="editshowhideempdraft" data-id="'.$post->id.'">
                 <td class="title">'. $post->name .'</td>
                 <td class="comment">'. $post->body .'</td>
                 <td class="time">'. date('h:i A',strtotime($post->created_at)) .'</td>
