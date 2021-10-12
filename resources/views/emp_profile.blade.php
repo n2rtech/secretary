@@ -331,6 +331,17 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	$(document).ready(function(){
+		$(".editshowhidedraft").click(function(){
+			$(".editmessagedraft").css("display","block");
+		});
+		$(".close-div").click(function(){
+			$(".editmessagedraft").css("display","none");
+		});
+	});
+</script>
 <script type="text/javascript">
 
 	$(document).on('submit','#profile-draft-form',function(event) {

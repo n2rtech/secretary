@@ -290,6 +290,9 @@ table.dataTable thead .sorting_desc {
     margin-bottom: 15px;
     line-height: 30px;
 }
+#messagetab1 li {
+    margin-bottom: 0px;
+}
 .dashboard-right .nav-tabs li a {
     font-family: 'Acumin Pro Regular';
     color: #0C2556;
@@ -984,5 +987,85 @@ table.dataTable thead .sorting_desc {
 .messclose:hover{
     color: #fff;
     text-decoration: none;
+}
+#calendar {
+    padding-top: 15px;
+}
+.fc .fc-button-group > * {
+    background: #0c2556 !important;
+    padding: 5px !important;
+    line-height: 15px !important;
+}
+.fc-icon-left-single-arrow:after{
+	color: #fff;
+}
+.fc-icon-right-single-arrow:after{
+	color: #fff;
+}
+.fc .fc-button-group > button:focus {
+    outline: 0px auto -webkit-focus-ring-color;
+}
+.fc-today-button {
+    background: #828ea7 !important;
+    color: #fff !important;
+    font-weight: 200;
+    text-transform: capitalize;
+}
+.fc-toolbar .fc-center {
+    display: inherit;
+    float: right;
+}
+.fc-toolbar .fc-center h2 {
+    font-size: 18px;
+    padding-right: 15px;
+    padding-top: 5px;
+}
+.fc-widget-header table tr th {
+    font-weight: 500;
+    color: #0c2556;
+}
+.fc-row.fc-rigid .fc-content-skeleton table tr td span {
+    padding: 22px;
+}
+.fc-scroller{
+	height: 280px !important;
+}
+.fc-scroller::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+.fc-scroller::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+.fc-scroller::-webkit-scrollbar-thumb
+{
+    background-color: #0c2556;
+}
+.editmessagedraft .panel-default .panel-heading {
+    font-size: 13px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.editmessagedraft .panel-default .panel-heading span {
+    font-size: 10px;
+    position: relative;
+    bottom: 5px;
+}
+.editmessagedraft .panel-default .panel-heading a.close-div {
+    float: right;
+    line-height: 0;
+    font-size: 25px;
+    color: #f1f1f1;
+    position: relative;
+    bottom: 7px;
+    -webkit-text-stroke: .5px #0c2556;
+}
+.getdraft .table tr.editshowhidedraft {
+    cursor: pointer;
 }
 /***********End*****************/
