@@ -1,8 +1,8 @@
-@font-face {
+/*@font-face {
     font-family: 'Acumin Pro Regular';
     src: url('../fonts/ACUMIN-PRO-REGULAR.TTF');
     font-weight: 400;
-}
+}*/
 /*@font-face {
     font-weight: normal;
     font-family: 'Acumin Pro Regular';
@@ -127,14 +127,14 @@ table.dataTable thead .sorting_desc {
     margin: 50px;
 }
 .login-section h1 {
-    font-family: 'Acumin Pro Regular';
+    /*font-family: 'Acumin Pro Regular';*/
     font-style: italic;
     font-weight: 600;
     font-size: 26px;
     text-align: center;
 }
 .login-section p.lead {
-    font-family: 'Acumin Pro Regular';
+    /*font-family: 'Acumin Pro Regular';*/
     font-weight: 600;
     color: #000;
     font-size: 15px;
@@ -144,14 +144,14 @@ table.dataTable thead .sorting_desc {
 .login-section small a {
     color: #000;
     font-weight: 500;
-    font-family: 'Acumin Pro Regular';
+    /*font-family: 'Acumin Pro Regular';*/
     letter-spacing: .5px;
     font-size: 12px;
 }
 .login-section span.form-check-label {
     color: #000;
     font-weight: 500;
-    font-family: 'Acumin Pro Regular';
+    /*font-family: 'Acumin Pro Regular';*/
     letter-spacing: .5px;
     font-size: 14px;
 }
@@ -220,7 +220,7 @@ table.dataTable thead .sorting_desc {
     padding: 6px 40px;
 }
 .logo a h1 {
-    font-family: 'Acumin Pro Regular';
+    /*font-family: 'Acumin Pro Regular';*/
     font-style: italic;
     font-weight: 600;
     font-size: 26px;
@@ -265,7 +265,7 @@ table.dataTable thead .sorting_desc {
     border-right: 1px solid #dee2e6 !important;
 }
 .dashboard-left h2 {
-    font-family: 'Acumin Pro Regular';
+    /*font-family: 'Acumin Pro Regular';*/
     font-size: 22px;
     font-weight: 600;
     letter-spacing: .5px;
@@ -280,24 +280,24 @@ table.dataTable thead .sorting_desc {
 }
 .dashboard-right .nav-tabs li a.active {
     border-bottom: 2px solid #0C2556;
-    padding-bottom: 7px;
+    padding-bottom: 2px;
 }
 .dashboard-right .nav-tabs li.active {
     border-bottom: 2px solid #0C2556;
 }
 .dashboard-right .nav-tabs li {
-    padding: 0 25px;
-    margin-bottom: 15px;
-    line-height: 30px;
+    padding: 0 22px 0px 0px;
+    margin-bottom: 10px;
+    line-height: 20px;
 }
 #messagetab1 li {
     margin-bottom: 0px;
 }
 .dashboard-right .nav-tabs li a {
-    font-family: 'Acumin Pro Regular';
+    /*font-family: 'Acumin Pro Regular';*/
     color: #0C2556;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 21px;
 }
 .messagebtn .btn-primary {
@@ -532,6 +532,9 @@ table.dataTable thead .sorting_desc {
     right: -2px;
     left: auto;
 }
+.protitle {
+    min-height: 45px;
+}
 .protitle a {
     font-size: 13px;
     color: #000;
@@ -707,6 +710,7 @@ table.dataTable thead .sorting_desc {
 }
 #messagetab1 .nav-item.show .nav-link, .nav-tabs .nav-link.active span {
     border-bottom: 2px solid #f1f1f1;
+    padding-bottom: 3px;
 }
 #messagetab1 li.nav-item {
     padding: 0;
@@ -856,7 +860,7 @@ table.dataTable thead .sorting_desc {
     color: red;
     font-size: 12px;
     font-weight: 400;
-    font-family: 'Acumin Pro Regular';
+    /*font-family: 'Acumin Pro Regular';*/
     letter-spacing: .5px;
     text-decoration: none;
 }
@@ -1034,10 +1038,11 @@ table.dataTable thead .sorting_desc {
     color: #0c2556;
 }
 .fc-row.fc-rigid .fc-content-skeleton table tr td span {
-    padding: 22px;
+    padding: 12px 22px;
 }
-.fc-scroller{
-	height: 280px !important;
+.fc-scroller {
+    height: 280px !important;
+    overflow: hidden !important;
 }
 .fc-scroller::-webkit-scrollbar-track
 {
@@ -1157,5 +1162,8 @@ table.dataTable thead .sorting_desc {
     position: relative;
     bottom: 7px;
     -webkit-text-stroke: .5px #0c2556;
+}
+.fc-basic-view .fc-body .fc-row {
+    min-height: 3.2em !important;
 }
 /***********End*****************/
