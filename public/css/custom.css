@@ -1068,4 +1068,46 @@ table.dataTable thead .sorting_desc {
 .getdraft .table tr.editshowhidedraft {
     cursor: pointer;
 }
+.messagebox{
+	position: relative;
+}
+#showmore{
+  display:block;
+  margin:20px auto;
+  padding:10px 30px;
+  background-color:#eee;
+  border:solid #ccc 1px;
+  cursor: pointer;
+}
+#overlay{	
+  position: absolute;
+  top: 40%;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  text-align: center;
+  display: none;
+}
+.cv-spinner {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px #ddd solid;
+  border-top: 4px #2e93e6 solid;
+  border-radius: 50%;
+  animation: sp-anime 0.8s infinite linear;
+}
+@keyframes sp-anime {
+  100% { 
+    transform: rotate(360deg); 
+  }
+}
+.is-hide{
+  display:none;
+}
 /***********End*****************/

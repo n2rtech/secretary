@@ -118,7 +118,12 @@
 									</div>
 									<div class="showmorebtn text-center">
 										 <p class="invisible">No more posts...</p>
-										<button type="button" @if($messages->total() <= 10) style="display: none;" @endif  class="btn btn-light set-filter-data" id="load-more" data-paginate="2" data-draft-name="" data-draft-mobile="" data-draft-email="" data-draft-subject="" data-draft-reciver_id="">Show More</button>
+										<button id="showmore" type="button" @if($messages->total() <= 10) style="display: none;" @endif  class="btn btn-light set-filter-data" id="load-more" data-paginate="2" data-draft-name="" data-draft-mobile="" data-draft-email="" data-draft-subject="" data-draft-reciver_id="">Show More</button>
+									</div>
+									<div id="overlay">
+									  <div class="cv-spinner">
+									    <span class="spinner"></span>
+									  </div>
 									</div>
 								</div>
 							</div>
@@ -927,6 +932,27 @@
 "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js">
     </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
+<script>
+	$(document).ready(function(){
+		$(document).ajaxSend(function() {
+    $("#overlay").fadeIn(300);　
+  });
+		
+  $('#showmore').click(function(){
+    $.ajax({
+      type: 'GET',
+      success: function(data){
+        console.log(data);
+      }
+    }).done(function() {
+      setTimeout(function(){
+        $("#overlay").fadeOut(300);
+      },500);
+    });
+  });	
+	});
+</script>
 
 <script>
 	$(document).ready(function() {
