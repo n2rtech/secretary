@@ -1098,7 +1098,7 @@ table.dataTable thead .sorting_desc {
   width: 40px;
   height: 40px;
   border: 4px #ddd solid;
-  border-top: 4px #2e93e6 solid;
+  border-top: 4px #0c2556 solid;
   border-radius: 50%;
   animation: sp-anime 0.8s infinite linear;
 }
