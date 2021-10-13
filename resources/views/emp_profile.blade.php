@@ -225,7 +225,7 @@
 											</tbody>
 										</table>
 									</div>
-
+									<div id="loading"></div>
 									<div class="showmorebtn text-center">
 										<p class="invisible-draft invisible">No more posts...</p>
 										<button id="showmoretwo" type="button" @if($employee_drafts->total() <= 10) style="display: none;" @endif id="load-more-draft" data-paginate="2" data-draft-reciver_id="{{ $id }}" class="btn btn-light"> Show More</button>

@@ -280,10 +280,6 @@ table.dataTable thead .sorting_desc {
 }
 .dashboard-right .nav-tabs li a.active {
     border-bottom: 2px solid #0C2556;
-    padding-bottom: 2px;
-}
-.dashboard-right .nav-tabs li.active {
-    border-bottom: 2px solid #0C2556;
 }
 .dashboard-right .nav-tabs li {
     padding: 0 22px 0px 0px;
@@ -756,7 +752,7 @@ table.dataTable thead .sorting_desc {
     border: none;
     min-width: 100px;
     text-align: center;
-    margin-right: 15px;
+    margin-right: 12px;
     font-size: 15px;
 }
 #myTabdraft .nav-item.show .nav-link, .nav-tabs .nav-link.active {
@@ -1168,5 +1164,28 @@ table.dataTable thead .sorting_desc {
 }
 .set-filter-data {
     margin-top: 10px;
+}
+
+.getdraft{
+	position: relative;
+}
+#loading {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgb(232 232 232);
+    border-radius: 50%;
+    border-top-color: #0c2556;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    bottom: 170px;
+}
+@keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
 }
 /***********End*****************/

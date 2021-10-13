@@ -42,6 +42,7 @@
 						</li>
 						@endforeach
 					</ul>
+					<br>
 					<button type="button" @if($searched_data->total() <= 20) @endif  class="btn btn-light set-filter-data" id="load-more-keywords" data-paginate="2">Show More</button>
 				</div>
 				<!--End-->
@@ -103,7 +104,7 @@
 													@foreach($messages as $message)
 													<tr class="editshowhide" data-id="{{ $message->id }}">
 														<td class="title">{{ $message->name }}</td>
-														<td class="comment">{{ \Illuminate\Support\Str::limit($message->body, 25, $end='...') }}</td>
+														<td class="comment">{{ $message->body }}</td>
 														<td class="time">{{ date('h:i A',strtotime($message->created_at)) }}</td>
 													</tr>
 													@endforeach
@@ -117,7 +118,7 @@
 									</div>
 									<div class="showmorebtn text-center">
 										 <p class="invisible">No more posts...</p>
-										<button {{-- id="showmore" --}} type="button" @if($messages->total() <= 10) style="display: none;" @endif  class="btn btn-light set-filter-data" id="load-more" data-paginate="2" data-draft-name="" data-draft-mobile="" data-draft-email="" data-draft-subject="" data-draft-reciver_id="">Show More</button>
+										<button id="showmore" type="button" @if($messages->total() <= 10) style="display: none;" @endif  class="btn btn-light set-filter-data" id="load-more" data-paginate="2" data-draft-name="" data-draft-mobile="" data-draft-email="" data-draft-subject="" data-draft-reciver_id="">Show More</button>
 									</div>
 									<div id="overlay">
 									  <div class="cv-spinner">
@@ -934,7 +935,8 @@
 
 <script>
 	$(document).ready(function(){
-    $("#overlay").fadeOut(300);　
+		$(document).ajaxSend(function() {
+    $("#overlay").fadeIn(300);　
   });
 		
   $('#showmore').click(function(){
@@ -1191,7 +1193,7 @@ $(document).on('click', '.editshowhideempdraft', function(event) {
             type: "post",
             success: function(data){
                 $data = $(data); 
-                obj.show().html($data).fadeIn(300);
+                obj.show().html($data).fadeIn();
             }
         });
 
@@ -1217,8 +1219,7 @@ $(document).on('click', '.editshowhideempdraft', function(event) {
 			if(!data || data.length === 0 ){
 				$('#post').empty();
 				$(".set-filter-data").hide();
-				$('#post').append('<tr><td colspan="3" style="color: red;"><center>Search results not found</center></td></tr>');
-				$('#load-more').hide();
+				$('#post').append('<tr><td colspan="3" style="color: red;"><center>No result found...</center></td></tr>');
 				return;
 			} else {
 				$(".set-filter-data").show();
@@ -1377,7 +1378,6 @@ $(document).on('submit', "#edit-draft-form", function(event) {
 
    <script type="text/javascript">
         $('#load-more').click(function() {
-        	$("#overlay").fadeIn(300);
             var page = $(this).data('paginate');
             var draft_name = $(this).attr('data-draft-name');
             var draft_mobile = $(this).attr('data-draft-mobile');
@@ -1418,13 +1418,11 @@ $(document).on('submit', "#edit-draft-form", function(event) {
                 datatype: 'html',
                 beforeSend: function() {
                 	//$("#post-loder").show();
-                	$("#overlay").fadeIn(300);
                     $('#load-more').text('Loading...');
                 }
             })
             .done(function(data) {
                 	//$("#post-loder").hide();
-            	$("#overlay").fadeOut(300);
                 if(data.length == 0) {
                     $('.invisible').removeClass('invisible');
                     $('#load-more').text('Show More');
