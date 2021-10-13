@@ -225,10 +225,10 @@
 											</tbody>
 										</table>
 									</div>
-									<div id="loading"></div>
+									<div id="loading" class="loading-draft" style="display:none;"></div>
 									<div class="showmorebtn text-center">
 										<p class="invisible-draft invisible">No more posts...</p>
-										<button id="showmoretwo" type="button" @if($employee_drafts->total() <= 10) style="display: none;" @endif id="load-more-draft" data-paginate="2" data-draft-reciver_id="{{ $id }}" class="btn btn-light"> Show More</button>
+										<button type="button" @if($employee_drafts->total() <= 10) style="display: none;" @endif id="load-more-draft" data-paginate="2" data-draft-reciver_id="{{ $id }}" class="btn btn-light"> Show More</button>
 									</div>
 								</div>
 
@@ -536,10 +536,12 @@
 			type: 'get',
 			datatype: 'html',
 			beforeSend: function() {
+				$('.loading-draft').show();
 				$('#load-more-draft').text('Loading...');
 			}
 		})
 		.done(function(data) {
+			$('.loading-draft').hide();
 			if(data.length == 0) {
 				$('.invisible-draft').removeClass('invisible');
 				$('#load-more-draft').text('Show More');
