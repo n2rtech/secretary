@@ -281,9 +281,6 @@ table.dataTable thead .sorting_desc {
 .dashboard-right .nav-tabs li a.active {
     border-bottom: 2px solid #0C2556;
 }
-.dashboard-right .nav-tabs li.active {
-    border-bottom: 2px solid #0C2556;
-}
 .dashboard-right .nav-tabs li {
     padding: 0 22px 0px 0px;
     margin-bottom: 10px;
@@ -755,7 +752,7 @@ table.dataTable thead .sorting_desc {
     border: none;
     min-width: 100px;
     text-align: center;
-    margin-right: 15px;
+    margin-right: 14px;
     font-size: 15px;
 }
 #myTabdraft .nav-item.show .nav-link, .nav-tabs .nav-link.active {
