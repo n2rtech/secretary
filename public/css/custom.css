@@ -1188,10 +1188,32 @@ table.dataTable thead .sorting_desc {
 @-webkit-keyframes spin {
   to { -webkit-transform: rotate(360deg); }
 }
+#calendarLoad {
+    margin-top: 20px;
+}
+#calendar-info-form .form-group:first-child::after, #calendar-info-form .form-group:nth-child(2)::after {
+    content: url(../img/icons/calendaricon.png);
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 7px;
+    top: 11px;
+}
+#calendar-info-form .form-group:nth-child(3)::after, #calendar-info-form .form-group:nth-child(4)::after {
+    content: url(../img/icons/clockicon.png);
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 7px;
+    top: 11px;
+}
 @media (min-width: 1371px) and (max-width: 1440px){
 .fc-scroller {
     height: 305px !important;
     overflow: hidden !important;
+}
+#calendarLoad {
+    margin-top: 20px;
 }
 }
 /***********End*****************/
