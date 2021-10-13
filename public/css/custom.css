@@ -280,7 +280,6 @@ table.dataTable thead .sorting_desc {
 }
 .dashboard-right .nav-tabs li a.active {
     border-bottom: 2px solid #0C2556;
-    padding-bottom: 2px;
 }
 .dashboard-right .nav-tabs li.active {
     border-bottom: 2px solid #0C2556;
