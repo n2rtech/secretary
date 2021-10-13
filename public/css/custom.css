@@ -1034,7 +1034,7 @@ table.dataTable thead .sorting_desc {
     color: #0c2556;
 }
 .fc-row.fc-rigid .fc-content-skeleton table tr td span {
-    padding: 12px 22px;
+    padding: 9px 22px;
 }
 .fc-scroller {
     height: 280px !important;
@@ -1187,5 +1187,11 @@ table.dataTable thead .sorting_desc {
 }
 @-webkit-keyframes spin {
   to { -webkit-transform: rotate(360deg); }
+}
+@media (min-width: 1441px) and (max-width: 1600px){
+.fc-scroller {
+    height: 305px !important;
+    overflow: hidden !important;
+}
 }
 /***********End*****************/
