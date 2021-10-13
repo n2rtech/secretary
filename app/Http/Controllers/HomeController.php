@@ -51,6 +51,8 @@ class HomeController extends Controller
         ->orderBy(DB::raw('count(keyword)'), 'desc')
         ->paginate(25); 
 
+        // echo "<pre>";print_r($searched_data);"</pre>";exit;
+
         $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
 
         $employees2 = Employee::latest('MetaTimeCreated');
@@ -184,6 +186,19 @@ class HomeController extends Controller
         if ($request->ajax()) {
             if (isset($request->department) && ($request->department != 'All') && (!isset($request->keyword))) {
                 $all_employees = Employee::where('Department',$request->department)->paginate(12);
+
+                foreach ($all_employees as $key => $all_employee) {
+                    $schedule = CalendarInformation::where(['employee_id'=>$all_employee->ID,'event_type'=>'Busy'])
+                    ->where('start', '<=', Carbon::now())
+                    ->where('end', '>=', Carbon::now())
+                    ->count();
+
+                    if ($schedule > 0) {
+                        $all_employees[$key]->busy_status = 'Busy';
+                    }else{
+                        $all_employees[$key]->busy_status = (!empty($all_employee->Mobilephone)) ? $all_employee->Mobilephone : 'Not Known' ;
+                    }
+                }
             }
 
             if (isset($request->keyword)) {
@@ -199,6 +214,19 @@ class HomeController extends Controller
                         ->orwhere('PersonalEmail', 'like', '%'.$s.'%')
                         ->orWhere(DB::raw("CONCAT('NameFirst', ' ', 'NamesMiddle', ' ', 'NameLast')"), 'like', '%'.$s.'%');
                     })->paginate(12);
+
+                    foreach ($all_employees as $key => $all_employee) {
+                        $schedule = CalendarInformation::where(['employee_id'=>$all_employee->ID,'event_type'=>'Busy'])
+                        ->where('start', '<=', Carbon::now())
+                        ->where('end', '>=', Carbon::now())
+                        ->count();
+
+                        if ($schedule > 0) {
+                            $all_employees[$key]->busy_status = 'Busy';
+                        }else{
+                            $all_employees[$key]->busy_status = (!empty($all_employee->Mobilephone)) ? $all_employee->Mobilephone : 'Not Known' ;
+                        }
+                    }
                 }else{
                     $all_employees = Employee::where('Department',$request->department)->Where(function($query) use ($s)
                     {
@@ -211,6 +239,19 @@ class HomeController extends Controller
                         ->orwhere('PersonalEmail', 'like', '%'.$s.'%')
                         ->orWhere(DB::raw("CONCAT('NameFirst', ' ', 'NamesMiddle', ' ', 'NameLast')"), 'like', '%'.$s.'%');
                     })->paginate(12);
+
+                    foreach ($all_employees as $key => $all_employee) {
+                        $schedule = CalendarInformation::where(['employee_id'=>$all_employee->ID,'event_type'=>'Busy'])
+                        ->where('start', '<=', Carbon::now())
+                        ->where('end', '>=', Carbon::now())
+                        ->count();
+
+                        if ($schedule > 0) {
+                            $all_employees[$key]->busy_status = 'Busy';
+                        }else{
+                            $all_employees[$key]->busy_status = (!empty($all_employee->Mobilephone)) ? $all_employee->Mobilephone : 'Not Known' ;
+                        }
+                    }
                 }
 
                 if (count($all_employees) > 0) {
@@ -224,6 +265,12 @@ class HomeController extends Controller
 
             $count = 1;
             foreach ($all_employees as $key => $all_employee) {
+
+                if ($all_employee->busy_status == 'Busy') {
+                    $color = 'red';
+                }else{
+                    $color = '';
+                }
 
                 $data.='<div class="col-sm-4">
                                 <div class="profile-grid">
@@ -243,7 +290,7 @@ class HomeController extends Controller
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="contactno">
-                                                <span>'.$all_employee->busy_status.'</span>
+                                                <span style="background:'.$color.';">'.$all_employee->busy_status.'</span>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 calendarpadding">
@@ -729,7 +776,7 @@ class HomeController extends Controller
             foreach ($posts as $post) {
                 $html.='<tr class="editshowhideempdraft" data-id="'.$post->id.'">
                 <td class="title">'. $post->name .'</td>
-                <td class="comment">'. $post->body .'</td>
+                <td class="comment">'. \Illuminate\Support\Str::limit($post->body, 25, $end='...') .'</td>
                 <td class="time">'. date('h:i A',strtotime($post->created_at)) .'</td>
                 </tr>';
             }
@@ -779,7 +826,7 @@ class HomeController extends Controller
             foreach ($posts as $post) {
                 $html.='<tr class="editshowhide" data-id="'.$post->id.'">
                 <td class="title">'. $post->name .'</td>
-                <td class="comment">'. $post->body .'</td>
+                <td class="comment">'. \Illuminate\Support\Str::limit($post->body, 25, $end='...') .'</td>
                 <td class="time">'. date('h:i A',strtotime($post->created_at)) .'</td>
                 </tr>';
             }
@@ -799,19 +846,19 @@ class HomeController extends Controller
         }
 
         if ($request->has('draft-subject') && !empty($request->input('draft-subject'))) {
-            $messages2->where('subject','LIKE', '%'.$request->input('draft-subject').'%');
+            $messages2->orWhere('subject','LIKE', '%'.$request->input('draft-subject').'%');
         }
 
         if ($request->has('draft-reciver_id') && !empty($request->input('draft-reciver_id'))) {
-            $messages2->where('reciver_id', $request->input('draft-reciver_id'));
+            $messages2->orWhere('reciver_id', $request->input('draft-reciver_id'));
         }
 
         if($request->has('draft-email') && !empty($request->input('draft-email'))) {  
-            $messages2->where('email','LIKE', '%'.$request->input('draft-email').'%');
+            $messages2->orWhere('email','LIKE', '%'.$request->input('draft-email').'%');
         }
 
         if($request->has('draft-mobile') && !empty($request->input('draft-mobile'))) {
-            $messages2->where('mobile','LIKE', '%'.$request->input('draft-mobile').'%');
+            $messages2->orWhere('mobile','LIKE', '%'.$request->input('draft-mobile').'%');
         }
         $posts = $messages2->paginate(10);
 
@@ -827,7 +874,7 @@ class HomeController extends Controller
 
             $html.='<tr class="editshowhide" data-id="'.$post->id.'">
             <td class="title">'. $post->name .'</td>
-            <td class="comment">'. $post->body .'</td>
+            <td class="comment">'. \Illuminate\Support\Str::limit($post->body, 25, $end='...') .'</td>
             <td class="time">'. date('h:i A',strtotime($post->created_at)) .'</td>
             </tr>';
         }
