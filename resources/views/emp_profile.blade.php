@@ -251,8 +251,7 @@
 								<form class="create" method="POST" id="calendar-info-form">
 
 									<div class="form-group" style="position: relative">
-											<input  title="Select From Date"
-                    onfocus="off" placeholder="Select From Date" required class="form-control form-control-lg inputstyle"
+											<input  title="Select From Date" placeholder="Select From Date" required class="form-control form-control-lg inputstyle"
 											type="text" id="datedate" autocomplete="off" name="from_date" />
 										</div>
 
@@ -622,20 +621,12 @@
 
     	$('#datetime').datetimepicker({
     		format: 'hh:mm:ss a',
-    		useCurrent: false,
-    		showTodayButton: true,
-    		showClear: true,
-    		toolbarPlacement: 'bottom',
-    		sideBySide: true,
     		icons: {
     			time: "fa fa-clock-o",
-    			date: "fa fa-calendar",
     			up: "fa fa-arrow-up",
     			down: "fa fa-arrow-down",
     			previous: "fa fa-chevron-left",
     			next: "fa fa-chevron-right",
-    			today: "fa fa-clock-o",
-    			clear: "fa fa-trash-o"
     		}
     	});
 
@@ -643,40 +634,20 @@
     	$('#datedate').datetimepicker({
     		minDate:new Date(),
     		format: 'YYYY-MM-DD',
-    		useCurrent: false,
-    		showTodayButton: true,
-    		showClear: true,
-    		toolbarPlacement: 'bottom',
-    		sideBySide: true,
     		icons: {
-    			time: "fa fa-clock-o",
     			date: "fa fa-calendar",
-    			up: "fa fa-arrow-up",
-    			down: "fa fa-arrow-down",
     			previous: "fa fa-chevron-left",
     			next: "fa fa-chevron-right",
-    			today: "fa fa-clock-o",
-    			clear: "fa fa-trash-o"
     		}
     	});
 
 
     	$('#datetimeto').datetimepicker({
     		format: 'hh:mm:ss a',
-    		useCurrent: false,
-    		showTodayButton: true,
-    		showClear: true,
-    		toolbarPlacement: 'bottom',
-    		sideBySide: true,
     		icons: {
     			time: "fa fa-clock-o",
-    			date: "fa fa-calendar",
     			up: "fa fa-arrow-up",
-    			down: "fa fa-arrow-down",
-    			previous: "fa fa-chevron-left",
-    			next: "fa fa-chevron-right",
-    			today: "fa fa-clock-o",
-    			clear: "fa fa-trash-o"
+    			down: "fa fa-arrow-down"
     		}
     	});
 
@@ -684,20 +655,10 @@
     	$('#datedateto').datetimepicker({
     		minDate:new Date(),
     		format: 'YYYY-MM-DD',
-    		useCurrent: false,
-    		showTodayButton: true,
-    		showClear: true,
-    		toolbarPlacement: 'bottom',
-    		sideBySide: true,
     		icons: {
-    			time: "fa fa-clock-o",
     			date: "fa fa-calendar",
-    			up: "fa fa-arrow-up",
-    			down: "fa fa-arrow-down",
     			previous: "fa fa-chevron-left",
     			next: "fa fa-chevron-right",
-    			today: "fa fa-clock-o",
-    			clear: "fa fa-trash-o"
     		}
     	});
 
