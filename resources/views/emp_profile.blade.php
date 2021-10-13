@@ -21,7 +21,7 @@
 		</div>
 		<div class="col-sm-8">
 			<div id="myChart">
-				<div id="calendar"></div> 
+				<div id="calendarLoad"></div> 
 				{{-- <img src="{{asset('img/graph.png')}}" alt="Graph" class="img-fluid"> --}}
 			</div>
 		</div>
@@ -215,7 +215,7 @@
 												@foreach($employee_drafts as $draft)
 													<tr class="editshowhideempdraft" data-id="{{ $draft->id }}">
 														<td class="title">{{ $draft->name }}</td>
-														<td class="comment">{{ $draft->body }}</td>
+														<td class="comment">{{ \Illuminate\Support\Str::limit($draft->body, 25, $end='...') }}</td>
 														<td class="time">{{ $draft->created_at }}</td>
 													</tr>
 													@endforeach
@@ -228,7 +228,7 @@
 
 									<div class="showmorebtn text-center">
 										<p class="invisible-draft invisible">No more posts...</p>
-										<button id="showmoretwo" type="button" @if($employee_drafts->total() <= 10) @endif id="load-more-draft" data-paginate="2" data-draft-reciver_id="{{ $id }}" class="btn btn-light"> Show More</button>
+										<button id="showmoretwo" type="button" @if($employee_drafts->total() <= 10) style="display: none;" @endif id="load-more-draft" data-paginate="2" data-draft-reciver_id="{{ $id }}" class="btn btn-light"> Show More</button>
 									</div>
 								</div>
 
@@ -273,7 +273,7 @@
 
 										<input type="hidden" name="employee_id" value="{{ $id }}">										
 									{{-- <div class="form-group">
-										<input title="Select From Date" placeholder="Slect Date" id="datetime" required class="form-control form-control-lg inputstyle" type="text" name="from_date" />
+										<input title="Select From Date" placeholder="Slect Date" id="datetime" required class="form-control form-control-lg inputstyle" type="date" name="from_date" />
 									</div>
 									<div class="form-group">
 										<input title="Select To Date" required class="form-control form-control-lg inputstyle" type="date" name="to_date" />
@@ -573,7 +573,7 @@
 
     		});
 
-    		var calendar = $('#calendar').fullCalendar({
+    		var calendar = $('#calendarLoad').fullCalendar({
 
     			header: {
     				left: 'prev,next today',
