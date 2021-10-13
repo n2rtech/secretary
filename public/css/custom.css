@@ -533,14 +533,14 @@ table.dataTable thead .sorting_desc {
     left: auto;
 }
 .protitle {
-    min-height: 50px;
+    min-height: 33px;
+    line-height: 15px;
 }
 .protitle a {
     font-size: 13px;
     color: #000;
     font-weight: 600;
     text-decoration: none;
-    line-height: 20px;
 }
 .propost {
     font-size: 12px;
@@ -1165,5 +1165,8 @@ table.dataTable thead .sorting_desc {
 }
 .fc-basic-view .fc-body .fc-row {
     min-height: 3.2em !important;
+}
+.set-filter-data {
+    margin-top: 10px;
 }
 /***********End*****************/
