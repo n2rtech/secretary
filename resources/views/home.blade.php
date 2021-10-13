@@ -43,7 +43,7 @@
 						@endforeach
 					</ul>
 					<br>
-					<button type="button" @if($searched_data->total() <= 25) @endif  class="btn btn-light set-filter-data" id="load-more-keywords" data-paginate="2">Show More</button>
+					<button type="button" @if($searched_data->total() <= 25) style="display: none;" @endif  class="btn btn-light set-filter-data" id="load-more-keywords" data-paginate="2">Show More</button>
 				</div>
 				<!--End-->
 				<!--Message-->
