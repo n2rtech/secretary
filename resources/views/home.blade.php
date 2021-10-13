@@ -1,11 +1,11 @@
 @extends('layouts.master')
 @section('title','Dashboard')
 @section('content')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.css" /> 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
 
 <style>
 
@@ -43,7 +43,7 @@
 						@endforeach
 					</ul>
 					<br>
-					<button type="button" @if($searched_data->total() <= 20) @endif  class="btn btn-light set-filter-data" id="load-more-keywords" data-paginate="2">Show More</button>
+					<button type="button" @if($searched_data->total() <= 25) @endif  class="btn btn-light set-filter-data" id="load-more-keywords" data-paginate="2">Show More</button>
 				</div>
 				<!--End-->
 				<!--Message-->
