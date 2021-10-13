@@ -1633,7 +1633,7 @@ $(document).on('submit', "#edit-draft-form", function(event) {
   			$("#calendar-info-form-btn").text('Loading...');
   		}
   	}).done(function(data) {
-  		$('#calendar').fullCalendar("refetchEvents");
+  		$('#calendarLoad').fullCalendar("refetchEvents");
   		$("#calendar-info-form")[0].reset();
   		$("#calendar-info-form-btn").text('Save');
   		$("#calendar-info-form-message").show().html(data.message);
