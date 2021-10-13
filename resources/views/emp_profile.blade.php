@@ -250,15 +250,13 @@
 
 								<form class="create" method="POST" id="calendar-info-form">
 
-									<div class="form-group" style="position: relative">
-											<input  title="Select From Date"
-                    onfocus="off" placeholder="Select From Date" required class="form-control form-control-lg inputstyle"
-											type="text" id="datedate" name="from_date" />
+									<div class="form-group">
+											
+											<input id="datedate" class="date form-control" type="text">
 										</div>
 
-										<div class="form-group" style="position: relative">
-											<input  title="Select To Date" placeholder="Select To Date" required class="form-control form-control-lg inputstyle"
-											type="text" id="datedateto" name="to_date" />
+										<div class="form-group" >
+											 <input id="datedateto" class="date form-control" type="text">
 										</div>										
 
 										<div class="form-group" style="position: relative">
@@ -625,10 +623,10 @@
     	});
 
 
-    	$('#datedate').datetimepicker({
+    	/*$('#datedate').datetimepicker({
     		minDate:new Date(),
     		format: 'YYYY-MM-DD'
-    	});
+    	});*/
 
 
     	$('#datetimeto').datetimepicker({
@@ -636,10 +634,19 @@
     	});
 
 
-    	$('#datedateto').datetimepicker({
-    		minDate:new Date(),
-    		format: 'YYYY-MM-DD'
-    	});
+    	// $('#datedateto').datetimepicker({
+    	// 	minDate:new Date(),
+    	// 	format: 'YYYY-MM-DD'
+    	// });
 
 
     </script>
+    <script type="text/javascript">
+    $('#datedateto').datepicker({  
+       format: 'mm-dd-yyyy'
+     });  
+
+     $('#datedate').datepicker({  
+       format: 'mm-dd-yyyy'
+     });  
+</script> 
