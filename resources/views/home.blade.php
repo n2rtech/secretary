@@ -1567,6 +1567,7 @@ $(document).on('submit', "#edit-draft-form", function(event) {
   <script type="text/javascript">  
  
   $(document).on('click', ".noteedit", function() {
+  	$('#summernote').summernote('reset');
   	var id = $(this).attr('data-id');
 
   	var options = {
