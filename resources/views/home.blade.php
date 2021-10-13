@@ -104,7 +104,7 @@
 													@foreach($messages as $message)
 													<tr class="editshowhide" data-id="{{ $message->id }}">
 														<td class="title">{{ $message->name }}</td>
-														<td class="comment">{{ $message->body }}</td>
+														<td class="comment">{{ \Illuminate\Support\Str::limit($message->body, 25, $end='...') }}</td>
 														<td class="time">{{ date('h:i A',strtotime($message->created_at)) }}</td>
 													</tr>
 													@endforeach
@@ -118,7 +118,7 @@
 									</div>
 									<div class="showmorebtn text-center">
 										 <p class="invisible">No more posts...</p>
-										<button id="showmore" type="button" @if($messages->total() <= 10) style="display: none;" @endif  class="btn btn-light set-filter-data" id="load-more" data-paginate="2" data-draft-name="" data-draft-mobile="" data-draft-email="" data-draft-subject="" data-draft-reciver_id="">Show More</button>
+										<button type="button" @if($messages->total() <= 10) style="display: none;" @endif  class="btn btn-light set-filter-data" id="load-more" data-paginate="2" data-draft-name="" data-draft-mobile="" data-draft-email="" data-draft-subject="" data-draft-reciver_id="">Show More</button>
 									</div>
 									<div id="overlay">
 									  <div class="cv-spinner">
@@ -935,23 +935,8 @@
 
 <script>
 	$(document).ready(function(){
-		$(document).ajaxSend(function() {
-    $("#overlay").fadeIn(300);　
+    $("#overlay").fadeOut(300);　
   });
-		
-  $('#showmore').click(function(){
-    $.ajax({
-      type: 'GET',
-      success: function(data){
-        console.log(data);
-      }
-    }).done(function() {
-      setTimeout(function(){
-        $("#overlay").fadeOut(300);
-      },500);
-    });
-  });	
-	});
 </script>
 
 <script>
@@ -1219,7 +1204,7 @@ $(document).on('click', '.editshowhideempdraft', function(event) {
 			if(!data || data.length === 0 ){
 				$('#post').empty();
 				$(".set-filter-data").hide();
-				$('#post').append('<tr><td colspan="3" style="color: red;"><center>No result found...</center></td></tr>');
+				$('#post').append('<tr><td colspan="3" style="color: red;"><center>No search results found</center></td></tr>');
 				return;
 			} else {
 				$(".set-filter-data").show();
@@ -1417,11 +1402,13 @@ $(document).on('submit', "#edit-draft-form", function(event) {
                 type: 'get',
                 datatype: 'html',
                 beforeSend: function() {
+                	$("#overlay").fadeIn(300);
                 	//$("#post-loder").show();
                     $('#load-more').text('Loading...');
                 }
             })
             .done(function(data) {
+            	$("#overlay").fadeOut(300);
                 	//$("#post-loder").hide();
                 if(data.length == 0) {
                     $('.invisible').removeClass('invisible');
@@ -1457,7 +1444,7 @@ $(document).on('submit', "#edit-draft-form", function(event) {
                 type: 'get',
                 datatype: 'html',
                 beforeSend: function() {
-                    $('#load-more').text('Loading...');
+                    $('#load-more').show().text('Loading...');
                 }
             })
             .done(function(data) {
