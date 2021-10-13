@@ -42,7 +42,8 @@
 						</li>
 						@endforeach
 					</ul>
-					<center><button type="button" @if($searched_data->total() <= 20) style="display: none;" @endif  class="btn btn-light set-filter-data" id="load-more-keywords" data-paginate="2">Show More</button></center>
+					<br>
+					<center><button type="button" @if($searched_data->total() <= 20) @endif  class="btn btn-light set-filter-data" id="load-more-keywords" data-paginate="2">Show More</button></center>
 						<br>
 				</div>
 				<!--End-->

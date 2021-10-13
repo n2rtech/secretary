@@ -1166,4 +1166,7 @@ table.dataTable thead .sorting_desc {
 .fc-basic-view .fc-body .fc-row {
     min-height: 3.2em !important;
 }
+.set-filter-data {
+    margin-top: 10px;
+}
 /***********End*****************/
