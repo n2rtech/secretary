@@ -253,22 +253,22 @@
 									<div class="form-group" style="position: relative">
 											<input  title="Select From Date"
                     onfocus="off" placeholder="Select From Date" required class="form-control form-control-lg inputstyle"
-											type="text" id="datedate" name="from_date" />
+											type="text" id="datedate" autocomplete="off" name="from_date" />
 										</div>
 
 										<div class="form-group" style="position: relative">
 											<input  title="Select To Date" placeholder="Select To Date" required class="form-control form-control-lg inputstyle"
-											type="text" id="datedateto" name="to_date" />
+											type="text" id="datedateto" autocomplete="off" name="to_date" />
 										</div>										
 
 										<div class="form-group" style="position: relative">
 											<input  title="Select From Time" placeholder="Select From Time" required class="form-control form-control-lg inputstyle"
-											type="text" id="datetimeto" name="from_time" />
+											type="text" id="datetimeto" autocomplete="off" name="from_time" />
 										</div>
 
 										<div class="form-group" style="position: relative">
 											<input  placeholder="Select To Time" required title="Select To Time" class="form-control form-control-lg inputstyle"
-											type="text" id="datetime" name="to_time" />
+											type="text" id="datetime" autocomplete="off" name="to_time" />
 										</div>
 
 										<input type="hidden" name="employee_id" value="{{ $id }}">										
@@ -621,26 +621,86 @@
 
 
     	$('#datetime').datetimepicker({
-    		format: 'hh:mm:ss a'
+    		format: 'hh:mm:ss a',
+    		useCurrent: false,
+    		showTodayButton: true,
+    		showClear: true,
+    		toolbarPlacement: 'bottom',
+    		sideBySide: true,
+    		icons: {
+    			time: "fa fa-clock-o",
+    			date: "fa fa-calendar",
+    			up: "fa fa-arrow-up",
+    			down: "fa fa-arrow-down",
+    			previous: "fa fa-chevron-left",
+    			next: "fa fa-chevron-right",
+    			today: "fa fa-clock-o",
+    			clear: "fa fa-trash-o"
+    		}
     	});
 
 
     	$('#datedate').datetimepicker({
     		minDate:new Date(),
-    		format: 'YYYY-MM-DD'
+    		format: 'YYYY-MM-DD',
+    		useCurrent: false,
+    		showTodayButton: true,
+    		showClear: true,
+    		toolbarPlacement: 'bottom',
+    		sideBySide: true,
+    		icons: {
+    			time: "fa fa-clock-o",
+    			date: "fa fa-calendar",
+    			up: "fa fa-arrow-up",
+    			down: "fa fa-arrow-down",
+    			previous: "fa fa-chevron-left",
+    			next: "fa fa-chevron-right",
+    			today: "fa fa-clock-o",
+    			clear: "fa fa-trash-o"
+    		}
     	});
 
 
     	$('#datetimeto').datetimepicker({
-    		format: 'hh:mm:ss a'
+    		format: 'hh:mm:ss a',
+    		useCurrent: false,
+    		showTodayButton: true,
+    		showClear: true,
+    		toolbarPlacement: 'bottom',
+    		sideBySide: true,
+    		icons: {
+    			time: "fa fa-clock-o",
+    			date: "fa fa-calendar",
+    			up: "fa fa-arrow-up",
+    			down: "fa fa-arrow-down",
+    			previous: "fa fa-chevron-left",
+    			next: "fa fa-chevron-right",
+    			today: "fa fa-clock-o",
+    			clear: "fa fa-trash-o"
+    		}
     	});
 
 
     	$('#datedateto').datetimepicker({
     		minDate:new Date(),
-    		format: 'YYYY-MM-DD'
+    		format: 'YYYY-MM-DD',
+    		useCurrent: false,
+    		showTodayButton: true,
+    		showClear: true,
+    		toolbarPlacement: 'bottom',
+    		sideBySide: true,
+    		icons: {
+    			time: "fa fa-clock-o",
+    			date: "fa fa-calendar",
+    			up: "fa fa-arrow-up",
+    			down: "fa fa-arrow-down",
+    			previous: "fa fa-chevron-left",
+    			next: "fa fa-chevron-right",
+    			today: "fa fa-clock-o",
+    			clear: "fa fa-trash-o"
+    		}
     	});
 
 
     </script>
-    
+
