@@ -432,28 +432,28 @@
 						</div>
 						<div class="row" id="results-{{ str_replace(' ', '-', $group_employee->Department) }}">
 							@foreach($group_employee->employees as $employee)
-							<div class="col-sm-4">
+							<div class="col-sm-4 col-xs-12">
 								<div class="profile-grid">
 									<div class="row">
-										<div class="col-sm-4">
+										<div class="col-sm-4 col-xs-4">
 											<div class="profileimg">
 												<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
 												<i class="fa fa-check"></i>
 											</div>
 										</div>
-										<div class="col-sm-8">
+										<div class="col-sm-8 col-xs-8">
 											<div class="profiledisc">
 												<div class="protitle"><a class="click-profile" data-id="{{ $employee->ID }}">{{ $employee->NameFirst.' '.$employee->NamesMiddle.' '.$employee->NameLast }}</a></div>
 												<div class="propost">{{ $employee->Department }}</div>
 												<div class="posttag">Sales, Management</div>
 											</div>
 										</div>
-										<div class="col-sm-6">
+										<div class="col-sm-6 col-xs-6">
 											<div class="contactno">
 												<span @if($employee->busy_status == 'Busy') style="background:red;" @endif>{{ $employee->busy_status }}</span>
 											</div>
 										</div>
-										<div class="col-sm-6 calendarpadding">
+										<div class="col-sm-6 col-xs-6 calendarpadding">
 											<a class="click-profile" data-id="{{ $all_employee->ID }}" >
 											<div class="calendarinfo">
 												Calendar Info
