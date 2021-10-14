@@ -1498,6 +1498,25 @@ table.dataTable thead .sorting_desc {
 .fc-day-grid-event {
     top: 26px !important;
 }
+.notestitle {
+    color: #000;
+    font-weight: 600;
+    font-size: 13px;
+    padding-left: 0;
+    margin-bottom: 10px;
+}
+.notetable.table>tbody>tr>td {
+    padding: 2px 8px;
+}
+.notetable.table>tbody>tr>td.notedisc{
+	padding-right: 0px;
+}
+.note-btn-group .note-btn {
+    border-color: rgba(0,0,0,.2);
+    padding: 3px 7px;
+    font-size: 13px;
+    margin-bottom: 0;
+}
 }
 @media (min-width: 1371px) and (max-width: 1440px){
 .fc-scroller {
