@@ -596,10 +596,10 @@ table.dataTable thead .sorting_desc {
     border: 2px solid #3aab02;
     border-radius: 3px;
     font-weight: 500;
-    text-transform: uppercase;
+    text-transform: capitalize;
     background: #3aab02;
     color: #fff;
-    padding: 9px 32px;
+    padding: 9px 15px;
     font-size: 13px;
     margin-bottom: 15px;
 }
