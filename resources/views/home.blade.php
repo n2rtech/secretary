@@ -322,12 +322,12 @@
 												<div class="posttag">Sales, Management</div>
 											</div>
 										</div>
-										<div class="col-sm-6">
+										<div class="col-sm-6 col-xs-6">
 											<div class="contactno">
 												<span @if($all_employee->busy_status == 'Busy') style="background:red;" @endif>{{ $all_employee->busy_status }}</span>
 											</div>
 										</div>
-										<div class="col-sm-6 calendarpadding">
+										<div class="col-sm-6 col-xs-6 calendarpadding">
 											<a class="click-profile" data-id="{{ $all_employee->ID }}" >
 											<div class="calendarinfo">
 												Calendar Info
