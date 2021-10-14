@@ -1213,6 +1213,84 @@ table.dataTable thead .sorting_desc {
     width: auto !important;
 }
 @media screen and (max-width:767px){
+.navbar-bg {
+    padding: .5rem;
+}	
+.logo a h1 {
+    font-size: 18px;
+}
+.dashboard-left h2 {
+    font-size: 15px;
+    padding-top: 0px;
+}
+.searchkeyword label > input + .forcustom{
+	font-size: 12px;
+    padding: 5px 12px;
+}
+.searchkeyword label > .counter{
+	font-size: 9px;
+	padding: 2px;
+}
+.btn-light {
+    padding: 3px 10px;
+    font-size: 12px;
+}
+.set-filter-data {
+    margin-top: 7px;
+}
+.panel-default .panel-heading {
+    background: #0c2556;
+    color: #f1f1f1;
+    padding: 10px 10px;
+    font-size: 12px;
+    line-height: 16px;
+    height: 34px;
+}
+.messagebox .table tr td.title {
+    font-size: 11px;
+    font-weight: 500;
+    color: #111;
+}
+.showmorebtn {
+    margin-top: 0;
+}
+#myTab .nav-link {
+    min-width: 80px;
+    text-align: center;
+    margin-right: 10px;
+    font-size: 13px;
+    padding: 7px;
+}
+.messagebox .table tr td {
+    padding: 2px 7px;
+}
+.savebtn .btn-primary {
+    padding: 6px 24px;
+    font-size: 13px;
+}
+.btn-primary{
+	height: 35px;
+}
+.dashboard-right .nav-tabs li a {
+    color: #0C2556;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 20px;
+}
+.messagebtn .btn-primary {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 22px;
+    color: #f1f1f1;
+    width: 100%;
+    margin-bottom: 10px;
+    line-height: 22px;
+}
+.inputstyle {
+    font-size: 12px;
+    height: 35px;
+    padding: 6px 20px;
+}
 .profile-grid .col-xs-4 {
     max-width: 33.3%;
 }
@@ -1225,6 +1303,7 @@ table.dataTable thead .sorting_desc {
 .contactno span{
 	min-width: 100%;
 }
+
 }
 @media (min-width: 1371px) and (max-width: 1440px){
 .fc-scroller {
