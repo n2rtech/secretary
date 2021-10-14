@@ -630,7 +630,8 @@
     		}
     	});
 
-
+/*var date = new Date();
+date.setDate(date.getDate() - 1);*/
     	$('#datedate').datetimepicker({
     		minDate:new Date(),
     		format: 'YYYY-MM-DD',
