@@ -593,20 +593,19 @@ table.dataTable thead .sorting_desc {
     margin-top: 15px;
 }
 .btn-light {
-    border: 2px solid #0C2556;
+    border: 2px solid #3aab02;
     border-radius: 3px;
     font-weight: 500;
     text-transform: uppercase;
-    background: #0C2556;
+    background: #3aab02;
     color: #fff;
-    /*font-family: Acumin Pro;*/
-    padding: 7px 10px 2px 10px;
+    padding: 9px 32px;
     font-size: 13px;
     margin-bottom: 15px;
 }
 .btn-light:hover{
-    border: 2px solid #3aab02;
-    background-color: #3aab02;
+    border: 2px solid #0C2556;
+    background-color: #0C2556;
     color: #fff !important;
 }
 .btn-light:active{
