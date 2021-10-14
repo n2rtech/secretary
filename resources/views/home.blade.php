@@ -309,13 +309,13 @@
 							<div class="col-sm-4">
 								<div class="profile-grid">
 									<div class="row">
-										<div class="col-sm-4">
+										<div class="col-sm-4 col-xs-4">
 											<div class="profileimg">
 												<img src="{{asset('img/proimage.png')}}" alt="Profile" class="img-fluid">
 												<i class="fa fa-check"></i>
 											</div>
 										</div>
-										<div class="col-sm-8">
+										<div class="col-sm-8 col-xs-8">
 											<div class="profiledisc">
 												<div class="protitle"><a class="click-profile" data-id="{{ $all_employee->ID }}" >{{ $all_employee->NameFirst.' '.$all_employee->NamesMiddle.' '.$all_employee->NameLast }}</a></div>
 												<div class="propost">{{ $all_employee->Department }}</div>
