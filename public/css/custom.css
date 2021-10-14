@@ -1271,10 +1271,11 @@ table.dataTable thead .sorting_desc {
 }
 .savebtn .btn-primary {
     padding: 6px 24px;
-    font-size: 13px;
+    font-size: 12px;
 }
 .btn-primary{
-	height: 35px;
+	height: 30px;
+	font-size: 12px;
 }
 .dashboard-right .nav-tabs li a {
     color: #0C2556;
@@ -1309,7 +1310,10 @@ table.dataTable thead .sorting_desc {
 	min-width: 100%;
 	font-size: 11px;
 }
-
+.btn-secondary{
+	height: 30px;
+    font-size: 12px;
+}
 }
 @media (min-width: 1371px) and (max-width: 1440px){
 .fc-scroller {
