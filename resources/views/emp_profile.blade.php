@@ -131,7 +131,7 @@
 										</div>
 
 										<div class="savebtn">
-											<button type="submit" data-id="{{ $id }}" id="profile-draft" class="btn btn-primary">Save</button>
+											<button type="submit" data-id="{{ $id }}" id="profile-draft" class="btn btn-primary">Send</button>
 										</div>
 
 									</form>
