@@ -599,7 +599,7 @@ table.dataTable thead .sorting_desc {
     text-transform: uppercase;
     background: #0C2556;
     color: #fff;
-    font-family: Acumin Pro;
+    /*font-family: Acumin Pro;*/
     padding: 7px 10px 2px 10px;
     font-size: 13px;
     margin-bottom: 15px;
