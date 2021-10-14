@@ -1207,7 +1207,12 @@ table.dataTable thead .sorting_desc {
     right: 7px;
     top: 11px;
 }
-
+.fc-day-grid-event {
+    position: absolute !important;
+    z-index: 999999 !important;
+    top: 29px !important;
+    width: auto !important;
+}
 @media (min-width: 1371px) and (max-width: 1440px){
 .fc-scroller {
     height: 305px !important;
