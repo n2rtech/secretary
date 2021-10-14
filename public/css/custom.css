@@ -1525,6 +1525,10 @@ table.dataTable thead .sorting_desc {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+.profileimg .fa-check{
+	top: 57px;
+    right: 0px;
+}
 }
 @media (min-width: 1371px) and (max-width: 1440px){
 .fc-scroller {
