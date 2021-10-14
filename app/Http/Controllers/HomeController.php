@@ -272,28 +272,28 @@ class HomeController extends Controller
                     $color = '';
                 }
 
-                $data.='<div class="col-sm-4">
+                $data.='<div class="col-sm-4 col-xs-12">
                                 <div class="profile-grid">
                                     <div class="row">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-4 col-xs-4">
                                             <div class="profileimg">
                                                 <img src="'.asset('img/proimage.png').'" alt="Profile" class="img-fluid">
                                                 <i class="fa fa-check"></i>
                                             </div>
                                         </div>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-8 col-xs-8">
                                             <div class="profiledisc">
                                                 <div class="protitle"><a class="click-profile" data-id="'.$all_employee->ID.'">'.$all_employee->NameFirst.' '.$all_employee->NamesMiddle.' '.$all_employee->NameLast.'</a></div>
                                                 <div class="propost">'.$all_employee->Department.'</div>
                                                 <div class="posttag">Sales, Management</div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6 col-xs-6">
                                             <div class="contactno">
                                                 <span style="background:'.$color.';">'.$all_employee->busy_status.'</span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 calendarpadding">
+                                        <div class="col-sm-6 col-xs-6 calendarpadding">
                                             <div class="calendarinfo">
                                                 Calendar Info
                                             </div>
