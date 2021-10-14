@@ -1,6 +1,6 @@
 <div class="editprofile">
 	<div class="row">
-		<div class="col-sm-4">
+		<div class="col-sm-4 col-xs-12">
 			<div class="profileinfo">
 				<div class="proimg"> 
 					<i class="fa fa-users"></i>
@@ -19,7 +19,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-8">
+		<div class="col-sm-8 col-xs-12">
 			<div id="myChart">
 				<div id="calendarLoad"></div> 
 				{{-- <img src="{{asset('img/graph.png')}}" alt="Graph" class="img-fluid"> --}}
