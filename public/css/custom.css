@@ -1520,6 +1520,11 @@ table.dataTable thead .sorting_desc {
 #myModal2 .modal-dialog .modal-content .modal-header button.close{
 	font-size: 24px;
 }
+.editmessage .panel-default .panel-heading {
+    font-size: 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
 }
 @media (min-width: 1371px) and (max-width: 1440px){
 .fc-scroller {
