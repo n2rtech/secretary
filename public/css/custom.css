@@ -1307,6 +1307,7 @@ table.dataTable thead .sorting_desc {
 }
 .contactno span{
 	min-width: 100%;
+	font-size: 11px;
 }
 
 }
