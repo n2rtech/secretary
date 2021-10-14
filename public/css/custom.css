@@ -1517,6 +1517,9 @@ table.dataTable thead .sorting_desc {
     font-size: 13px;
     margin-bottom: 0;
 }
+#myModal2 .modal-dialog .modal-content .modal-header button.close{
+	font-size: 24px;
+}
 }
 @media (min-width: 1371px) and (max-width: 1440px){
 .fc-scroller {
