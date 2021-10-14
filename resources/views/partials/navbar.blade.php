@@ -141,11 +141,11 @@
 				</div>
 			</li> -->
 			<li class="nav-item dropdown">
-				<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-toggle="dropdown">
+				<a class="nav-icon dropdown-toggle d-inline-block" href="#" data-toggle="dropdown">
 					<i class="align-middle" data-feather="settings"></i>
 				</a>
 
-				<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
+				<a class="nav-link dropdown-toggle d-sm-inline-block" href="#" data-toggle="dropdown">
 					<img src="{{asset('img/avatars/avatar.jpg')}}" class="avatar img-fluid rounded-circle mr-1" alt="Charles Hall" /> <span class="text-dark togglebar"><i class="fa fa-bars"></i></span>
 				</a>
 				<div class="dropdown-menu dropdown-menu-right">
