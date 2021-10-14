@@ -142,7 +142,7 @@
 			</li> -->
 			<li class="nav-item dropdown">
 				<a class="nav-icon dropdown-toggle d-inline-block" href="#" data-toggle="dropdown">
-					<i class="align-middle" data-feather="settings"></i>
+					<i class="align-middle d-sm-none" data-feather="settings"></i>
 				</a>
 
 				<a class="nav-link dropdown-toggle d-sm-inline-block" href="#" data-toggle="dropdown">
