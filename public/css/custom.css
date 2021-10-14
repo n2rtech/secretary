@@ -1219,6 +1219,9 @@ table.dataTable thead .sorting_desc {
 .profile-grid .col-xs-8 {
     max-width: 66.6%;
 }
+.profile-grid .col-xs-6 {
+    max-width: 50%;
+}
 }
 @media (min-width: 1371px) and (max-width: 1440px){
 .fc-scroller {
