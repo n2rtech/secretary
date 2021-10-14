@@ -1297,10 +1297,10 @@ table.dataTable thead .sorting_desc {
     padding: 6px 20px;
 }
 .profile-grid .col-xs-4 {
-    max-width: 33.3%;
+    max-width: 21.3%;
 }
 .profile-grid .col-xs-8 {
-    max-width: 66.6%;
+    max-width: 78.6%;
 }
 .profile-grid .col-xs-6 {
     max-width: 50%;
@@ -1524,10 +1524,6 @@ table.dataTable thead .sorting_desc {
     font-size: 12px;
     padding-top: 5px;
     padding-bottom: 5px;
-}
-.profileimg .fa-check{
-	top: 57px;
-    right: 0px;
 }
 .savebtn{
 	text-align: center;
