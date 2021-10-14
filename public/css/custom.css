@@ -1469,6 +1469,35 @@ table.dataTable thead .sorting_desc {
     border-radius: 3px;
     color: #fff;
 }
+#myModal2 .modal-dialog .modal-content .modal-body .create {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.changeprofile {
+    text-align: center;
+    padding-top: 15px;
+}
+.changeprofile .proimg img {
+    max-width: 15%;
+    display: block;
+    margin: 0 auto;
+    margin-top: 0px;
+}
+#myModal .modal-dialog .modal-content .modal-body .create {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.modal-header{
+	padding: 6px;
+}
+#myModal .modal-dialog .modal-content .modal-header button.close {
+    font-size: 24px;
+}
+.fc-day-grid-event {
+    top: 26px !important;
+}
 }
 @media (min-width: 1371px) and (max-width: 1440px){
 .fc-scroller {
