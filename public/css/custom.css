@@ -1263,8 +1263,8 @@ table.dataTable thead .sorting_desc {
     min-width: 80px;
     text-align: center;
     margin-right: 10px;
-    font-size: 13px;
-    padding: 7px;
+    font-size: 12px;
+    padding: 6px;
 }
 .messagebox .table tr td {
     padding: 2px 7px;
