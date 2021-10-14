@@ -306,7 +306,7 @@
 						</div>
 						<div class="row" id="results-All">
 							@foreach($all_employees as $all_employee)
-							<div class="col-sm-4">
+							<div class="col-sm-4 col-xs-12">
 								<div class="profile-grid">
 									<div class="row">
 										<div class="col-sm-4 col-xs-4">
