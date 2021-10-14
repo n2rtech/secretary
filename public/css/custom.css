@@ -1213,6 +1213,11 @@ table.dataTable thead .sorting_desc {
     width: auto !important;
 }
 @media screen and (max-width:767px){
+.togglebar i {
+    font-size: 18px;
+    color: #999;
+    margin-left: 0;
+}	
 .navbar-bg {
     padding: .5rem;
 }	
