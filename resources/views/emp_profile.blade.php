@@ -57,13 +57,13 @@
 
 								<div class="form-group">
 									<div class="form-check">
-										<input class="form-check-input" name="message_type[]" value="URGENT" type="checkbox" checked>
+										<input class="form-check-input" name="message_type[]" value="URGENT" type="checkbox">
 										<label class="form-check-label" for="checkbox">
 											URGENT
 										</label>
 									</div>
 									<div class="form-check">
-										<input class="form-check-input" name="message_type[]" value="Please get back to the customer" type="checkbox">
+										<input class="form-check-input" name="message_type[]" value="Please get back to the customer" type="checkbox" checked>
 										<label class="form-check-label" for="Checkbox">
 											Please get back to the customer
 										</label>
@@ -620,7 +620,7 @@
 
 
     	$('#datetime').datetimepicker({
-    		format: 'hh:mm:ss a',
+    		format: 'HH:mm:ss',
     		icons: {
     			time: "fa fa-clock-o",
     			up: "fa fa-arrow-up",
@@ -644,7 +644,7 @@ date.setDate(date.getDate() - 1);*/
 
 
     	$('#datetimeto').datetimepicker({
-    		format: 'hh:mm:ss a',
+    		format: 'HH:mm:ss',
     		icons: {
     			time: "fa fa-clock-o",
     			up: "fa fa-arrow-up",
