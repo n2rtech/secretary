@@ -1213,17 +1213,320 @@ table.dataTable thead .sorting_desc {
     width: auto !important;
 }
 @media screen and (max-width:767px){
+.togglebar i {
+    font-size: 18px;
+    color: #999;
+    margin-left: 0;
+}	
+.navbar-bg {
+    padding: .5rem;
+}	
+.logo a h1 {
+    font-size: 18px;
+}
+.dashboard-left h2 {
+    font-size: 15px;
+    padding-top: 0px;
+}
+.searchkeyword label > input + .forcustom{
+	font-size: 12px;
+    padding: 5px 12px;
+}
+.searchkeyword label > .counter{
+	font-size: 9px;
+	padding: 2px;
+}
+.btn-light {
+    padding: 3px 10px;
+    font-size: 12px;
+}
+.set-filter-data {
+    margin-top: 7px;
+}
+.panel-default .panel-heading {
+    background: #0c2556;
+    color: #f1f1f1;
+    padding: 10px 10px;
+    font-size: 12px;
+    line-height: 16px;
+    height: 34px;
+}
+.messagebox .table tr td.title {
+    font-size: 11px;
+    font-weight: 500;
+    color: #111;
+}
+.showmorebtn {
+    margin-top: 0;
+}
+#myTab .nav-link {
+    min-width: 80px;
+    text-align: center;
+    margin-right: 10px;
+    font-size: 12px;
+    padding: 6px;
+}
+.messagebox .table tr td {
+    padding: 2px 7px;
+}
+.savebtn .btn-primary {
+    padding: 6px 24px;
+    font-size: 12px;
+}
+.btn-primary{
+	height: 30px;
+	font-size: 12px;
+}
+.dashboard-right .nav-tabs li a {
+    color: #0C2556;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 20px;
+}
+.messagebtn .btn-primary {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 22px;
+    color: #f1f1f1;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.inputstyle {
+    font-size: 12px;
+    height: 35px;
+    padding: 6px 20px;
+}
 .profile-grid .col-xs-4 {
-    max-width: 33.3%;
+    max-width: 21.3%;
 }
 .profile-grid .col-xs-8 {
-    max-width: 66.6%;
+    max-width: 78.6%;
 }
 .profile-grid .col-xs-6 {
     max-width: 50%;
 }
 .contactno span{
 	min-width: 100%;
+	font-size: 11px;
+}
+.btn-secondary{
+	height: 30px;
+    font-size: 12px;
+}
+.proimg img {
+    max-width: 30%;
+}
+.proimg .fa-users {
+    position: absolute;
+    background: #018AC7;
+    color: #fff;
+    font-size: 13px;
+    width: 30px;
+    height: 30px;
+    padding: 9px 7px;
+    border-radius: 50px;
+    top: 57px;
+    left: 100px;
+    right: auto;
+}
+.proimg .fa-check {
+    position: absolute;
+    background: #43c303;
+    color: #fff;
+    font-size: 16px;
+    width: 27px;
+    height: 27px;
+    padding: 6px;
+    border-radius: 50px;
+    top: 61px;
+    left: auto;
+    right: 105px;
+    -webkit-text-stroke: 2px #43c303;
+}
+.profileinfo .protitle {
+    font-size: 13px;
+    color: #000;
+    font-weight: 600;
+    text-decoration: none;
+    line-height: 14px;
+    margin-top: 10px;
+    min-height: auto;
+}
+.editbtn .btn-primary {
+    height: 30px;
+    padding: 6px 10px;
+    font-size: 12px;
+    line-height: 15px;
+    width: 120px;
+    color: #f1f1f1;
+    margin-top: 20px;
+}
+#myChart {
+    padding-top: 20px;
+    margin: 10px;
+}
+.fc-icon-left-single-arrow:after {
+    color: #fff;
+    font-size: 22px !important;
+}
+.fc-icon-right-single-arrow:after {
+    color: #fff;
+    font-size: 22px !important;
+}
+.fc-toolbar .fc-center h2 {
+    font-size: 15px;
+    padding-right: 0;
+    padding-top: 7px;
+}
+.fc .fc-toolbar > * > *{
+	font-size: 12px;
+}
+.fc-widget-header table tr th {
+    font-weight: 500;
+    color: #0c2556;
+    font-size: 12px;
+}
+.fc-row.fc-rigid .fc-content-skeleton table tr td span {
+    padding: 10px 17px;
+    font-size: 12px;
+}
+#messagetab1 .nav-link {
+    background: #0c2556;
+    color: #f1f1f1;
+    border-radius: 0;
+    border: none;
+    border-bottom: none;
+    text-align: left;
+    margin-right: 0;
+    font-size: 13px;
+    height: 41px;
+    line-height: 18px;
+}
+.form-check{
+	font-size: 12px;
+}
+#myTabdraft .nav-link {
+    background: #828ea7;
+    color: #f1f1f1;
+    border-radius: 3px;
+    border: none;
+    min-width: 80px;
+    text-align: center;
+    margin-right: 10px;
+    font-size: 12px;
+    padding: 5px 15px;
+}
+.getdraft .table tr td.comment {
+    font-size: 10px;
+    color: #444;
+    font-weight: 400;
+}
+.getdraft .table tr td.title {
+    font-size: 11px;
+    font-weight: 500;
+    color: #111;
+}
+.getdraft .table tr td.time {
+    font-size: 9px;
+    color: #9E9E9E;
+}
+.getdraft .table tr td {
+    padding: 2px 8px;
+}
+.paddingleft {
+    padding-left: 10px;
+}
+.paddingright {
+    padding-right: 10px;
+}
+.editprofiledraft .panel-default .panel-heading span {
+    font-size: 8px;
+    position: relative;
+    bottom: 5px;
+}
+.editprofiledraft .panel-default .panel-heading {
+    font-size: 11px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.editprofiledraft .panel-default .panel-heading a.close-emp-div{
+	font-size: 20px;
+}
+.create input {
+    font-size: 12px;
+}
+.create textarea {
+    font-size: 12px;
+    padding: 8px 20px;
+}
+.editmessbtn .btn-success {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px 18px;
+    font-size: 12px;
+    background-color: #3AAB02;
+    border-color: #3AAB02;
+    border-radius: 3px;
+    color: #fff;
+}
+#myModal2 .modal-dialog .modal-content .modal-body .create {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.changeprofile {
+    text-align: center;
+    padding-top: 15px;
+}
+.changeprofile .proimg img {
+    max-width: 15%;
+    display: block;
+    margin: 0 auto;
+    margin-top: 0px;
+}
+#myModal .modal-dialog .modal-content .modal-body .create {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.modal-header{
+	padding: 6px;
+}
+#myModal .modal-dialog .modal-content .modal-header button.close {
+    font-size: 24px;
+}
+.fc-day-grid-event {
+    top: 26px !important;
+}
+.notestitle {
+    color: #000;
+    font-weight: 600;
+    font-size: 13px;
+    padding-left: 0;
+    margin-bottom: 10px;
+}
+.notetable.table>tbody>tr>td {
+    padding: 2px 8px;
+}
+.notetable.table>tbody>tr>td.notedisc{
+	padding-right: 0px;
+}
+.note-btn-group .note-btn {
+    border-color: rgba(0,0,0,.2);
+    padding: 3px 7px;
+    font-size: 13px;
+    margin-bottom: 0;
+}
+#myModal2 .modal-dialog .modal-content .modal-header button.close{
+	font-size: 24px;
+}
+.editmessage .panel-default .panel-heading {
+    font-size: 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.savebtn{
+	text-align: center;
 }
 }
 @media (min-width: 1371px) and (max-width: 1440px){
