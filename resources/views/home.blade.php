@@ -1128,9 +1128,16 @@ $(document).on('click', '.editshowhideempdraft', function(event) {
     	page++;
     	$(e.target).attr('data-paginate',page);
     });
+
+    var count = 0;
+
 	$('.text-search').on('keyup', function() {
+
+		 if ($(this).parent().parent().find('input[name=\'keyword\']').val() == $(this).data('curr_val'))
+            return false;
 		var activeTab = localStorage.getItem('activeTab');
 		$value=$(this).parent().parent().find('input[name=\'keyword\']').val();
+        $(this).data('curr_val', $value);
 		$.ajax({
 			type : 'get',
 			url : '{{ route('admin.home') }}',
