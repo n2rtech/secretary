@@ -434,7 +434,7 @@
 			}
 		}).done(function(data) {
 			$("#send-message-form")[0].reset();
-			$("#send-message-form-btn").text('Save');
+			$("#send-message-form-btn").text('Send');
 			$("#success-msg-send-message").show().html(data.message);
 			setTimeout(function() {
 				$("#success-msg-send-message").show().fadeOut('fast');
