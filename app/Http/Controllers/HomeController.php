@@ -211,7 +211,11 @@ class HomeController extends Controller
                         ->orwhere('Searchword', 'like', '%'.$s.'%')
                         ->orwhere('Phonenumber', 'like', '%'.$s.'%')
                         ->orwhere('Mobilephone', 'like', '%'.$s.'%')
+                        ->orwhere('Address', 'like', '%'.$s.'%')
                         ->orwhere('PersonalEmail', 'like', '%'.$s.'%')
+                        ->orwhere('Manager', 'like', '%'.$s.'%')
+                        ->orwhere('Department', 'like', '%'.$s.'%')
+                        ->orwhere('Description', 'like', '%'.$s.'%')
                         ->orWhere(DB::raw("CONCAT('NameFirst', ' ', 'NamesMiddle', ' ', 'NameLast')"), 'like', '%'.$s.'%');
                     })->paginate(12);
 
