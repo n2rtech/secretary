@@ -318,7 +318,7 @@ class HomeController extends Controller
         $data = Message::where('id',$request->id)->first();
 
         if (isset($data->reciver_id) && !empty($data->reciver_id)) {
-            $employee = Employee::select('PersonalEmail','NameFirst','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$data->reciver_id)->first();
+            $employee = Employee::select('PersonalEmail','NameFirst','SendMessage','Mobilephone',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$data->reciver_id)->first();
 
             $email = $employee->PersonalEmail;
             $mob_num = $employee->Mobilephone;
@@ -340,27 +340,29 @@ class HomeController extends Controller
 
             Message::where('id',$request->id)->update(['is_sent' => 1]);
 
-            $messages = "Hi $name_emp URGENT We have today at 14.13 talked with $request->name $request->body Phone number: $request->mobile";
-
             if ($employee->SendMessage == 1) {
 
-                $curl = curl_init();
+                $messages = "Hi $name_emp, You have received a new Enquiry Name: $data->name, Mobile: $data->mobile, Message: $data->body"; 
 
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => "https://api.sms.to/sms/send?api_key=QMOszp1DsHtNdMJhcQAy5fGvMD1u38Zn&bypass_optout=true&to=+919026574061&message=This is test and %0A this is a new line&sender_id=smsto",  
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => "",
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => "GET",
-                ));
+               $curl = curl_init();
 
-                $response = curl_exec($curl);
+               curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.sms.to/sms/send?api_key=tfh4n4KFLQ9IJvoCw7p6EbdDrxhBRVUu&bypass_optout=true&to=+91$mob_num&message=$messages&sender_id=smsto",  
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => "",
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_TIMEOUT => 0,
+                  CURLOPT_FOLLOWLOCATION => true,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => "GET",
+              ));
 
-                curl_close($curl);
-                // $response;
+               $response = curl_exec($curl);
+
+               $info = curl_getinfo($curl);
+
+               $response;
+               curl_close($curl);
             }
 
 
@@ -376,12 +378,10 @@ class HomeController extends Controller
         $check = Message::create($request->except('_token'));
 
         if (isset($request->reciver_id) && !empty($request->reciver_id)) {
-            $employee = Employee::select('PersonalEmail','NameFirst','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->reciver_id)->first();
+            $employee = Employee::select('PersonalEmail','NameFirst','SendMessage','Mobilephone',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->reciver_id)->first();
 
             $email = $employee->PersonalEmail;
-            // $email = 'er.krishna.mishra@gmail.com';
             $mob_num = $employee->Mobilephone;
-            // $mob_num = '9026574061';
             $c = '2244';
             $name = $employee->name;
             $name_emp = $employee->NameFirst;
@@ -405,23 +405,27 @@ class HomeController extends Controller
 
             if ($employee->SendMessage == 1) {
 
-                $curl = curl_init();
+                $messages = "Hi $name_emp, You have received a new Enquiry Name: $request->name, Mobile: $request->mobile, Message: $request->body"; 
 
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => "https://api.sms.to/sms/send?api_key=QMOszp1DsHtNdMJhcQAy5fGvMD1u38Zn&bypass_optout=true&to=+919026574061&message=This is test and %0A this is a new line&sender_id=smsto",  
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => "",
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => "GET",
-                ));
+               $curl = curl_init();
 
-                $response = curl_exec($curl);
+               curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.sms.to/sms/send?api_key=tfh4n4KFLQ9IJvoCw7p6EbdDrxhBRVUu&bypass_optout=true&to=+91$mob_num&message=$messages&sender_id=smsto",  
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => "",
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_TIMEOUT => 0,
+                  CURLOPT_FOLLOWLOCATION => true,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => "GET",
+              ));
 
-                curl_close($curl);
-                // $response;
+               $response = curl_exec($curl);
+
+               $info = curl_getinfo($curl);
+
+               $response;
+               curl_close($curl);
             }
 
         }
@@ -442,7 +446,7 @@ class HomeController extends Controller
         }
 
         if (isset($request->reciver_id) && !empty($request->reciver_id)) {
-            $employee = Employee::select('PersonalEmail','NameFirst','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->reciver_id)->first();
+            $employee = Employee::select('PersonalEmail','NameFirst','SendMessage','Mobilephone',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->reciver_id)->first();
 
             $email = $employee->PersonalEmail;
             $mob_num = $employee->Mobilephone;
@@ -464,27 +468,31 @@ class HomeController extends Controller
 
             Message::where('id',$request->id)->update(['is_sent' => 1]);
 
-            $messages = "Hi $name_emp URGENT We have today at 14.13 talked with $request->name $request->body Phone number: $request->mobile"; 
+            // $messages = "Hi $name_emp URGENT We have today at 14.13 talked with $request->name $request->body Phone number: $request->mobile"; 
 
             if ($employee->SendMessage == 1) {
 
-                $curl = curl_init();
+               $messages = "Hi $name_emp, You have received a new Enquiry Name: $request->name, Mobile: $request->mobile, Message: $request->body"; 
 
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => "https://api.sms.to/sms/send?api_key=QMOszp1DsHtNdMJhcQAy5fGvMD1u38Zn&bypass_optout=true&to=+919026574061&message=This is test and %0A this is a new line&sender_id=smsto",  
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => "",
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => "GET",
-                ));
+               $curl = curl_init();
 
-                $response = curl_exec($curl);
+               curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.sms.to/sms/send?api_key=tfh4n4KFLQ9IJvoCw7p6EbdDrxhBRVUu&bypass_optout=true&to=+91$mob_num&message=$messages&sender_id=smsto",  
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => "",
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_TIMEOUT => 0,
+                  CURLOPT_FOLLOWLOCATION => true,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => "GET",
+              ));
 
-                curl_close($curl);
-                // $response;
+               $response = curl_exec($curl);
+
+               $info = curl_getinfo($curl);
+
+               $response;
+               curl_close($curl);
             }
         }
 
@@ -523,23 +531,27 @@ class HomeController extends Controller
 
             if ($employee->SendMessage == 1) {
 
-                $curl = curl_init();
+                $messages = "Hi $name_emp, You have received a new Enquiry Name: $request->name, Mobile: $request->mobile, Message: $request->body"; 
 
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => "https://api.sms.to/sms/send?api_key=QMOszp1DsHtNdMJhcQAy5fGvMD1u38Zn&bypass_optout=true&to=+919026574061&message=This is test and %0A this is a new line&sender_id=smsto",  
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => "",
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => "GET",
-                ));
+               $curl = curl_init();
 
-                $response = curl_exec($curl);
+               curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.sms.to/sms/send?api_key=tfh4n4KFLQ9IJvoCw7p6EbdDrxhBRVUu&bypass_optout=true&to=+91$mob_num&message=$messages&sender_id=smsto",  
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => "",
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_TIMEOUT => 0,
+                  CURLOPT_FOLLOWLOCATION => true,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => "GET",
+              ));
 
-                curl_close($curl);
-                // $response;
+               $response = curl_exec($curl);
+
+               $info = curl_getinfo($curl);
+
+               $response;
+               curl_close($curl);
             }
 
         $arr = array('success'=>true,'message' => 'Message sended successfully!');
@@ -563,6 +575,7 @@ class HomeController extends Controller
             $user = User::make(['email' => $email, 'name' => $name]);
 
             $List = implode(' | ', $request->message_type);
+            $List1 = implode(' , ', $request->message_type);
 
 
             $details = [
@@ -573,27 +586,31 @@ class HomeController extends Controller
 
             \Notification::send($user, new SendMessage($details));
 
-            $messages = "Hi $name_emp URGENT We have today at 14.13 talked with $request->name $request->body Phone number: $request->mobile"; 
+            $messages = "Hi $name_emp $List1, We have today at 14.13 talked with $name"; 
 
             if ($employee->SendMessage == 1) {
 
-                $curl = curl_init();
+               // $messages = "Hi $name_emp, You have received a new Enquiry Name: $request->name, Mobile: $request->mobile, Message: $request->body"; 
 
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => "https://api.sms.to/sms/send?api_key=QMOszp1DsHtNdMJhcQAy5fGvMD1u38Zn&bypass_optout=true&to=+919026574061&message=This is test and %0A this is a new line&sender_id=smsto",  
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => "",
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => "GET",
-                ));
+               $curl = curl_init();
 
-                $response = curl_exec($curl);
+               curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.sms.to/sms/send?api_key=tfh4n4KFLQ9IJvoCw7p6EbdDrxhBRVUu&bypass_optout=true&to=+91$mob_num&message=$messages&sender_id=smsto",  
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => "",
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_TIMEOUT => 0,
+                  CURLOPT_FOLLOWLOCATION => true,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => "GET",
+              ));
 
-                curl_close($curl);
-                // $response;
+               $response = curl_exec($curl);
+
+               $info = curl_getinfo($curl);
+
+               $response;
+               curl_close($curl);
 
             }
             break;
