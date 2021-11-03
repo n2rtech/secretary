@@ -506,7 +506,7 @@ class HomeController extends Controller
 
   public function sendMessageToEmployee(Request $request)
     {
-            $employee = Employee::select('Department','PersonalEmail','NameFirst','GroupPhone','GroupEmail','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->id)->first();
+            $employee = Employee::select('Department','PersonalEmail','NameFirst','GroupPhone','GroupEmail','SendMessage','Mobilephone',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->id)->first();
   
             $email = $employee->PersonalEmail;
             $mob_num = $employee->Mobilephone;
@@ -565,9 +565,9 @@ class HomeController extends Controller
     public function sendMessage(Request $request)
     {
         if ($request->department == 'all') {
-            $employees = Employee::select('Department','PersonalEmail','NameFirst','GroupPhone','GroupEmail','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->get();
+            $employees = Employee::select('Department','PersonalEmail','NameFirst','Mobilephone','GroupPhone','GroupEmail','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->get();
         }else{
-            $employees = Employee::select('Department','PersonalEmail','NameFirst','GroupPhone','GroupEmail','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('Department',$request->department)->get();
+            $employees = Employee::select('Department','PersonalEmail','Mobilephone','NameFirst','GroupPhone','GroupEmail','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('Department',$request->department)->get();
         }
 
         foreach ($employees as $key => $employee) {
