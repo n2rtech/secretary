@@ -351,7 +351,7 @@ class HomeController extends Controller
                $curl = curl_init();
 
                curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.sms.to/sms/send?api_key=tfh4n4KFLQ9IJvoCw7p6EbdDrxhBRVUu&bypass_optout=true&to=+91$mob_num&message=$messages&sender_id=smsto",  
+                CURLOPT_URL => "https://api.sms.to/sms/send?api_key=tfh4n4KFLQ9IJvoCw7p6EbdDrxhBRVUu&bypass_optout=true&to=+45$mob_num&message=$messages&sender_id=smsto",  
                   CURLOPT_RETURNTRANSFER => true,
                   CURLOPT_ENCODING => "",
                   CURLOPT_MAXREDIRS => 10,
@@ -414,7 +414,7 @@ class HomeController extends Controller
                $curl = curl_init();
 
                curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.sms.to/sms/send?api_key=tfh4n4KFLQ9IJvoCw7p6EbdDrxhBRVUu&bypass_optout=true&to=+91$mob_num&message=$messages&sender_id=smsto",  
+                CURLOPT_URL => "https://api.sms.to/sms/send?api_key=tfh4n4KFLQ9IJvoCw7p6EbdDrxhBRVUu&bypass_optout=true&to=+45$mob_num&message=$messages&sender_id=smsto",  
                   CURLOPT_RETURNTRANSFER => true,
                   CURLOPT_ENCODING => "",
                   CURLOPT_MAXREDIRS => 10,
@@ -481,7 +481,7 @@ class HomeController extends Controller
                $curl = curl_init();
 
                curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.sms.to/sms/send?api_key=tfh4n4KFLQ9IJvoCw7p6EbdDrxhBRVUu&bypass_optout=true&to=+91$mob_num&message=$messages&sender_id=smsto",  
+                CURLOPT_URL => "https://api.sms.to/sms/send?api_key=tfh4n4KFLQ9IJvoCw7p6EbdDrxhBRVUu&bypass_optout=true&to=+45$mob_num&message=$messages&sender_id=smsto",  
                   CURLOPT_RETURNTRANSFER => true,
                   CURLOPT_ENCODING => "",
                   CURLOPT_MAXREDIRS => 10,
@@ -540,7 +540,7 @@ class HomeController extends Controller
                $curl = curl_init();
 
                curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.sms.to/sms/send?api_key=tfh4n4KFLQ9IJvoCw7p6EbdDrxhBRVUu&bypass_optout=true&to=+91$mob_num&message=$messages&sender_id=smsto",  
+                CURLOPT_URL => "https://api.sms.to/sms/send?api_key=tfh4n4KFLQ9IJvoCw7p6EbdDrxhBRVUu&bypass_optout=true&to=+45$mob_num&message=$messages&sender_id=smsto",  
                   CURLOPT_RETURNTRANSFER => true,
                   CURLOPT_ENCODING => "",
                   CURLOPT_MAXREDIRS => 10,
@@ -599,7 +599,7 @@ class HomeController extends Controller
                $curl = curl_init();
 
                curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.sms.to/sms/send?api_key=tfh4n4KFLQ9IJvoCw7p6EbdDrxhBRVUu&bypass_optout=true&to=+91$mob_num&message=$messages&sender_id=smsto",  
+                CURLOPT_URL => "https://api.sms.to/sms/send?api_key=tfh4n4KFLQ9IJvoCw7p6EbdDrxhBRVUu&bypass_optout=true&to=+45$mob_num&message=$messages&sender_id=smsto",  
                   CURLOPT_RETURNTRANSFER => true,
                   CURLOPT_ENCODING => "",
                   CURLOPT_MAXREDIRS => 10,
