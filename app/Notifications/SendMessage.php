@@ -42,6 +42,7 @@ private $user;
     public function toMail($notifiable)
     {
         return (new MailMessage)
+        ->bcc('besked@nordiccall.dk')
         ->subject('NordicCall')
         ->line('Besked fra: NordicCall')
         ->line('...............................')
