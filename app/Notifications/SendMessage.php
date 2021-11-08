@@ -42,7 +42,7 @@ private $user;
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->subject($this->user['body'])
+        ->subject('NordicCall')
         ->line('Welcome '.$this->user['greeting'])
         ->line($this->user['body'])
         ->line($this->user['text']);

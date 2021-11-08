@@ -520,13 +520,14 @@ class HomeController extends Controller
             $user_email = $request->email;
             $user_mobile = $request->mobile;
 
-
             $details = [
-                'greeting' => 'Hi '.$name,
-                'body' => $List,
-                'text' => "We have today at 14.13 talked with $user_name($user_mobile)",
-                'message' => $request->body,
-                'mobile' => 'Phone number: '.$request->mobile,
+                'modtaget' => 'Modtaget: '. date('d-m-Y H:i:s'),
+                'to' => 'Til: '.$email,
+                'email' => 'E-Mail Adresse: '.$request->email,
+                'mobile' => 'Telefon: '.$request->mobile,
+                'name' => 'Navn: '.$request->name,
+                'status' => $List,
+                'message' => 'Besked: '.$request->body,
             ];
 
             \Notification::send($user, new SendEmpMessage($details));
@@ -538,7 +539,7 @@ class HomeController extends Controller
                 $messages = "Hi $name_emp, You have received a new Enquiry Name: $request->name, Mobile: $request->mobile, Message: $request->body"; 
 
                $curl = curl_init();
-
+               
                curl_setopt_array($curl, array(
                 CURLOPT_URL => "https://api.sms.to/sms/send?api_key=tfh4n4KFLQ9IJvoCw7p6EbdDrxhBRVUu&bypass_optout=true&to=+45$mob_num&message=$messages&sender_id=smsto",  
                   CURLOPT_RETURNTRANSFER => true,

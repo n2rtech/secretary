@@ -42,7 +42,7 @@ private $user;
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->subject('New Enquiry Received')
+        ->subject('NordicCall')
         ->line($this->user['greeting'])
         ->line('You have received a new Enquiry, please check details below')
         ->line('Customer Detail :')

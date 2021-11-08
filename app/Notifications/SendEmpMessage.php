@@ -41,13 +41,24 @@ private $user;
      */
     public function toMail($notifiable)
     {
+
+
         return (new MailMessage)
-        ->subject($this->user['body'])
-        ->line('Welcome '.$this->user['greeting'])
-        ->line($this->user['body'])
-        ->line($this->user['text'])
+        ->subject('NordicCall')
+        ->line('Besked fra: NordicCall')
+        ->line('...............................')
+        ->line($this->user['modtaget'])
+        ->line($this->user['to'])
+        ->line('...............................')
+        ->line($this->user['email'])
+        ->line(' ')
         ->line($this->user['message'])
-        ->line($this->user['mobile']);
+        ->line(' ')  
+        ->line($this->user['name'])
+        ->line($this->user['mobile'])
+        ->line('...............................')
+        ->line('Status: ')
+        ->line($this->user['status']);
     }
 
     /**
