@@ -43,14 +43,17 @@ private $user;
     {
         return (new MailMessage)
         ->subject('NordicCall')
-        ->line($this->user['greeting'])
-        ->line('You have received a new Enquiry, please check details below')
-        ->line('Customer Detail :')
-        ->line('Name : '.$this->user['name'])
-        ->line('Email : '.$this->user['email'])
-        ->line('Mobile : '.$this->user['mobile'])
-        ->line('Message : ')
-        ->line($this->user['body']);
+        ->line('Besked fra: NordicCall')
+        ->line('...............................')
+        ->line($this->user['modtaget'])
+        ->line($this->user['to'])
+        ->line('...............................')
+        ->line($this->user['email'])
+        ->line(' ')
+        ->line($this->user['message'])
+        ->line(' ')  
+        ->line($this->user['name'])
+        ->line($this->user['mobile']);
     }
 
     /**

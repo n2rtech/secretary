@@ -332,12 +332,12 @@ class HomeController extends Controller
 
 
             $details = [
-                'greeting' => $employee->name,
-                'subject' => $data->subject,
-                'body' => $data->body,
-                'name' => $data->name,
-                'email' => $data->email,
-                'mobile' => $data->mobile,
+                'modtaget' => 'Modtaget: '. date('d-m-Y H:i:s'),
+                'to' => 'Til: '.$email,
+                'email' => 'E-Mail Adresse: '.$data->email,
+                'mobile' => 'Telefon: '.$data->mobile,
+                'name' => 'Navn: '.$data->name,
+                'message' => 'Besked: '.$data->body,
             ];
 
             \Notification::send($user, new Draft($details));
@@ -392,13 +392,14 @@ class HomeController extends Controller
             $user = User::make(['email' => $email, 'name' => $name]);
 
 
+            
             $details = [
-                'greeting' => $name,
-                'subject' => $request->subject,
-                'body' => $request->body,
-                'name' => $request->name,
-                'email' => $request->email,
-                'mobile' => $request->mobile,
+                'modtaget' => 'Modtaget: '. date('d-m-Y H:i:s'),
+                'to' => 'Til: '.$email,
+                'email' => 'E-Mail Adresse: '.$request->email,
+                'mobile' => 'Telefon: '.$request->mobile,
+                'name' => 'Navn: '.$request->name,
+                'message' => 'Besked: '.$request->body,
             ];
 
             \Notification::send($user, new Draft($details));
@@ -460,12 +461,12 @@ class HomeController extends Controller
             $user = User::make(['email' => $email, 'name' => $name]);
 
             $details = [
-                'greeting' => $name,
-                'subject' => $request->subject,
-                'body' => $request->body,
-                'name' => $request->name,
-                'email' => $request->email,
-                'mobile' => $request->mobile,
+                'modtaget' => 'Modtaget: '. date('d-m-Y H:i:s'),
+                'to' => 'Til: '.$email,
+                'email' => 'E-Mail Adresse: '.$request->email,
+                'mobile' => 'Telefon: '.$request->mobile,
+                'name' => 'Navn: '.$request->name,
+                'message' => 'Besked: '.$request->body,
             ];
 
             \Notification::send($user, new Draft($details));
@@ -539,7 +540,7 @@ class HomeController extends Controller
                 $messages = "Hi $name_emp, You have received a new Enquiry Name: $request->name, Mobile: $request->mobile, Message: $request->body"; 
 
                $curl = curl_init();
-               
+
                curl_setopt_array($curl, array(
                 CURLOPT_URL => "https://api.sms.to/sms/send?api_key=tfh4n4KFLQ9IJvoCw7p6EbdDrxhBRVUu&bypass_optout=true&to=+45$mob_num&message=$messages&sender_id=smsto",  
                   CURLOPT_RETURNTRANSFER => true,
@@ -584,9 +585,10 @@ class HomeController extends Controller
 
 
             $details = [
-                'greeting' => 'Hi '.$name,
-                'body' => $List,
-                'text' => "We have today at 14.13 talked with $name"
+                'modtaget' => 'Modtaget: '. date('d-m-Y H:i:s'),
+                'to' => 'Til: '.$email,
+                'message' => 'Besked: '.$request->message,
+                'status' => $List,
             ];
 
             \Notification::send($user, new SendMessage($details));
@@ -595,7 +597,7 @@ class HomeController extends Controller
 
             if ($employee->SendMessage == 1) {
 
-               // $messages = "Hi $name_emp, You have received a new Enquiry Name: $request->name, Mobile: $request->mobile, Message: $request->body"; 
+               $messages = "Hi $name_emp, You have received a new Message: $request->message"; 
 
                $curl = curl_init();
 
@@ -618,7 +620,7 @@ class HomeController extends Controller
                curl_close($curl);
 
             }
-            break;
+            // break;
         }
         $arr = array('success'=>true,'message' => 'Message sended to all!');
         return Response()->json($arr);

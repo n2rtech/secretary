@@ -41,8 +41,6 @@ private $user;
      */
     public function toMail($notifiable)
     {
-
-
         return (new MailMessage)
         ->subject('NordicCall')
         ->line('Besked fra: NordicCall')
