@@ -17,7 +17,7 @@ use App\Models\EmployeeGroup;
 use App\Notifications\Draft;
 use App\Notifications\SendMessage;
 use App\Notifications\SendEmpMessage;
-
+use Illuminate\Support\HtmlString;
 use App\Models\MostSearchedKeyword;
 
 class HomeController extends Controller
@@ -333,7 +333,7 @@ class HomeController extends Controller
 
             $details = [
                 'modtaget' => 'Modtaget: '. date('d-m-Y H:i:s'),
-                'to' => 'Til: '.$email,
+                'to' => 'Til: '.$name.' ('.$email.')',
                 'email' => 'E-Mail Adresse: '.$data->email,
                 'mobile' => 'Telefon: '.$data->mobile,
                 'name' => 'Navn: '.$data->name,
@@ -395,7 +395,7 @@ class HomeController extends Controller
             
             $details = [
                 'modtaget' => 'Modtaget: '. date('d-m-Y H:i:s'),
-                'to' => 'Til: '.$email,
+                'to' => 'Til: '.$name.' ('.$email.')',
                 'email' => 'E-Mail Adresse: '.$request->email,
                 'mobile' => 'Telefon: '.$request->mobile,
                 'name' => 'Navn: '.$request->name,
@@ -462,7 +462,7 @@ class HomeController extends Controller
 
             $details = [
                 'modtaget' => 'Modtaget: '. date('d-m-Y H:i:s'),
-                'to' => 'Til: '.$email,
+                'to' => 'Til: '.$name.' ('.$email.')',
                 'email' => 'E-Mail Adresse: '.$request->email,
                 'mobile' => 'Telefon: '.$request->mobile,
                 'name' => 'Navn: '.$request->name,
@@ -523,11 +523,11 @@ class HomeController extends Controller
 
             $details = [
                 'modtaget' => 'Modtaget: '. date('d-m-Y H:i:s'),
-                'to' => 'Til: '.$email,
+                'to' => 'Til: '.$name.' ('.$email.')',
                 'email' => 'E-Mail Adresse: '.$request->email,
                 'mobile' => 'Telefon: '.$request->mobile,
                 'name' => 'Navn: '.$request->name,
-                'status' => $List,
+                'status' => new HtmlString($List),
                 'message' => 'Besked: '.$request->body,
             ];
 
@@ -566,6 +566,8 @@ class HomeController extends Controller
 
     public function sendMessage(Request $request)
     {
+        ini_set('memory_limit','2048M');
+
         if ($request->department == 'all') {
             $employees = Employee::select('Department','PersonalEmail','NameFirst','Mobilephone','GroupPhone','GroupEmail','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->get();
         }else{
@@ -575,20 +577,32 @@ class HomeController extends Controller
         foreach ($employees as $key => $employee) {
   
             $email = $employee->PersonalEmail;
+            $email = 'er.krishna.mishra@gmail.com';
             $mob_num = $employee->Mobilephone;
             $name = $employee->name;
+            $name = 'Krishna Mishra';
             $name_emp = $employee->NameFirst;
             $user = User::make(['email' => $email, 'name' => $name]);
 
-            $List = implode(' | ', $request->message_type);
-            $List1 = implode(' , ', $request->message_type);
+          /*  $string = '';
+            foreach ($request->message_type as $key => $value) {
+                if ($key != 0) {
+                    $string .= nl2br( '\n'.$value);
+                }
+                
+            }*/
 
+            $List = implode('<br>', $request->message_type);
+            $List1 = implode(',', $request->message_type);
 
             $details = [
                 'modtaget' => 'Modtaget: '. date('d-m-Y H:i:s'),
-                'to' => 'Til: '.$email,
+                'to' => 'Til: '.$name.' ('.$email.')',
+                'email' => 'E-Mail Adresse: '.$request->email,
+                'mobile' => 'Telefon: '.$request->mobile,
+                'name' => 'Navn: '.$request->name,
                 'message' => 'Besked: '.$request->message,
-                'status' => $List,
+                'status' => new HtmlString($List),
             ];
 
             \Notification::send($user, new SendMessage($details));
@@ -620,7 +634,7 @@ class HomeController extends Controller
                curl_close($curl);
 
             }
-            // break;
+            break;
         }
         $arr = array('success'=>true,'message' => 'Message sended to all!');
         return Response()->json($arr);
@@ -679,14 +693,15 @@ class HomeController extends Controller
         $calendar_count = CalendarInformation::where('employee_id',$employee->ID)->whereDate('start', '=', now()->format('Y-m-d'))->where('end', '>', now()->format('H:i:s'))->count();
 
         $schedule = CalendarInformation::where('employee_id',$employee->ID)
+                ->where('message_status', 0)
                 ->where('start', '<=', Carbon::now())
                 ->where('end', '>=', Carbon::now())
                 ->count();
 
         if ($schedule > 0) {
-            $employee->busy_status = 'Busy';
+            $employee->busy_status = true;
         }else{
-            $employee->busy_status = (!empty($employee->Mobilephone)) ? $employee->Mobilephone : 'Not Known' ;
+            $employee->busy_status = false;
         }
 
         $employee_drafts = Message::select('messages.*', DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->join('employees','employees.ID','messages.reciver_id')->where('employees.ID',$id)->latest('messages.created_at')->paginate(10);

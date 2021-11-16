@@ -57,34 +57,34 @@
 
 								<div class="form-group">
 									<div class="form-check">
-										<input class="form-check-input" name="message_type[]" value="URGENT" type="checkbox">
+										<input class="form-check-input" name="message_type[]" value="HASTER" type="checkbox">
 										<label class="form-check-label" for="checkbox">
-											URGENT
+											HASTER
 										</label>
 									</div>
 									<div class="form-check">
-										<input class="form-check-input" name="message_type[]" value="Please get back to the customer" type="checkbox" checked>
+										<input class="form-check-input" name="message_type[]" value="Venligst vend tilbage til kunden" type="checkbox" checked>
 										<label class="form-check-label" for="Checkbox">
-											Please get back to the customer
+											Venligst vend tilbage til kunden
 										</label>
 									</div>
 									<div class="form-check">
-										<input class="form-check-input" name="message_type[]" value="The customer gets back to you" type="checkbox">
+										<input class="form-check-input" name="message_type[]" value="Kunden vender tilbage til dig" type="checkbox">
 										<label class="form-check-label" for="Checkbox">
-											The customer gets back to you
+											Kunden vender tilbage til dig
 										</label>
 									</div>
 									<div class="form-check">
-										<input class="form-check-input" name="message_type[]" value="Extremely urgent" type="checkbox">
+										<input class="form-check-input" name="message_type[]" value="Yderst presserende" type="checkbox">
 										<label class="form-check-label" for="Checkbox">
-											Extremely urgent
+											Yderst presserende
 										</label>
 									</div>
 									<div style="display:none;" id="send-message-form-checkbox"><p style="color:red;">You must check at least one checkbox.</p></div>
 								</div>
 
 								<div class="savebtn">
-									<button type="submit" id="send-message-form-btn" class="btn btn-primary">Send</button>
+									<button type="submit" @if($employee->busy_status) disabled @endif id="send-message-form-btn" class="btn btn-primary">Send</button>
 								</div>
 
 							</form>
@@ -618,8 +618,9 @@
     		});
     	});
 
-
+var dateNow = new Date();
     	$('#datetime').datetimepicker({
+    		defaultDate:dateNow,
     		format: 'HH:mm:ss',
     		icons: {
     			time: "fa fa-clock-o",
@@ -644,6 +645,7 @@ date.setDate(date.getDate() - 1);*/
 
 
     	$('#datetimeto').datetimepicker({
+    		defaultDate:dateNow,
     		format: 'HH:mm:ss',
     		icons: {
     			time: "fa fa-clock-o",

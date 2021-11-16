@@ -49,7 +49,12 @@ private $user;
         ->line($this->user['modtaget'])
         ->line($this->user['to'])
         ->line('...............................')
+        ->line($this->user['email'])
+        ->line(' ')
         ->line($this->user['message'])
+        ->line(' ')  
+        ->line($this->user['name'])
+        ->line($this->user['mobile'])
         ->line('...............................')
         ->line('Status: ')
         ->line($this->user['status']);

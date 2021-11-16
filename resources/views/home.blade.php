@@ -261,32 +261,43 @@
 												</div>
 
 												<div class="form-group">
+													<input class="form-control form-control-lg inputstyle" type="name" required name="name" placeholder="*Name" />
+												</div>
+												<div class="form-group">
+													<input class="form-control form-control-lg inputstyle" type="email" required name="email" placeholder="*Email Address" />
+												</div>								
+												<div class="form-group">
+													<input class="form-control form-control-lg inputstyle" type="number" required name="mobile" placeholder="*Mobile Number" />
+												</div>
+
+
+												<div class="form-group">
 													<textarea class="form-control" required name="message" placeholder="Message" cols="3" rows="3"></textarea>
 												</div>
 
 												<div class="form-group">
 													<div class="form-check">
-														<input class="form-check-input" value="URGENT" name="message_type[]" type="checkbox" checked="">
+														<input class="form-check-input" value="HASTER" name="message_type[]" type="checkbox" checked="">
 														<label class="form-check-label" for="checkbox">
-															URGENT
+															HASTER
 														</label>
 													</div>
 													<div class="form-check">
-														<input class="form-check-input" value="Please get back to the customer" name="message_type[]" type="checkbox">
+														<input class="form-check-input" value="Venligst vend tilbage til kunden" name="message_type[]" type="checkbox">
 														<label class="form-check-label" for="Checkbox">
-															Please get back to the customer
+															Venligst vend tilbage til kunden
 														</label>
 													</div>
 													<div class="form-check">
-														<input class="form-check-input" value="The customer gets back to you" name="message_type[]" type="checkbox">
+														<input class="form-check-input" value="Kunden vender tilbage til dig" name="message_type[]" type="checkbox">
 														<label class="form-check-label" for="Checkbox">
-															The customer gets back to you
+															Kunden vender tilbage til dig
 														</label>
 													</div>
 													<div class="form-check">
-														<input class="form-check-input" value="Extremely urgent" name="message_type[]" type="checkbox">
+														<input class="form-check-input" value="Yderst presserende" name="message_type[]" type="checkbox">
 														<label class="form-check-label" for="Checkbox">
-															Extremely urgent
+															Yderst presserende
 														</label>
 													</div>
 
@@ -385,6 +396,17 @@
 													<input type="hidden" name="department" value="{{ $group_employee->Department }}">
 													<input style="display:none;" class="form-control form-control-lg inputstyle" type="text" name="subject" placeholder="Message Subject">
 												</div>
+
+												<div class="form-group">
+												<input class="form-control form-control-lg inputstyle" type="name" required name="name" placeholder="*Name" />
+												</div>
+												<div class="form-group">
+												<input class="form-control form-control-lg inputstyle" type="email" required name="email" placeholder="*Email Address" />
+												</div>								
+												<div class="form-group">
+												<input class="form-control form-control-lg inputstyle" type="number" required name="mobile" placeholder="*Mobile Number" />
+												</div>
+
 
 												<div class="form-group">
 													<textarea class="form-control" required name="message" placeholder="Message" cols="3" rows="3"></textarea>
