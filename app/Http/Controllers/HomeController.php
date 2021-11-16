@@ -515,7 +515,7 @@ class HomeController extends Controller
             $name_emp = $employee->NameFirst;
             $user = User::make(['email' => $email, 'name' => $name]);
 
-            $List = implode(' | ', @$request->message_type);
+            $List = implode('<br>', @$request->message_type);
 
             $user_name = $request->name;
             $user_email = $request->email;
@@ -567,6 +567,7 @@ class HomeController extends Controller
     public function sendMessage(Request $request)
     {
         ini_set('memory_limit','2048M');
+        ini_set('max_execution_time', '0'); 
 
         if ($request->department == 'all') {
             $employees = Employee::select('Department','PersonalEmail','NameFirst','Mobilephone','GroupPhone','GroupEmail','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->get();
@@ -577,20 +578,12 @@ class HomeController extends Controller
         foreach ($employees as $key => $employee) {
   
             $email = $employee->PersonalEmail;
-            $email = 'er.krishna.mishra@gmail.com';
+            // $email = 'er.krishna.mishra@gmail.com';
             $mob_num = $employee->Mobilephone;
             $name = $employee->name;
-            $name = 'Krishna Mishra';
+            // $name = 'Krishna Mishra';
             $name_emp = $employee->NameFirst;
             $user = User::make(['email' => $email, 'name' => $name]);
-
-          /*  $string = '';
-            foreach ($request->message_type as $key => $value) {
-                if ($key != 0) {
-                    $string .= nl2br( '\n'.$value);
-                }
-                
-            }*/
 
             $List = implode('<br>', $request->message_type);
             $List1 = implode(',', $request->message_type);
@@ -634,7 +627,7 @@ class HomeController extends Controller
                curl_close($curl);
 
             }
-            break;
+            // break;
         }
         $arr = array('success'=>true,'message' => 'Message sended to all!');
         return Response()->json($arr);

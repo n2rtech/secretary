@@ -1278,7 +1278,7 @@ $(document).on('click', '.editshowhideempdraft', function(event) {
 			}
 		}).done(function(data) {
 			$("#send-msg-to-all-all")[0].reset();
-			$("#send-msg-all-all").text('Save');
+			$("#send-msg-all-all").text('Send');
 			$("#success-msg-send-allall").show().html(data.message);
 			setTimeout(function() {
 				$("#success-msg-send-allall").show().fadeOut('fast');
@@ -1317,7 +1317,7 @@ $("#send-msg-to-all-{{ $key }}").submit(function(event) {
 			}
 		}).done(function(data) {
 			$("#send-msg-to-all-{{ $key }}")[0].reset();
-			$("#send-msg-all-{{ $key }}").text('Save');
+			$("#send-msg-all-{{ $key }}").text('Send');
 			$("#success-msg-send-all{{ $key }}").show().html(data.message);
 			setTimeout(function() {
 				$("#success-msg-send-all{{ $key }}").show().fadeOut('fast');
