@@ -679,6 +679,21 @@ date.setDate(date.getDate() - 1);*/
     		}
     	});
 
-
+$(".copytext").click(function(){
+	var copyText = $(this).siblings('input').val();
+	  var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(this).siblings('input').val()).select();
+    document.execCommand("copy");
+    $temp.remove();
+});
+$(".copytextarea").click(function(){
+	var copyText = $(this).siblings('textarea').val();
+	  var $temp = $("<textarea></textarea>");
+    $("body").append($temp);
+    $temp.val($(this).siblings('textarea').val()).select();
+    document.execCommand("copy");
+    $temp.remove();
+})
     </script>
 
