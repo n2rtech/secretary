@@ -343,7 +343,7 @@
 										<div class="col-sm-8 col-xs-8">
 											<div class="profiledisc">
 												<div class="protitle"><a class="click-profile" data-id="{{ $all_employee->ID }}" >{{ $all_employee->NameFirst.' '.$all_employee->NamesMiddle.' '.$all_employee->NameLast }}</a></div>
-												<div class="propost">{{ $all_employee->Department }}</div>
+												<div class="propost"><ul class="list-unstyled"><li>{{ $all_employee->Department }}</li></ul></div>
 												<div class="posttag">Sales, Management</div>
 											</div>
 										</div>

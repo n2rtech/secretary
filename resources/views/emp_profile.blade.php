@@ -10,7 +10,7 @@
 				<div class="text-center"> 
 					<div class="profiledisc">
 						<div class="protitle">{{ $employee->NameFirst.' '.$employee->NamesMiddle.' '.$employee->NameLast }}</div>
-						<div class="propost">{{ $employee->Description }}</div>
+						<div class="propost"><div class="propostlist">{{ $employee->Description }}</div></div>
 						<div class="propost">{{ $employee->Department }}</div>
 						<div class="posttag">{{ $employee->Manager }}</div>
 					</div>
