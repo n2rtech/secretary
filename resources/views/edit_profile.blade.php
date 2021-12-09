@@ -11,21 +11,26 @@
 	</div>
 	<div class="col-sm-6 col-xs-6">
 		<form class="create" id="edit-profile-form">
-			<div class="form-group">
+			<div class="form-group position">
 				<input type="hidden" value="{{ $id }}" name="id">
 				<input class="form-control form-control-lg inputstyle" type="name" name="NameFirst" required value="{{ $employee->NameFirst }}" placeholder="Name First">
+				<a href="javascript:void(0)" class="copytext">Copy</a>
 			</div>
-			<div class="form-group">
+			<div class="form-group position">
 				<input class="form-control form-control-lg inputstyle" type="name" name="NamesMiddle" value="{{ $employee->NamesMiddle }}" placeholder="Name Middle">
+				<a href="javascript:void(0)" class="copytext">Copy</a>
 			</div>
-			<div class="form-group">
+			<div class="form-group position">
 				<input class="form-control form-control-lg inputstyle" type="name" name="NameLast" value="{{ $employee->NameLast }}" placeholder="Name Last">
+				<a href="javascript:void(0)" class="copytext">Copy</a>
 			</div>
-			<div class="form-group">
+			<div class="form-group position">
 				<input class="form-control form-control-lg inputstyle" type="number" name="Mobilephone" required value="{{ $employee->Mobilephone }}" placeholder="Mobile Number">
+				<a href="javascript:void(0)" class="copytext">Copy</a>
 			</div>
-			<div class="form-group">
+			<div class="form-group position">
 				<input class="form-control form-control-lg inputstyle" type="email" name="PersonalEmail" required="" value="{{ $employee->PersonalEmail }}" placeholder="Email Address">
+				<a href="javascript:void(0)" class="copytext">Copy</a>
 			</div>
 			<div class="form-group">
 				<select required name="Department" class="form-control form-select">

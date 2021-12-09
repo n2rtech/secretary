@@ -40,19 +40,23 @@
 						<div class="tab-pane fade show active" id="homesend-profile" role="tabpanel" aria-labelledby="home-tab">
 							<div id="success-msg-send-message" style="display:none;" class="alert alert-success"></div>
 							<form class="create" method="POST" id="send-message-form">
-								<div class="form-group">
+								<div class="form-group position">
 									<input type="hidden" name="id" value="{{ $id }}" name="">
 									<input class="form-control form-control-lg inputstyle" type="name" required name="name" placeholder="*Name" />
+									<a href="javascript:void(0)" class="copytext">Copy</a>
 								</div>
-								<div class="form-group">
+								<div class="form-group position">
 									<input class="form-control form-control-lg inputstyle" type="email" required name="email" placeholder="*Email Address" />
+									<a href="javascript:void(0)" class="copytext">Copy</a>
 								</div>								
-								<div class="form-group">
+								<div class="form-group position">
 									<input class="form-control form-control-lg inputstyle" type="number" required name="mobile" placeholder="*Mobile Number" />
+									<a href="javascript:void(0)" class="copytext">Copy</a>
 								</div>
 
-								<div class="form-group">
+								<div class="form-group position">
 									<textarea name="body" required class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
+									<a href="javascript:void(0)" class="copytext">Copy</a>
 								</div>
 
 								<div class="form-group">
@@ -105,21 +109,26 @@
 									<div id="profile-draft-message" style="display:none;" class="alert alert-success"></div>
 
 									<form class="create" id="profile-draft-form">
-										<div class="form-group">
+										<div class="form-group position">
 											<input type="hidden" name="reciver_id" value="{{ $id }}">
 											<input class="form-control form-control-lg inputstyle" required type="name" name="name" placeholder="Name">
+											<a href="javascript:void(0)" class="copytext">Copy</a>
 										</div>
-										<div class="form-group">
+										<div class="form-group position">
 											<input class="form-control form-control-lg inputstyle" required type="number" name="mobile" placeholder="Mobile Number">
+											<a href="javascript:void(0)" class="copytext">Copy</a>
 										</div>
-										<div class="form-group">
+										<div class="form-group position">
 											<input class="form-control form-control-lg inputstyle" required type="email" name="email" placeholder="Email Address">
+											<a href="javascript:void(0)" class="copytext">Copy</a>
 										</div>
-										<div class="form-group" style="display:none;">
-											<input class="form-control form-control-lg inputstyle" type="message-subject" name="subject" placeholder="Message Subject">
+										<div class="form-group position" style="display:none;">
+								 			<input class="form-control form-control-lg inputstyle" type="message-subject" name="subject" placeholder="Message Subject">
+								 			<a href="javascript:void(0)" class="copytext">Copy</a>
 										</div>
-										<div class="form-group">
+										<div class="form-group position">
 											<textarea class="form-control" name="body" placeholder="Message" required cols="3" rows="3"></textarea>
+											<a href="javascript:void(0)" class="copytext">Copy</a>
 										</div>
 										<div class="form-group" style="display:none;">
 											<select class="form-control form-select">
@@ -141,20 +150,25 @@
 									<div id="profile-draft-save-message" style="display:none;" class="alert alert-success"></div>
 
 									<form class="create" id="profile-draft-save-form">
-										<div class="form-group">
+										<div class="form-group position">
 											<input required class="form-control form-control-lg inputstyle" type="name" name="name" placeholder="Name">
+											<a href="javascript:void(0)" class="copytext">Copy</a>
 										</div>
-										<div class="form-group">
+										<div class="form-group position">
 											<input required class="form-control form-control-lg inputstyle" type="number" name="mobile" placeholder="Mobile Number">
+											<a href="javascript:void(0)" class="copytext">Copy</a>
 										</div>
-										<div class="form-group">
+										<div class="form-group position">
 											<input required class="form-control form-control-lg inputstyle" type="email" name="email" placeholder="Email Address">
+											<a href="javascript:void(0)" class="copytext">Copy</a>
 										</div>
-										<div class="form-group" style="display:none;">
+										<div class="form-group position" style="display:none;">
 											<input class="form-control form-control-lg inputstyle" type="text" name="subject" placeholder="Message Subject">
+											<a href="javascript:void(0)" class="copytext">Copy</a>
 										</div>
-										<div class="form-group">
+										<div class="form-group position">
 											<textarea name="body" required class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
+											<a href="javascript:void(0)" class="copytext">Copy</a>
 										</div>
 										<input type="hidden" name="reciver_id" value="{{ $id }}">
 

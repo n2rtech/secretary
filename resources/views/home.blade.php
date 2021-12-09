@@ -143,24 +143,29 @@
 											<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 												<div id="success-msg" style="display:none;" class="alert alert-success"></div>
 												<form class="create" id="draft-form">
-													<div class="form-group">
+													<div class="form-group position">
 														<input required class="form-control form-control-lg inputstyle" type="name" name="name" id="name"  placeholder="Name" />
+														<a href="javascript:void(0)" class="copytext">Copy</a>
 														 <span class="text-danger error-name"></span>
 													</div>
-													<div class="form-group">
+													<div class="form-group position">
 														<input class="form-control form-control-lg inputstyle" type="number" name="mobile" id="mobile"required  placeholder="Mobile Number" />
+														<a href="javascript:void(0)" class="copytext">Copy</a>
 														<span class="text-danger error-mobile"></span>
 													</div>
-													<div class="form-group">
+													<div class="form-group position">
 														<input class="form-control form-control-lg inputstyle" type="email" name="email" id="email" required placeholder="Email Address" />
+														<a href="javascript:void(0)" class="copytext">Copy</a>
 														<span class="text-danger error-email"></span>
 													</div>
-													<div class="form-group" style="display:none;">
+													<div class="form-group position" style="display:none;">
 														<input class="form-control form-control-lg inputstyle" type="text" id="subject" name="subject" placeholder="Message Subject" />
+														<a href="javascript:void(0)" class="copytext">Copy</a>
 														<span class="text-danger error-subject"></span>
 													</div>
-													<div class="form-group">
+													<div class="form-group position">
 														<textarea class="form-control" required name="body" id="body" placeholder="Message" cols="3" rows="3"></textarea>
+														<a href="javascript:void(0)" class="copytext">Copy</a>
 														<span class="text-danger error-body"></span>
 													</div>
 													<div class="form-group">
@@ -178,17 +183,21 @@
 											</div>
 											<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 												<form class="create filter" id="draft-search">
-													<div class="form-group">
+													<div class="form-group position">
 														<input class="form-control form-control-lg inputstyle" type="name" name="draft-name" id="draft-name" placeholder="Name" />
+														<a href="javascript:void(0)" class="copytext">Copy</a>
 													</div>
-													<div class="form-group">
+													<div class="form-group position">
 														<input class="form-control form-control-lg inputstyle" type="number" name="draft-mobile" id="draft-mobile" placeholder="Mobile Number" />
+														<a href="javascript:void(0)" class="copytext">Copy</a>
 													</div>
-													<div class="form-group">
+													<div class="form-group position">
 														<input class="form-control form-control-lg inputstyle" type="email" name="draft-email" id="draft-email" placeholder="Email Address" />
+														<a href="javascript:void(0)" class="copytext">Copy</a>
 													</div>
-													<div class="form-group" style="display:none;">
+													<div class="form-group position" style="display:none;">
 														<input class="form-control form-control-lg inputstyle" type="text" name="draft-subject" id="draft-subject" placeholder="Message Subject" />
+														<a href="javascript:void(0)" class="copytext">Copy</a>
 													</div>
 													<div class="form-group">
 														<select name="draft-reciver_id" id="draft-reciver_id" class="form-control form-select select-with-search-opt">
@@ -255,24 +264,29 @@
 										<div class="panel-body">
 											<div id="success-msg-send-allall" style="display:none;" class="alert alert-success"></div>
 											<form class="create" method="POST" id="send-msg-to-all-all">
-												<div class="form-group">
+												<div class="form-group position">
 													<input type="hidden" name="department" value="all">
+													<a href="javascript:void(0)" class="copytext">Copy</a>
 													<input style="display:none;" class="form-control form-control-lg inputstyle" type="text" name="subject" placeholder="Message Subject">
 												</div>
 
-												<div class="form-group">
+												<div class="form-group position">
 													<input class="form-control form-control-lg inputstyle" type="name" required name="name" placeholder="*Name" />
+													<a href="javascript:void(0)" class="copytext">Copy</a>
 												</div>
-												<div class="form-group">
+												<div class="form-group position">
 													<input class="form-control form-control-lg inputstyle" type="email" required name="email" placeholder="*Email Address" />
+													<a href="javascript:void(0)" class="copytext">Copy</a>
 												</div>								
-												<div class="form-group">
+												<div class="form-group position">
 													<input class="form-control form-control-lg inputstyle" type="number" required name="mobile" placeholder="*Mobile Number" />
+													<a href="javascript:void(0)" class="copytext">Copy</a>
 												</div>
 
 
-												<div class="form-group">
+												<div class="form-group position">
 													<textarea class="form-control" required name="message" placeholder="Message" cols="3" rows="3"></textarea>
+													<a href="javascript:void(0)" class="copytext">Copy</a>
 												</div>
 
 												<div class="form-group">
@@ -541,18 +555,22 @@
 											<div class="tab-content" id="myTabContent2">
 												<div class="tab-pane fade show active" id="homesend" role="tabpanel" aria-labelledby="home-tab">
 													<form class="create">
-														<div class="form-group">
+														<div class="form-group position">
 															<input class="form-control form-control-lg inputstyle" type="email" name="email" placeholder="*Email Address" />
+															<a href="javascript:void(0)" class="copytext">Copy</a>
 														</div>
-														<div class="form-group">
+														<div class="form-group position">
 															<input class="form-control form-control-lg inputstyle" type="name" name="name" placeholder="*Name" />
+															<a href="javascript:void(0)" class="copytext">Copy</a>
 														</div>
-														<div class="form-group">
+														<div class="form-group position">
 															<input class="form-control form-control-lg inputstyle" type="number" name="mobilenumber" placeholder="*Mobile Number" />
+															<a href="javascript:void(0)" class="copytext">Copy</a>
 														</div>
 
-														<div class="form-group">
+														<div class="form-group position">
 															<textarea class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
+															<a href="javascript:void(0)" class="copytext">Copy</a>
 														</div>
 
 														<div class="form-group">
@@ -954,6 +972,8 @@
 "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js">
     </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
+
 
 <script>
 	$(document).ready(function(){

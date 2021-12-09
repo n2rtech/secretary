@@ -119,8 +119,9 @@
 										<div class="tab-content" id="myTabContent">
 											<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 												<form class="create">
-													<div class="form-group">
+													<div class="form-group position">
 														<input class="form-control form-control-lg inputstyle" type="name" name="name" placeholder="Name" />
+														<a href="javascript:void(0)" class="copytext">Copy</a>
 													</div>
 													<div class="form-group">
 														<input class="form-control form-control-lg inputstyle" type="number" name="mobilenumber" placeholder="Mobile Number" />
@@ -423,11 +424,13 @@
 											<div class="tab-content" id="myTabContent2">
 												<div class="tab-pane fade show active" id="homesend" role="tabpanel" aria-labelledby="home-tab">
 													<form class="create">
-														<div class="form-group">
+														<div class="form-group position">
 															<input class="form-control form-control-lg inputstyle" type="email" name="email" placeholder="*Email Address" />
+															<a href="javascript:void(0)" class="copytext">Copy</a>
 														</div>
-														<div class="form-group">
+														<div class="form-group position">
 															<input class="form-control form-control-lg inputstyle" type="name" name="name" placeholder="*Name" />
+															<a href="javascript:void(0)" class="copytext">Copy</a>
 														</div>
 														<div class="form-group">
 															<input class="form-control form-control-lg inputstyle" type="number" name="mobilenumber" placeholder="*Mobile Number" />
@@ -716,17 +719,21 @@
 					</div>
 					<div class="col-sm-6 col-xs-6">
 						<form class="create">
-							<div class="form-group">
+							<div class="form-group position">
 								<input class="form-control form-control-lg inputstyle" type="name" name="name" placeholder="Name">
+								<a href="javascript:void(0)" class="copytext">Copy</a>
 							</div>
-							<div class="form-group">
+							<div class="form-group position">
 								<input class="form-control form-control-lg inputstyle" type="number" name="mobilenumber" placeholder="Mobile Number">
+								<a href="javascript:void(0)" class="copytext">Copy</a>
 							</div>
-							<div class="form-group">
+							<div class="form-group position">
 								<input class="form-control form-control-lg inputstyle" type="email" name="email" placeholder="Email Address">
+								<a href="javascript:void(0)" class="copytext">Copy</a>
 							</div>
-							<div class="form-group">
+							<div class="form-group position">
 								<input class="form-control form-control-lg inputstyle" type="message-subject" name="message-subject" placeholder="Profile">
+								<a href="javascript:void(0)" class="copytext">Copy</a>
 							</div>
 							<div class="form-group">
 								<select class="form-control form-select">

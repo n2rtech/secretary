@@ -1,6 +1,7 @@
 <form class="create" id="edit-draft-form">
-	<div class="form-group">
+	<div class="form-group position">
 		<input class="form-control form-control-lg inputstyle" type="name" required name="name" id="name" value="{{ $message->name }}" placeholder="Name">
+		<a href="javascript:void(0)" class="copytext">Copy</a>
 	</div>
 	<input type="hidden" required name="id" id="id" value="{{ $message->id }}">
 	<div class="form-group">
