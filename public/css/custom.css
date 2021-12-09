@@ -1232,6 +1232,33 @@ table.dataTable thead .sorting_desc {
     font-weight: 600;
     z-index: 999;
 }
+.copytextarea{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 12px;
+    color: #0c2556;
+    font-weight: 600;
+    z-index: 999;
+}
+.copytextedit{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 12px;
+    color: #0c2556;
+    font-weight: 600;
+    z-index: 999;
+}
+.copytexteditarea{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 12px;
+    color: #0c2556;
+    font-weight: 600;
+    z-index: 999;
+}
 @media screen and (max-width:767px){
 .togglebar i {
     font-size: 18px;
