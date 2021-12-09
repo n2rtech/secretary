@@ -165,7 +165,7 @@
 													</div>
 													<div class="form-group position">
 														<textarea class="form-control" required name="body" id="body" placeholder="Message" cols="3" rows="3"></textarea>
-														<a href="javascript:void(0)" class="copytext">Copy</a>
+														<a href="javascript:void(0)" class="copytextarea">Copy</a>
 														<span class="text-danger error-body"></span>
 													</div>
 													<div class="form-group">
@@ -286,7 +286,7 @@
 
 												<div class="form-group position">
 													<textarea class="form-control" required name="message" placeholder="Message" cols="3" rows="3"></textarea>
-													<a href="javascript:void(0)" class="copytext">Copy</a>
+													<a href="javascript:void(0)" class="copytextarea">Copy</a>
 												</div>
 
 												<div class="form-group">
@@ -570,7 +570,7 @@
 
 														<div class="form-group position">
 															<textarea class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
-															<a href="javascript:void(0)" class="copytext">Copy</a>
+															<a href="javascript:void(0)" class="copytextarea">Copy</a>
 														</div>
 
 														<div class="form-group">

@@ -10,8 +10,9 @@
 				<div class="text-center"> 
 					<div class="profiledisc">
 						<div class="protitle">{{ $employee->NameFirst.' '.$employee->NamesMiddle.' '.$employee->NameLast }}</div>
+						<div class="propost">{{ $employee->Description }}</div>
 						<div class="propost">{{ $employee->Department }}</div>
-						<div class="posttag">Sales, Management</div>
+						<div class="posttag">{{ $employee->Manager }}</div>
 					</div>
 					<div class="editbtn">
 						<a href="#" data-toggle="modal" data-target="#myModal" id="edit-profile" data-id="{{ $employee->ID }}" class="btn btn-primary">Edit Details</a>
@@ -56,7 +57,7 @@
 
 								<div class="form-group position">
 									<textarea name="body" required class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
-									<a href="javascript:void(0)" class="copytext">Copy</a>
+									<a href="javascript:void(0)" class="copytextarea">Copy</a>
 								</div>
 
 								<div class="form-group">
@@ -128,7 +129,7 @@
 										</div>
 										<div class="form-group position">
 											<textarea class="form-control" name="body" placeholder="Message" required cols="3" rows="3"></textarea>
-											<a href="javascript:void(0)" class="copytext">Copy</a>
+											<a href="javascript:void(0)" class="copytextarea">Copy</a>
 										</div>
 										<div class="form-group" style="display:none;">
 											<select class="form-control form-select">
@@ -168,7 +169,7 @@
 										</div>
 										<div class="form-group position">
 											<textarea name="body" required class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
-											<a href="javascript:void(0)" class="copytext">Copy</a>
+											<a href="javascript:void(0)" class="copytextarea">Copy</a>
 										</div>
 										<input type="hidden" name="reciver_id" value="{{ $id }}">
 

@@ -24,7 +24,7 @@
 
 					<div class="form-group position">
 						<textarea name="body" id="body" class="form-control" placeholder="{{ $message->body }}" cols="3" rows="3" disabled></textarea>
-						<a href="javascript:void(0)" class="copytext">Copy</a>
+						<a href="javascript:void(0)" class="copytextarea">Copy</a>
 					</div>
 					<div class="form-group" style="display:none;">
 						<select class="form-control form-select" disabled>
@@ -56,4 +56,24 @@
 			$(".editprofiledraft").hide();
 		});
 	});
+
+	$(document).on('click', '.copytext', function(event) {
+	var copyText = $(this).siblings('input').attr('placeholder');
+	  var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(this).siblings('input').attr('placeholder')).select();
+    document.execCommand("copy");
+    $temp.remove();
+});
+
+
+
+$(document).on('click', '.copytextarea', function(event) {
+	var copyText = $(this).siblings('textarea').attr('placeholder');
+	  var $temp = $("<textarea></textarea>");
+    $("body").append($temp);
+    $temp.val($(this).siblings('textarea').attr('placeholder')).select();
+    document.execCommand("copy");
+    $temp.remove();
+})
 </script>

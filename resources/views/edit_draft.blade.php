@@ -6,25 +6,25 @@
 				<form class="create" id="contactForm">
 					<div class="form-group position">
 						<input class="form-control form-control-lg inputstyle" type="name" name="name" id="name" placeholder="{{ $message->name }}" disabled>
-						<a href="javascript:void(0)" class="copytext">Copy</a>
+						<a href="javascript:void(0)" class="copytextedit">Copy</a>
 					</div>
 					<div class="form-group position">
 						<input class="form-control form-control-lg inputstyle" type="email" name="email" id="email" placeholder="{{ $message->email }}" disabled>
-						<a href="javascript:void(0)" class="copytext">Copy</a>
+						<a href="javascript:void(0)" class="copytextedit">Copy</a>
 					</div>
 					<div class="form-group position">
 						<input class="form-control form-control-lg inputstyle" type="number" name="mobile" id="mobile" placeholder="{{ $message->mobile }}" disabled>
-						<a href="javascript:void(0)" class="copytext">Copy</a>
+						<a href="javascript:void(0)" class="copytextedit">Copy</a>
 					</div>
 
 					<div class="form-group position" style="display:none;">
 						<input class="form-control form-control-lg inputstyle" type="number" name="subject" id="subject" placeholder="{{ $message->subject }}" disabled>
-						<a href="javascript:void(0)" class="copytext">Copy</a>
+						<a href="javascript:void(0)" class="copytextedit">Copy</a>
 					</div>
 
 					<div class="form-group position">
 						<textarea name="body" id="body" class="form-control" placeholder="{{ $message->body }}" cols="3" rows="3" disabled></textarea>
-						<a href="javascript:void(0)" class="copytext">Copy</a>
+						<a href="javascript:void(0)" class="copytexteditarea">Copy</a>
 					</div>
 					<div class="form-group">
 						<select class="form-control form-select" disabled>
@@ -49,3 +49,25 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+$(document).on('click', '.copytextedit', function(event) {
+	var copyText = $(this).siblings('input').attr('placeholder');
+	  var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(this).siblings('input').attr('placeholder')).select();
+    document.execCommand("copy");
+    $temp.remove();
+});
+
+
+
+$(document).on('click', '.copytexteditarea', function(event) {
+	var copyText = $(this).siblings('textarea').attr('placeholder');
+	  var $temp = $("<textarea></textarea>");
+    $("body").append($temp);
+    $temp.val($(this).siblings('textarea').attr('placeholder')).select();
+    document.execCommand("copy");
+    $temp.remove();
+})
+
+</script>

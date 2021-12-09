@@ -20,7 +20,7 @@
 
 	<div class="form-group position">
 		<textarea required name="body" id="body" class="form-control" cols="3" rows="3" placeholder="Message">{{ $message->body }}</textarea>
-		<a href="javascript:void(0)" class="copytext">Copy</a>
+		<a href="javascript:void(0)" class="copytextarea">Copy</a>
 	</div>
 	<div class="form-group">
 		<select class="form-control form-select select-with-search-option" required name="reciver_id" id="reciver_id">
@@ -40,4 +40,24 @@
 	$(document).ready(function() {
 		$(".select-with-search-option").select2();
 	});
+
+	$(document).on('click', '.copytext', function(event) {
+	var copyText = $(this).siblings('input').val();
+	  var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(this).siblings('input').val()).select();
+    document.execCommand("copy");
+    $temp.remove();
+});
+
+
+
+$(document).on('click', '.copytextarea', function(event) {
+	var copyText = $(this).siblings('textarea').val();
+	  var $temp = $("<textarea></textarea>");
+    $("body").append($temp);
+    $temp.val($(this).siblings('textarea').val()).select();
+    document.execCommand("copy");
+    $temp.remove();
+})
 </script>

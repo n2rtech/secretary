@@ -48,3 +48,15 @@
 		</form>
 	</div>
 </div>
+<script type="text/javascript">
+	
+$(document).on('click', '.copytext', function(event) {
+	alert('dd');
+	var copyText = $(this).siblings('input').val();
+	  var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(this).siblings('input').val()).select();
+    document.execCommand("copy");
+    $temp.remove();
+});
+</script>
