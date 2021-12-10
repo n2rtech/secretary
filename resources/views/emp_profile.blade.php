@@ -23,7 +23,26 @@
 		<div class="col-sm-8 col-xs-12">
 			<div id="myChart">
 				<div id="calendarLoad"></div> 
-				{{-- <img src="{{asset('img/graph.png')}}" alt="Graph" class="img-fluid"> --}}
+
+				<div class="modal fade" id="modal-15" tabindex="-1" role="dialog" aria-labelledby="modal-15Title" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content" style="width:50% !important; left: 27% !important;">
+							<div class="modal-header">
+								<h5 class="modal-title" id="modal-15Title">Event List</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div id="calendar-data"></div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -615,7 +634,7 @@
     			eventColor: 'yellow',
 
     			eventRender: function(event, element){
-
+    				
     				if (event.allDay === 'true') {
     					event.allDay = true;
     				} else {
@@ -630,6 +649,29 @@
     					trigger: 'hover'
     				});
     			},
+    			eventClick: function(event) {
+
+    				var start = moment(event.start).format('YYYY-MM-DD');
+    				var end = moment(event.end).format('YYYY-MM-DD');
+
+    				$.ajax({
+
+    					url: "{{ route('admin.calendar-info')}}?emp_id="+event.employee_id+"&start="+start+"&end="+end,
+
+    					type: "GET",
+
+    					success: function (response) {
+    						$("#calendar-data").html();
+    						var ststs = "";
+    						$.each(response, function (key, value) {
+
+    							ststs += "<b>Employee Name(Id)</b> : "+value.emp_name+" (#"+value.employee_id+")"+"</br><b>From Date </b> : "+value.from_date+"</br><b>From Time </b> : "+value.from_time+"</br><b>To Date </b> : "+value.to_date+"</br><b>To Time </b> : "+value.to_time+"</br><b>Event Type </b> : "+value.event_type+"</br><b>Event Activity </b> : "+value.event_activity+"</br><b>Message Status </b> : "+value.message_status+"</br><p>-------------------</p>";
+    						});
+    							$("#calendar-data").html(ststs);
+    					}
+    				});
+    				$('#modal-15').modal();
+    			}
     		});
     	});
 
