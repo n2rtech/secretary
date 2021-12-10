@@ -649,7 +649,7 @@
     					trigger: 'hover'
     				});
     			},
-    			eventClick: function(event) {
+    			/*eventClick: function(event) {
 
     				var start = moment(event.start).format('YYYY-MM-DD');
     				var end = moment(event.end).format('YYYY-MM-DD');
@@ -671,7 +671,7 @@
     					}
     				});
     				$('#modal-15').modal();
-    			}
+    			}*/
     		});
     	});
 
