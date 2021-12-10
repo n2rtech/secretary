@@ -1006,7 +1006,7 @@ table.dataTable thead .sorting_desc {
 #calendar {
     padding-top: 15px;
 }
-.fc .fc-button-group > * {
+/*.fc .fc-button-group > * {
     background: #0c2556 !important;
     padding: 5px !important;
     line-height: 15px !important;
@@ -1062,7 +1062,7 @@ table.dataTable thead .sorting_desc {
 {
     background-color: #0c2556;
 }
-.editmessagedraft .panel-default .panel-heading {
+*/.editmessagedraft .panel-default .panel-heading {
     font-size: 13px;
     padding-top: 5px;
     padding-bottom: 5px;
