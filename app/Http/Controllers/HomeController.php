@@ -53,9 +53,9 @@ class HomeController extends Controller
 
         // echo "<pre>";print_r($searched_data);"</pre>";exit;
 
-        $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
+        $employee_list = Employee::where('Status','enabled')->latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
 
-        $employees2 = Employee::latest('MetaTimeCreated');
+        $employees2 = Employee::where('Status','enabled')->latest('MetaTimeCreated');
         $notes = Note::latest()->paginate(15);
 
         $filter_name = $request->input('filter_name');
@@ -68,7 +68,7 @@ class HomeController extends Controller
         $employee_data = array();
 
         if (isset($empl_id) && !empty($empl_id)) {
-            $employee_data = Employee::select('employees.*',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->where('ID',$empl_id)->first();
+            $employee_data = Employee::where('Status','enabled')->select('employees.*',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->where('ID',$empl_id)->first();
 
             $employee_data->groups = DB::table('employee_groups')->join('groups','employee_groups.group_id','groups.id')->where('employee_groups.employee_id',$empl_id)->pluck('name');
 
@@ -137,18 +137,18 @@ class HomeController extends Controller
         $messages = $messages2->paginate(10);
 
         if (isset($emp_id) && !empty($emp_id)) {
-            $employee_data = Employee::select('employees.*',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->where('ID',$emp_id)->first();
+            $employee_data = Employee::where('Status','enabled')->select('employees.*',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->where('ID',$emp_id)->first();
 
             $employee_data->groups = DB::table('employee_groups')->join('groups','employee_groups.group_id','groups.id')->where('employee_groups.employee_id',$emp_id)->pluck('name');
 
             $employee_data->drafts = Message::select('messages.*', DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->join('employees','employees.ID','messages.reciver_id')->where('employees.ID',$emp_id)->latest('messages.created_at')->get()->take('10');
         }   
     
-        $group_employees = Employee::distinct('Department')->oldest('Department')->get(['Department']);
+        $group_employees = Employee::where('Status','enabled')->distinct('Department')->oldest('Department')->get(['Department']);
 
         foreach ($group_employees as $key1 => $department) {
 
-            $employeesa = Employee::where('Department',$department->Department)->get()->take(12);
+            $employeesa = Employee::where('Status','enabled')->where('Department',$department->Department)->get()->take(12);
 
             foreach ($employeesa as $key2 => $employeea) {
 
@@ -167,7 +167,7 @@ class HomeController extends Controller
             $group_employees[$key1]->employees = $employeesa;
         }
 
-        $all_employees = Employee::paginate(12);
+        $all_employees = Employee::where('Status','enabled')->paginate(12);
         
         foreach ($all_employees as $key => $all_employee) {
             $schedule = CalendarInformation::where(['employee_id'=>$all_employee->ID,'event_type'=>'Busy'])
@@ -185,7 +185,7 @@ class HomeController extends Controller
          $data = '';
         if ($request->ajax()) {
             if (isset($request->department) && ($request->department != 'All') && (!isset($request->keyword))) {
-                $all_employees = Employee::where('Department',$request->department)->paginate(12);
+                $all_employees = Employee::where('Status','enabled')->where('Department',$request->department)->paginate(12);
 
                 foreach ($all_employees as $key => $all_employee) {
                     $schedule = CalendarInformation::where(['employee_id'=>$all_employee->ID,'event_type'=>'Busy'])
@@ -203,7 +203,7 @@ class HomeController extends Controller
 
             if (isset($request->keyword)) {
                 if ($request->department == 'All') {
-                    $all_employees = Employee::Where(function($query) use ($s)
+                    $all_employees = Employee::where('Status','enabled')->Where(function($query) use ($s)
                     {
                         $query->where('NameFirst', 'like', '%'.$s.'%')
                         ->orwhere('NamesMiddle', 'like', '%'.$s.'%')
@@ -232,7 +232,7 @@ class HomeController extends Controller
                         }
                     }
                 }else{
-                    $all_employees = Employee::where('Department',$request->department)->Where(function($query) use ($s)
+                    $all_employees = Employee::where('Status','enabled')->where('Department',$request->department)->Where(function($query) use ($s)
                     {
                         $query->where('NameFirst', 'like', '%'.$s.'%')
                         ->orwhere('NamesMiddle', 'like', '%'.$s.'%')
@@ -322,7 +322,7 @@ class HomeController extends Controller
         $data = Message::where('id',$request->id)->first();
 
         if (isset($data->reciver_id) && !empty($data->reciver_id)) {
-            $employee = Employee::select('PersonalEmail','NameFirst','SendMessage','Mobilephone',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$data->reciver_id)->first();
+            $employee = Employee::where('Status','enabled')->select('PersonalEmail','NameFirst','SendMessage','Mobilephone',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$data->reciver_id)->first();
 
             $email = $employee->PersonalEmail;
             $mob_num = $employee->Mobilephone;
@@ -382,7 +382,7 @@ class HomeController extends Controller
         $check = Message::create($request->except('_token'));
 
         if (isset($request->reciver_id) && !empty($request->reciver_id)) {
-            $employee = Employee::select('PersonalEmail','NameFirst','SendMessage','Mobilephone',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->reciver_id)->first();
+            $employee = Employee::where('Status','enabled')->select('PersonalEmail','NameFirst','SendMessage','Mobilephone',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->reciver_id)->first();
 
             $email = $employee->PersonalEmail;
             $mob_num = $employee->Mobilephone;
@@ -451,7 +451,7 @@ class HomeController extends Controller
         }
 
         if (isset($request->reciver_id) && !empty($request->reciver_id)) {
-            $employee = Employee::select('PersonalEmail','NameFirst','SendMessage','Mobilephone',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->reciver_id)->first();
+            $employee = Employee::where('Status','enabled')->select('PersonalEmail','NameFirst','SendMessage','Mobilephone',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->reciver_id)->first();
 
             $email = $employee->PersonalEmail;
             $mob_num = $employee->Mobilephone;
@@ -507,7 +507,7 @@ class HomeController extends Controller
 
   public function sendMessageToEmployee(Request $request)
     {
-            $employee = Employee::select('Department','PersonalEmail','NameFirst','GroupPhone','GroupEmail','SendMessage','Mobilephone',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->id)->first();
+            $employee = Employee::where('Status','enabled')->select('Department','PersonalEmail','NameFirst','GroupPhone','GroupEmail','SendMessage','Mobilephone',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$request->id)->first();
   
             $email = $employee->PersonalEmail;
             $mob_num = $employee->Mobilephone;
@@ -570,9 +570,9 @@ class HomeController extends Controller
         ini_set('max_execution_time', '0'); 
 
         if ($request->department == 'all') {
-            $employees = Employee::select('Department','PersonalEmail','NameFirst','Mobilephone','GroupPhone','GroupEmail','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->get();
+            $employees = Employee::where('Status','enabled')->select('Department','PersonalEmail','NameFirst','Mobilephone','GroupPhone','GroupEmail','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->get();
         }else{
-            $employees = Employee::select('Department','PersonalEmail','Mobilephone','NameFirst','GroupPhone','GroupEmail','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('Department',$request->department)->get();
+            $employees = Employee::where('Status','enabled')->select('Department','PersonalEmail','Mobilephone','NameFirst','GroupPhone','GroupEmail','SendMessage',DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('Department',$request->department)->get();
         }
 
         foreach ($employees as $key => $employee) {
@@ -699,7 +699,7 @@ class HomeController extends Controller
 
         $employee_drafts = Message::select('messages.*', DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->join('employees','employees.ID','messages.reciver_id')->where('employees.ID',$id)->latest('messages.created_at')->paginate(10);
 
-        $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
+        $employee_list = Employee::where('Status','enabled')->latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
 
         // echo "<pre>";print_r(compact('id','employee','employee_list','employee_drafts'));"</pre>";exit;
 
@@ -716,7 +716,7 @@ class HomeController extends Controller
             $message->reciver_name = '';
         }
 
-        $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
+        $employee_list = Employee::where('Status','enabled')->latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
         
         return view('update_emp_draft', compact('id','message','employee_list'));    
     }
@@ -732,7 +732,7 @@ class HomeController extends Controller
             $message->reciver_name = '';
         }
 
-        $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
+        $employee_list = Employee::where('Status','enabled')->latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
         
         return view('update_draft', compact('id','message','employee_list'));    
     }
@@ -743,12 +743,12 @@ class HomeController extends Controller
         $id = $request->id;
         $message = Message::where('id',$id)->first();
         if ($message->reciver_id) {
-            $message->reciver_name = Employee::select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$message->reciver_id)->first()->name;
+            $message->reciver_name = Employee::where('Status','enabled')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as name"))->where('ID',$message->reciver_id)->first()->name;
         }else{
             $message->reciver_name = '';
         }
 
-       $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
+       $employee_list = Employee::where('Status','enabled')->latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
 
         return view('edit_emp_draft', compact('id','message','employee_list'));    
     }
@@ -764,7 +764,7 @@ class HomeController extends Controller
             $message->reciver_name = '';
         }
 
-       $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
+       $employee_list = Employee::where('Status','enabled')->latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
 
         return view('edit_draft', compact('id','message','employee_list'));    
     }
@@ -946,9 +946,9 @@ class HomeController extends Controller
 
         $employee_drafts = Message::select('messages.*', DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"))->join('employees','employees.ID','messages.reciver_id')->where('employees.ID',$id)->latest('messages.created_at')->paginate(10);
 
-        $employee_list = Employee::latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
+        $employee_list = Employee::where('Status','enabled')->latest('MetaTimeCreated')->select(DB::raw("CONCAT(NameFirst, ' ', NamesMiddle, ' ', NameLast) as emp_name"),'ID')->get()->pluck('emp_name','ID');
 
-        $departments = Employee::distinct()->get('Department')->pluck('Department');
+        $departments = Employee::where('Status','enabled')->distinct()->get('Department')->pluck('Department');
 
         return view('edit_profile', compact('id','employee','employee_list','employee_drafts','departments'));
     }
