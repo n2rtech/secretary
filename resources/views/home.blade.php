@@ -1824,8 +1824,18 @@ $(".copytextarea").click(function(){
     $temp.remove();
 })
 
-
-
+$(document).on('click', '.contactno', function(event) {
+	event.preventDefault();
+	var copyText = $(this).find('span').text();
+	if (copyText == 'Busy') {
+		return false;
+	}
+	var $temp = $("<input>");
+	$("body").append($temp);
+	$temp.val($(this).find('span').text()).select();
+	document.execCommand("copy");
+	$temp.remove();
+})
 
 </script>
 @endsection

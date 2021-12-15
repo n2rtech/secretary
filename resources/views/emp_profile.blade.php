@@ -75,7 +75,7 @@
 								</div>
 
 								<div class="form-group position">
-									<textarea name="body" required class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
+									<textarea @if($employee->busy_status) disabled @endif name="body" required class="form-control" placeholder="Message" cols="3" rows="3"></textarea>
 									<a href="javascript:void(0)" class="copytextarea">Copy</a>
 								</div>
 
