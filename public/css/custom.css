@@ -593,7 +593,7 @@ table.dataTable thead .sorting_desc {
 .showmorebtn {
     margin-top: 15px;
 }
-.btn-light {
+/*.btn-light {
     border: 2px solid #3aab02;
     border-radius: 3px;
     font-weight: 500;
@@ -619,6 +619,9 @@ table.dataTable thead .sorting_desc {
     border: 1px solid #dee2e6;
     padding-bottom: 25px;
     margin-bottom: 15px;
+}*/
+.note-editor.note-frame.card {
+    height: 360px;
 }
 .profileinfo {
     position: relative;
