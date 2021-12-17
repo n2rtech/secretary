@@ -947,9 +947,8 @@
 			<div id="success-notes-form" style="display:none;" class="alert alert-success"></div>
 			<form id="notes-form" method="POST">
 			<div class="modal-body">
-			<!-- <input type="hidden" name="id" id="notes-id">
-			<textarea id="summernote" required name="note"></textarea>	 -->
-			<div id="summernote" style="display: none;"><p><br></p></div>				
+			<input type="hidden" name="id" id="notes-id">
+			<textarea id="summernote" required name="note"></textarea>					
 				</div>
 				<div class="savebtn text-center">
 					<button type="submit" id="notes-form-btn" class="btn btn-primary">Save</button>
