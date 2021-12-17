@@ -1102,9 +1102,14 @@ $(document).on('click', '.editshowhideempdraft', function(event) {
 
 
 <script>
-	localStorage.setItem('activeTab', 'All');
 
 	var activeTab = localStorage.getItem('activeTab');
+	if (activeTab != 'Notes') {
+		localStorage.setItem('activeTab', 'All');
+	}else{
+		$('.nav-tabs a[href="#menua5"]').tab('show');
+		localStorage.setItem('activeTab', 'Notes');
+	}
 
 	page = $('.dashboard-right .nav-tabs li a.active').attr('data-paginate');
    var SITEURL = "{{ route('admin.home') }}";
