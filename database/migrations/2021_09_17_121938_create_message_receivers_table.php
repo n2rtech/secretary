@@ -16,13 +16,8 @@ class CreateMessageReceiversTable extends Migration
         Schema::create('message_receivers', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-
-             $table->integer('receiver_id')->unsigned();
-            $table->foreign('receiver_id')->references('id')->on('employees');
-
+            $table->integer('receiver_id')->unsigned();
             $table->integer('message_id')->unsigned();
-            $table->foreign('message_id')->references('id')->on('messages');
-
         });
     }
 

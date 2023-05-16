@@ -21,7 +21,6 @@ class CreateMessagesTable extends Migration
             $table->string("subject");
             $table->longText("body")->nullable();
             $table->integer('sender_id')->unsigned();
-            $table->foreign('sender_id')->references('id')->on('employees');
             $table->string("time_sent");
             $table->timestamps();
         });
