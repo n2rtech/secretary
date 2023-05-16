@@ -45,9 +45,10 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('/draft-filter', 'HomeController@draftFilter')->name('filter.draft');
 
     //Home Route
-    Route::get('/blank', function(){
-        return view('admin.blank');
-    });
+    // Route::get('/blank', function(){
+    //     return view('admin.blank');
+    // });
+    Route::get('/blank', 'HomeController@getBlank')->name('admin.blank');
 
     Route::get('/fullcalendar','FullCalendarController@index')->name('fullcalendar-index');
 

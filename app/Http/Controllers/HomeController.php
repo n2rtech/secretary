@@ -1000,5 +1000,9 @@ class HomeController extends Controller
 
     return view('post');
 }
+public function getBlank(){
+
+    return view('admin.blank');
+}
 
 }
