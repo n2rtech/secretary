@@ -15,6 +15,7 @@ class CreateMostSearchedKeywordsTable extends Migration
     {
         Schema::create('most_searched_keywords', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('keyword')->nullable();
             $table->timestamps();
         });
     }
